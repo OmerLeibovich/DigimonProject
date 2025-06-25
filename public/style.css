@@ -1,0 +1,33 @@
+.continar{
+    position: absolute;
+    top: 10%;
+    left: 50%;
+    margin-top: -50px;
+    margin-left: -50px;
+    width: 100px;
+    height: 100px;
+}
+
+.DigiDetails{
+        display: none;
+        position: fixed;
+        top: 15%;
+        left: 50%;
+        margin-top: 18%;
+        transform: translate(-50%, -50%);
+        border: 1px solid #ccc;
+        background-color: white;
+        padding: 25px;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        z-index: 9999;
+        min-width: 300px;
+                vertical-align: baseline;
+}
+.stats{
+      width:100%;
+  display: flex;
+  justify-content: center;
+  gap: 50px;
+
+}
