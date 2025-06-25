@@ -10,16 +10,38 @@ app.use(express.static('public'));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-
+digimons = [];
 
 app.get('/', (req, res) => {
-      res.render('index');
+      res.render('index',{digimons});
 });
 
-// get digimon json (.content[?] take digifrom this array inside)
+app.get('/getUpdatedList', (req, res) => {
+  res.render('index', { digimons });
+});
+
 app.post('/digimon' ,(req, res) => {
-    console.log(req.body.Digimon);
-    res.status(200);
+    const photo = req.body.Photo;
+    const name = req.body.Name;
+    const rank = req.body.Rank;
+    const level = req.body.Level;
+    const attribute = req.body.Attribute;
+    const hp = req.body.Hp;
+    const attack = req.body.Attack;
+    const defence = req.body.Defence;
+    const newDigimon = {
+      Photo: photo,
+      Name: name,
+      Rank: rank,
+      Level: level,
+      Attribute: attribute,
+      Hp: hp,
+      Attack: attack,
+      Defence: defence,
+    }
+
+    digimons.push(newDigimon);
+    res.sendStatus(200);
 })
 
 

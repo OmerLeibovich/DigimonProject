@@ -24,7 +24,7 @@
         min-width: 300px;
                 vertical-align: baseline;
 }
-.stats{
+.horizontal{
       width:100%;
   display: flex;
   justify-content: center;

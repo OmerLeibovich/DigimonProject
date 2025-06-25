@@ -2,6 +2,21 @@
 
 $(document).ready(function () {
 
+    function updateList(){
+    $.ajax({
+            url: '/getUpdatedList',
+            method: 'GET',
+        })  
+        .done(function(data) {
+        const newList = $(data).find('#DigiList').html();
+        $('#DigiList').html('');
+        $('#DigiList').html(newList);
+        })
+        .fail(function(jqXHR, textStatus, errorThrown) {
+            console.error('Error fetching data:', textStatus, errorThrown);
+        });
+    }
+
     function culc_level(rank){
          if (rank === 'Baby'){
             return(Math.floor(Math.random() * (7 - 1) + 1));
@@ -37,30 +52,49 @@ $(document).ready(function () {
     }
 
 
-    function gotdigimon(digimon){
+    $('#DigiForm').on('click','.submit-btn',function(e){ 
+        e.preventDefault();       
+        const photo = $('#photo').attr('src');
+        const name = $('#name').text().split(" ")[1];
+        const rank = $('#rank').text().split(" ")[1];
+        const level = $('#level').text().split(" ")[1];
+        const attribute = $('#attribute').text().split(" ")[1];
+        const hp = $('#hp').text().split(" ")[1];
+        const attack = $('#attack').text().split(" ")[1];
+        const defence = $('#defence').text().split(" ")[1];
+
         $.ajax({
             method: "POST",
             url: "/digimon",
-            data:{
-                Digimon: digimon,
-                }
-            .done(function(data){
-                alert("complete");
-                    return;
-            }).fail(function(){
-                alert("fail");
-                })                
+            data: {
+                Photo: photo,
+                Name: name,
+                Rank: rank,
+                Level: level,
+                Attribute: attribute,
+                Hp: hp,
+                Attack: attack,
+                Defence: defence,
+            }
+        })
+        .done(function(data){
+            $('#DigiForm').hide(); 
+            updateList();
+        })
+        .fail(function(){
+            alert("fail");
+        });
     });
-    }
+
 
 
     function getpage(){
-    var rankVal = $('#Digimonlevels').val();
-    var rank = $('#Digimonlevels :selected').text();
-    var level = culc_level(rank);
+    var rankVal = ["Baby I","Baby II","Child","Adult","Perfect","Ultimate","Armor","Hybrid"];
+    var rank = ["Baby","In_traning","Rookie","Champion","Ultimate","Mega","Armor","Hybrid"];
+    const randomIndex = Math.floor(Math.random() * rankVal.length);
+    var level = culc_level(rank[randomIndex]);
     var [hp, attack, defence] = culc_stats(level);
     var id = Math.floor(Math.random() * (1489 - 1) + 1);
-    var isfound = false;
     if (level === 'Select digimon level') return;
     $.ajax({
             url: `https://digi-api.com/api/v1/digimon/${id}`,
@@ -68,16 +102,15 @@ $(document).ready(function () {
             }).done(function(response) {
             if (response.levels.length !== 0){
             for (var i = 0;i<response.levels.length;i++){
-                if(response.levels[i].level === rankVal){
+                if(response.levels[i].level === rankVal[randomIndex]){
                     $('#photo').attr('src' , response.images[0].href);
-                    $('#name').text("name: " + response.name);
-                    $('#rank').text("rank: " + rank);
-                    $('#level').text("level: " + level);
+                    $('#name').text("Name: " + response.name);
+                    $('#rank').text("Rank: " + rank[randomIndex]);
+                    $('#level').text("Level: " + level);
+                    $('#attribute').text("Attribute: " + response.attributes[0].attribute);
                     $('#hp').text("Hp: " + hp);
                     $('#attack').text("Attack: " + attack);
                     $('#defence').text("Defence: " + defence);
-                    gotdigimon(response.name);
-                    isfound = true;
                     return;
                 }
             }
@@ -89,12 +122,14 @@ $(document).ready(function () {
             });
     }
 
-    $('#Digimon').on("click",function() {
-    if(!$('#Digimonlevels').val()){
-        alert("you need to select digimon rank");
-        return;
-    }
+    $('#addDigimon').on("click",function() {
         getpage();
         $('#DigiForm').show();
     });
+
+    $('#DigiForm').on('click','.cancel-btn',function(e){
+        e.preventDefault();
+        $('#DigiForm').hide();
+e   
+    })
 });

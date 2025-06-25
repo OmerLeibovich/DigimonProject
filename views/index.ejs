@@ -1,44 +1,124 @@
+
+
 <!DOCTYPE html>
 <html>
 <head>
-        <title>Home Page</title>
+    <title>Home Page</title>
     <link rel="stylesheet" href="style.css">
+      <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+  >
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+  
+        <!--begin::Fonts(mandatory for all pages)-->
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700">        <!--end::Fonts-->
+
+                    <!--begin::Vendor Stylesheets(used for this page only)-->
+                            <link href="/assets/plugins/datatables.bundle.css" rel="stylesheet" type="text/css">
+                        <!--end::Vendor Stylesheets-->
+        
+                            <link href="/assets/css/style.bundle.css" rel="stylesheet" type="text/css">
+                        <!--end::Global Stylesheets Bundle-->
 </head>
+
 <body>
-    <h1>heyy</h1>
-    <div class="continar">  
-        <form id="DigiForm" class="DigiDetails">
+    <form id="DigiForm" class="DigiDetails">
              <img id="photo" src="">
              <h3 id="name"></h3>
              <h3 id="rank"></h3>
              <h3 id="level"></h3>
-             <div class="stats">
+             <h3 id="attribute"></h3>
+             <div class="horizontal">
              <h4 id="hp"></h4>
              <h4 id="attack"></h4>
              <h4 id="defence"></h4>
              </div>
+             <br>
+             <div class="horizontal">
+              <button class="button submit-btn">accept</button>
+              <button class="button cancel-btn">cancel</button>
+             </div>
+
         </form>
-    <button id="Digimon">digi</button>
-        <select name="levels" id="Digimonlevels">
-            <option value="" disabled selected>Select digimon rank</option>
-            <option value="Baby I">Baby</option>
-            <option value="Baby II">In-traning</option>
-            <option value="Child">Rookie</option>
-            <option value="Adult">Champion</option>
-            <option value="Perfect">Ultimate</option>
-            <option value="Ultimate">Mega</option>
-            <option value="Armor">Armor</option>
-            <option value="Hybrid">Hybrid</option>
-        </select>
+    
+    <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
+					<!--begin::Container-->
+<div class=" container-xxl " id="kt_content_container">
+<div class="text-end">
+  <button id="addDigimon" type="button" class="btn btn-primary">
+    <i class="fa fa-plus"></i> Add User
+  </button>
+</div>
 
+   <!--begin::Card body-->
+    <div class="card-body py-4">
+        
+<!--begin::Table-->
+<div id="kt_table_users_wrapper" class="dt-container dt-bootstrap5 dt-empty-footer"><div id="" class="table-responsive"><table class="table align-middle table-row-dashed fs-6 gy-5 dataTable" id="kt_table_users" style="width: 100%;"><colgroup><col data-dt-column="0" style="width: 36.3906px;"><col data-dt-column="1" style="width: 157.078px;"><col data-dt-column="2" style="width: 125px;"><col data-dt-column="3" style="width: 125px;"><col data-dt-column="4" style="width: 125px;"><col data-dt-column="5" style="width: 125px;"><col data-dt-column="6" style="width: 105.156px;"></colgroup>
+    <thead>             
+<tr>
+    <th>
+        <span>Photo</span>
+    </th>
+     <th>
+        <span>Name</span>
+    </th>
+     <th>
+        <span>Rank</span>
+    </th>
+     <th>
+        <span>Level</span>
+    </th> 
+    <th>
+        <span>Attribute</span>
+    </th> 
+    <th>
+        <span>stats:HP/AT/DE</span>
+    </th>
+     <th>
+        <span>Actions</span>
+    </th>
 
+    
 
-    </div>
+    
+</tr>
+    </thead>
+    <tbody id="DigiList" class="text-gray-600 fw-semibold" >
+    <%- include('digimonTable') %>
+  </tbody>
+</table></div>
+</div>
+</div>
+    <!--end::Card body-->
+</div>
+
 </body>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <script src="/script.js"></script>
-</html>
+<script>
+            var hostUrl = "/assets/";     </script>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+<!-- Core Metronic + DataTables -->
+<script src="/assets/plugins/plugins.bundle.js"></script>
+<script src="/assets/js/scripts.bundle.js"></script>
+
+<!-- רק אחד מהם: -->
+<script src="/assets/plugins/datatables.bundle.js"></script>
+<!-- או -->
+<!-- <script src="/assets/js/table.js"></script> -->
+
+<!-- שאר הלוגיקה -->
+<script src="/assets/js/export-users.js"></script>
+<script src="/assets/js/add.js"></script>
+
+
+
+<script src="/script.js"></script>
+</html>
 
 
 
