@@ -4,7 +4,7 @@ $(document).ready(function () {
 
     function updateList(){
     $.ajax({
-            url: '/getUpdatedList',
+            url: '/',
             method: 'GET',
         })  
         .done(function(data) {
@@ -47,21 +47,36 @@ $(document).ready(function () {
     function culc_stats(level){
         var hp = Math.floor(Math.random() * ((level*8) - (level*6)) + (level*6));
         var attack = Math.floor(Math.random() * ((level*5.5) - (level*3)) + (level*3));
-        var defence = Math.floor(Math.random() * ((level*3) - (level*1.3)) + (level*1.3));
-        return [hp, attack, defence];
+        var defense = Math.floor(Math.random() * ((level*3) - (level*1.3)) + (level*1.3));
+        return [hp, attack, defense];
     }
 
+    // ON MANY ITEMS with same element need class no ID
+    $(document).on('click', '.openphoto', function (e) {
+        e.preventDefault();
+        $('#DigiPhoto').show();
+        const img = $(this).find('img').attr("src"); 
+        $('#photopage').attr('src', img);
+        $('#DigiPhoto').on('click','.close-btn',function(e){
+        e.preventDefault()
+        $('#DigiPhoto').hide();
+    })
+
+
+
+
+    })
 
     $('#DigiForm').on('click','.submit-btn',function(e){ 
         e.preventDefault();       
         const photo = $('#photo').attr('src');
-        const name = $('#name').text().split(" ")[1];
+        const name = $('#name').text().split(" ").slice(1).join(" ");
         const rank = $('#rank').text().split(" ")[1];
         const level = $('#level').text().split(" ")[1];
         const attribute = $('#attribute').text().split(" ")[1];
         const hp = $('#hp').text().split(" ")[1];
         const attack = $('#attack').text().split(" ")[1];
-        const defence = $('#defence').text().split(" ")[1];
+        const defense = $('#defense').text().split(" ")[1];
 
         $.ajax({
             method: "POST",
@@ -74,12 +89,13 @@ $(document).ready(function () {
                 Attribute: attribute,
                 Hp: hp,
                 Attack: attack,
-                Defence: defence,
+                Defense: defense,
             }
         })
         .done(function(data){
             $('#DigiForm').hide(); 
             updateList();
+            $('#addDigimon').prop('disabled', false);
         })
         .fail(function(){
             alert("fail");
@@ -93,8 +109,9 @@ $(document).ready(function () {
     var rank = ["Baby","In_traning","Rookie","Champion","Ultimate","Mega","Armor","Hybrid"];
     const randomIndex = Math.floor(Math.random() * rankVal.length);
     var level = culc_level(rank[randomIndex]);
-    var [hp, attack, defence] = culc_stats(level);
+    var [hp, attack, defense] = culc_stats(level);
     var id = Math.floor(Math.random() * (1489 - 1) + 1);
+    $('#photo').attr('src','');
     if (level === 'Select digimon level') return;
     $.ajax({
             url: `https://digi-api.com/api/v1/digimon/${id}`,
@@ -110,7 +127,7 @@ $(document).ready(function () {
                     $('#attribute').text("Attribute: " + response.attributes[0].attribute);
                     $('#hp').text("Hp: " + hp);
                     $('#attack').text("Attack: " + attack);
-                    $('#defence').text("Defence: " + defence);
+                    $('#defense').text("Defense: " + defense);
                     return;
                 }
             }
@@ -125,11 +142,12 @@ $(document).ready(function () {
     $('#addDigimon').on("click",function() {
         getpage();
         $('#DigiForm').show();
-    });
+        $('#addDigimon').prop('disabled', true);
+    })
 
     $('#DigiForm').on('click','.cancel-btn',function(e){
         e.preventDefault();
         $('#DigiForm').hide();
-e   
+        $('#addDigimon').prop('disabled', false);
     })
 });

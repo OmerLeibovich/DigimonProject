@@ -1,6 +1,10 @@
+const { PrismaClient } = require('@prisma/client');
+const prisma = new PrismaClient()
+
 const express = require('express');
 const app = express();
 require('dotenv').config();
+
 
 const port = process.env.PORT || 3000; 
 
@@ -10,17 +14,22 @@ app.use(express.static('public'));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-digimons = [];
 
-app.get('/', (req, res) => {
+app.get('/', async (req, res) => {
+    try{
+      const digimons = await prisma.digimon.findMany({
+                    orderBy: { level: 'asc' },
+                })
       res.render('index',{digimons});
+    }
+    catch (error) {
+    console.error('Error reading digimon list:', error);
+    res.status(500).send('Something went wrong');
+  }
 });
 
-app.get('/getUpdatedList', (req, res) => {
-  res.render('index', { digimons });
-});
-
-app.post('/digimon' ,(req, res) => {
+app.post('/digimon' ,async (req, res) => {
+    try {
     const photo = req.body.Photo;
     const name = req.body.Name;
     const rank = req.body.Rank;
@@ -28,20 +37,33 @@ app.post('/digimon' ,(req, res) => {
     const attribute = req.body.Attribute;
     const hp = req.body.Hp;
     const attack = req.body.Attack;
-    const defence = req.body.Defence;
-    const newDigimon = {
-      Photo: photo,
-      Name: name,
-      Rank: rank,
-      Level: level,
-      Attribute: attribute,
-      Hp: hp,
-      Attack: attack,
-      Defence: defence,
-    }
+    const defense = req.body.Defense;
+    const experience = 0;
+    const levelInt = parseInt(level);
+    const levelUpExp = levelInt * 40;
 
-    digimons.push(newDigimon);
-    res.sendStatus(200);
+    const newDigimon = await prisma.digimon.create({
+            data: {
+              photo:photo,
+              name:name,
+              rank:rank,
+              level:level,
+              experience:experience,
+              levelUPExp:levelUpExp,
+              type:attribute,
+              hp:hp,
+              attack:attack,
+              defense:defense,
+            },
+          })
+    
+    
+    res.status(200).json(newDigimon);
+        }
+    catch (error) {
+    console.error('Error creating digimon:', error);
+    res.status(500).send('Something went wrong');
+  }
 })
 
 
