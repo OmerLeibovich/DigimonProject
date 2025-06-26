@@ -34,7 +34,7 @@
 table {
   border-collapse: collapse;
   width: 100%;
-  table-layout: fixed; /* חשוב ליישור מוחלט */
+  table-layout: fixed; 
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background-color: #fff;
   box-shadow: 0 0 10px rgba(0,0,0,0.1);
@@ -72,7 +72,6 @@ tr:nth-child(even) {
 td:nth-child(2), th:nth-child(2) {
   white-space: nowrap;
 }
-
 
 td img {
   width: 40px;

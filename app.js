@@ -28,7 +28,7 @@ app.get('/', async (req, res) => {
   }
 });
 
-app.post('/digimon' ,async (req, res) => {
+app.post('/addDigimon' ,async (req, res) => {
     try {
     const photo = req.body.Photo;
     const name = req.body.Name;
@@ -65,7 +65,20 @@ app.post('/digimon' ,async (req, res) => {
     res.status(500).send('Something went wrong');
   }
 })
+app.delete('/deleteDigimon', async (req, res) =>{
+  try{
+    const DigimonId = parseInt(req.body.id);
 
+    const deleteDigimon = await prisma.digimon.delete({
+      where:{ id: DigimonId}
+    })
+    res.status(200).json(deleteDigimon);
+  }
+  catch(error) {
+    console.error('Error deleteing digimon:', error);
+    res.status(500).send('Something went wrong');
+  }
+})
 
 app.listen(port, () => {
   console.log(`Express app listening at http://localhost:${port}`);

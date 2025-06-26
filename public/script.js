@@ -61,11 +61,28 @@ $(document).ready(function () {
         e.preventDefault()
         $('#DigiPhoto').hide();
     })
+      })
+
+    $(document).on('click', '.deleteDigi', function (e) {
+        e.preventDefault();
+        const DigiId = $(this).data('id');
+        console.log(DigiId);
+        $.ajax({
+            method:'DELETE',
+            url:'/deleteDigimon',
+            data: {
+                id : DigiId,
+            }
+        })
+        .done(function(data){
+            updateList();
+        })
+        .fail(function(){
+            alert("fail to delete digimon");
+        })
+  })
 
 
-
-
-    })
 
     $('#DigiForm').on('click','.submit-btn',function(e){ 
         e.preventDefault();       
@@ -80,7 +97,7 @@ $(document).ready(function () {
 
         $.ajax({
             method: "POST",
-            url: "/digimon",
+            url: "/addDigimon",
             data: {
                 Photo: photo,
                 Name: name,
@@ -98,7 +115,7 @@ $(document).ready(function () {
             $('#addDigimon').prop('disabled', false);
         })
         .fail(function(){
-            alert("fail");
+            alert("fail to add digimon");
         });
     });
 

@@ -2,7 +2,7 @@
     <tr>
       <td>
         <a href="" class="openphoto">
-        <img class="Photourl"  src="<%= digimon.photo %>" alt="Photo" width="40" />
+        <img class="Photourl" src="<%= digimon.photo %>" alt="Photo" width="40" />
       </a>
       </td>
       <td><%= digimon.name %></td>
@@ -13,8 +13,8 @@
       <td><%= digimon.level %></td>
       <td><%= digimon.experience %> /  <%= digimon.levelUPExp %></td>
       <td >
-          <div class="menu-item px-3">
-            <a href="#" class="menu-link px-3" data-kt-users-table-filter="delete_row">Delete</a>
+          <div>
+            <a href=" " class="deleteDigi" data-id="<%= digimon.id %>">Delete</a>
           </div>
         </div>
       </td>
