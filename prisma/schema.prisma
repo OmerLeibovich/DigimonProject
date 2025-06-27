@@ -13,10 +13,14 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+// @unique @db.VarChar(255)
+
 model digimon {
   id         Int    @id @default(autoincrement())
+  userid     Int
+  user       user     @relation(fields: [userid], references: [id])
   photo      String
-  name       String @unique @db.VarChar(255)
+  name       String                        
   rank       String
   level      String
   experience Int
@@ -26,3 +30,10 @@ model digimon {
   attack     String
   defense    String
 }
+model user{
+  id         Int    @id @default(autoincrement())
+  username String @unique
+  password String
+  digimons digimon[]
+}
+

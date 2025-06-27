@@ -2,21 +2,21 @@
 
 $(document).ready(function () {
 
+
+    // update list in UI with refresh the page
     function updateList(){
     $.ajax({
-            url: '/',
+            url: '/getDigis',
             method: 'GET',
         })  
         .done(function(data) {
-        const newList = $(data).find('#DigiList').html();
-        $('#DigiList').html('');
-        $('#DigiList').html(newList);
+        $('#userTable').html(data); 
         })
         .fail(function(jqXHR, textStatus, errorThrown) {
             console.error('Error fetching data:', textStatus, errorThrown);
         });
     }
-
+    // culc the level of digimon according to his rank
     function culc_level(rank){
          if (rank === 'Baby'){
             return(Math.floor(Math.random() * (7 - 1) + 1));
@@ -43,7 +43,7 @@ $(document).ready(function () {
 
     }
     
-
+    // culc base stats according to him level
     function culc_stats(level){
         var hp = Math.floor(Math.random() * ((level*8) - (level*6)) + (level*6));
         var attack = Math.floor(Math.random() * ((level*5.5) - (level*3)) + (level*3));
@@ -62,7 +62,7 @@ $(document).ready(function () {
         $('#DigiPhoto').hide();
     })
       })
-
+      // delete digimon from list
     $(document).on('click', '.deleteDigi', function (e) {
         e.preventDefault();
         const DigiId = $(this).data('id');
@@ -119,7 +119,29 @@ $(document).ready(function () {
         });
     });
 
-
+    $(document).on('click','.login-btn',function(e){
+        e.preventDefault();
+        const username = $('#username').val();
+        const password = $('#password').val();
+        $.ajax({
+            method:'POST',
+            url:'/login',
+            data: {
+                username: username,
+                password: password,
+            }
+        })
+        .done(function(data){
+            $('.login-container').hide();
+            $('#addDigimon').show();
+            $('#DigiList').show();
+            $('#userTable').show();
+            updateList(); 
+        }) 
+        .fail(function(data){
+                alert("fail to connect");
+        })
+    })
 
     function getpage(){
     var rankVal = ["Baby I","Baby II","Child","Adult","Perfect","Ultimate","Armor","Hybrid"];

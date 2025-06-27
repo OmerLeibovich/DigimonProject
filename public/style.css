@@ -50,7 +50,7 @@ th, td {
 }
 
 th {
-  background-color: #4CAF50;
+   background-color: #4CAF50;
   color: white;
 }
 th .th-text {
@@ -80,5 +80,69 @@ td img {
   display: block;
   margin: 0 auto;
 }
+
+#addDigimon,
+#DigiList,
+#userTable {
+  display: none;
+}
+
+/* LoginPage */
+
+.login-container {
+  width: 260px;
+  padding: 20px;
+  margin: 50px auto;
+  background: #f5f5f5;
+  border-radius: 8px;
+  box-shadow: 0 0 5px rgba(0,0,0,0.2);
+  font-family: Arial, sans-serif;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.login-form label {
+  margin: 10px 0 5px;
+  font-weight: bold;
+  color: #888;
+}
+
+.login-form input {
+  height: 30px;
+  padding: 5px 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.login-btn {
+  margin: 20px 0 10px;
+  height: 40px;
+  border: none;
+  border-radius: 4px;
+  background: linear-gradient(to bottom, #fbdc70 0%, #f8b500 100%);
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 2px 0 #d49900;
+}
+
+.login-button:hover {
+  background: linear-gradient(to bottom, #ffe08a 0%, #ffbd2b 100%);
+}
+
+.forgot-password {
+  text-align: center;
+  color: #333;
+  text-decoration: none;
+  display: block;
+  margin-top: 10px;
+}
+ .forgot-password:hover {
+  text-decoration: underline;
+}
+
 
 
