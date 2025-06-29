@@ -1,6 +1,6 @@
 .container{
     position: absolute;
-    top: 10%;
+    top: 22%;
     left: 15%;
     margin-top: -50px;
     margin-left: -50px;
@@ -40,6 +40,7 @@ table {
   box-shadow: 0 0 10px rgba(0,0,0,0.1);
 }
 
+
 th, td {
   border: 1px solid #ccc;
   padding: 10px;
@@ -73,6 +74,14 @@ td:nth-child(2), th:nth-child(2) {
   white-space: nowrap;
 }
 
+.row-number {
+  position: absolute;
+  left: 5px;        
+  top: 50%;
+  transform: translateY(-50%);
+  font-weight: bold;
+  color: black;
+}
 td img {
   width: 40px;
   height: 40px;
@@ -86,6 +95,52 @@ td img {
 #userTable {
   display: none;
 }
+
+.progress-wrapper {
+  width: 100%;
+  height: 15px;
+  background-color: white; 
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.progress-bar {
+  height: 100%;
+  background-color: blue;
+  transition: width 0.3s ease;
+}
+.menu{
+  position: absolute;
+  right: 0;  
+}
+
+.pagination-wrapper {
+  display: flex;
+  justify-content: flex-start;  
+  margin: 10px 20px;
+}
+
+/* .pagination {
+  list-style: none;
+  display: flex;
+  gap: 8px;
+  padding: 0;
+  margin: 0;
+} */
+
+.pagination li a {
+  padding: 6px 12px;
+  text-decoration: none;
+  color: black;
+  border: 1px solid black;
+  border-radius: 5px;
+  transition: background-color 0.2s;
+}
+
+/* .pagination li a:hover {
+  background-color: #0056b3;
+} */
 
 /* LoginPage */
 
@@ -144,5 +199,19 @@ td img {
   text-decoration: underline;
 }
 
+/* NavBar */
+.navbar {
+  overflow: hidden;
+  background-color: #333;
+}
+
+.navbar a {
+  float: left;
+  font-size: 16px;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
 
 

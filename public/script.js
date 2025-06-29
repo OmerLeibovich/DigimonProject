@@ -1,13 +1,26 @@
 
-
 $(document).ready(function () {
 
 
+        if (isLoggedIn) {
+            $('.login-container').hide();
+            $('#addDigimon').show();
+            $('#DigiList').show();
+            $('#userTable').show();
+            updateList(); 
+            pages()
+        }
+
+
+
     // update list in UI with refresh the page
-    function updateList(){
+    function updateList(num = 1){
     $.ajax({
             url: '/getDigis',
             method: 'GET',
+            data:{
+                pages : num,
+            }
         })  
         .done(function(data) {
         $('#userTable').html(data); 
@@ -16,6 +29,22 @@ $(document).ready(function () {
             console.error('Error fetching data:', textStatus, errorThrown);
         });
     }
+
+        //send pages
+    function pages(){
+        $.ajax({
+            url:'/getpages',
+            method:'GET',
+        })
+        .done(function(data){
+            $('#pages').html(data);
+
+        })
+        .fail(function(jqXHR, textStatus, errorThrown) {
+            console.error('Error fetching data:', textStatus, errorThrown);
+        })
+    }
+    
     // culc the level of digimon according to his rank
     function culc_level(rank){
          if (rank === 'Baby'){
@@ -50,6 +79,12 @@ $(document).ready(function () {
         var defense = Math.floor(Math.random() * ((level*3) - (level*1.3)) + (level*1.3));
         return [hp, attack, defense];
     }
+
+    $(document).on('click','.btn-page',function(e){
+        e.preventDefault();
+        const page = $(this).data('page');
+        updateList((page+1));
+    })
 
     // ON MANY ITEMS with same element need class no ID
     $(document).on('click', '.openphoto', function (e) {
@@ -132,12 +167,12 @@ $(document).ready(function () {
             }
         })
         .done(function(data){
-            $('.login-container').hide();
-            $('#addDigimon').show();
-            $('#DigiList').show();
-            $('#userTable').show();
-            updateList(); 
-        }) 
+            $('.login-container').show();
+            $('#addDigimon').hide();
+            $('#DigiList').hide();
+            $('#userTable').hide();
+        
+    })
         .fail(function(data){
                 alert("fail to connect");
         })

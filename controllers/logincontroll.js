@@ -19,10 +19,11 @@ const Checkuser =  async (req, res, next) => {
       if (err) return next(err);
 
       req.session.user = { id: user.id, username: user.username };
+      
 
       req.session.save(function (err) {
         if (err) return next(err);
-        res.status(200).send('Login success');
+        res.status(200).json({ isLoggedIn: true, message: 'Login success' });
       });
     });
   } catch (error) {

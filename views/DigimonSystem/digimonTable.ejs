@@ -1,22 +1,29 @@
-  <% digimons.forEach(digimon=> { %>
-    <tr>
-      <td>
-        <a href="" class="openphoto">
-        <img class="Photourl" src="<%= digimon.photo %>" alt="Photo" width="40" />
-      </a>
-      </td>
-      <td><%= digimon.name %></td>
-      <td><%= digimon.rank %></td>
-      <td><%= digimon.level %></td>
-      <td><%= digimon.type %></td>
-      <td><%= digimon.hp %> / <%= digimon.attack %> / <%= digimon.defense %></td>
-      <td><%= digimon.level %></td>
-      <td><%= digimon.experience %> /  <%= digimon.levelUPExp %></td>
-      <td >
-          <div>
-            <a href=" " class="deleteDigi" data-id="<%= digimon.id %>">Delete</a>
-          </div>
-        </div>
-      </td>
-    </tr>
-    <% }) %>
+<% DigiPage.forEach(digimon => { %>
+  <tr>
+  <td style="position: relative;">
+  <a href="" class="openphoto">
+    <img class="Photourl" src="<%= digimon.photo %>" alt="Photo" width="40" />
+  </a>
+</td>
+
+
+
+    <td><%= digimon.name %></td>
+    <td><%= digimon.rank %></td>
+    <td><%= digimon.level %></td>
+    <td><%= digimon.type %></td>
+    <td><%= digimon.hp %> / <%= digimon.attack %> / <%= digimon.defense %></td>
+    <td class="vertical">
+      <%= digimon.experience %> / <%= digimon.levelUPExp %>
+      <%
+        const percent = (digimon.experience / digimon.levelUPExp) * 100;
+      %>
+      <div class="progress-wrapper">
+        <div class="progress-bar" style="width:<%= percent %>%"></div>
+      </div>
+    </td>
+    <td>
+      <a href="#" class="deleteDigi" data-id="<%= digimon.id %>">Delete</a>
+    </td>
+  </tr>
+<% }) %>

@@ -16,13 +16,33 @@ const getAllDigis = async (req, res) => {
       orderBy: { level: 'asc' }
     });
 
-    res.render('DigimonSystem/digimonTable', { digimons }); 
+    const pages = req.query.pages * 10;
+
+    const DigiPage = digimons.slice(pages-10,pages);
+
+    res.render('DigimonSystem/digimonTable', { DigiPage }); 
   } catch (error) {
     console.error('Error fetching digimons (AJAX):', error);
     res.status(500).send('Something went wrong');
   }
   }
 
+
+const getPages = async (req, res) => {
+  try {
+    const userId = req.session?.user?.id;
+    if (!userId) return res.status(401).send("Unauthorized");
+
+    const count = await prisma.digimon.count({
+      where: { userid: userId }
+    });
+
+    res.render('DigimonSystem/digimonPages', { count });
+  } catch (error) {
+    console.error('Error fetching page count:', error);
+    res.status(500).send('Something went wrong');
+  }
+};
 
 
 const addDigi = async (req, res) => {
@@ -85,6 +105,7 @@ const deleteDigi = async (req, res) =>{
 
 module.exports = {
     getAllDigis,
+    getPages,
     addDigi,
     deleteDigi,
 }
