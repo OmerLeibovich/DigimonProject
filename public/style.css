@@ -60,12 +60,13 @@ th .th-text {
 }
 th .th-textSpec {
   display: inline-block;
-  margin-right: 50px;
+  margin-left: 10px;
 }
 table th {
-  text-align: left;
-  padding-left: 25px;
+  text-align: center;
+  padding-left: 0;
 }
+
 
 tr:nth-child(even) {
   background-color: #f9f9f9;
@@ -95,6 +96,23 @@ td img {
 #userTable {
   display: none;
 }
+
+.battle-button {
+  position: absolute;
+  top: calc(50% - 30px);
+  left: 50%;
+  transform: translate(-50%, -100%);
+  z-index: 10;
+  padding: 8px 16px;
+  background-color: crimson;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+
 
 .progress-wrapper {
   width: 100%;
@@ -214,4 +232,81 @@ td img {
   text-decoration: none;
 }
 
+/* BattleSystem */
+.battle-container {
+   display: none;
+  flex-direction: column;
+  align-items: center;
+  background-color: #f2f2f2;
+  padding: 30px;
+  gap: 20px;
+}
 
+.display-screen {
+  background-color: white;
+  border: 3px solid #000;
+  width: 600px;
+  height: 250px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 0 15px rgba(0,0,0,0.2);
+}
+
+.digimon-img {
+  width: 96px;
+  height: 96px;
+  image-rendering: pixelated;
+}
+
+.battle-screen {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  background-color: #dbeeff;
+  border: 2px solid #333;
+  padding: 20px;
+  width: 600px;
+  height: 200px;
+  font-family: 'Verdana', sans-serif;
+  box-shadow: 0 0 15px rgba(0,0,0,0.3);
+}
+
+.text-box {
+  width: 60%;
+  background-color: white;
+  border: 2px solid #000;
+  padding: 15px;
+  font-size: 16px;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+.options-box {
+  width: 35%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  height: 100%;
+}
+
+.battle-btn {
+  background: linear-gradient(to bottom, #fbdc70, #f8b500);
+  border: 2px solid #a67600;
+  border-radius: 6px;
+  padding: 10px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.battle-btn:hover {
+  background: linear-gradient(to bottom, #ffe08a, #ffbd2b);
+}
+.battle-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f4f4f4;
+}

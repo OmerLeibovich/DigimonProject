@@ -47,10 +47,10 @@ $(document).ready(function () {
     
     // culc the level of digimon according to his rank
     function culc_level(rank){
-         if (rank === 'Baby'){
+         if (rank === 'Baby I'){
             return(Math.floor(Math.random() * (7 - 1) + 1));
          }
-         else if(rank === 'In-traning'){
+         else if(rank === 'Baby II'){
             return(Math.floor(Math.random() * (11 - 7) + 7));
          }
          else if(rank === 'Rookie'){
@@ -177,6 +177,12 @@ $(document).ready(function () {
                 alert("fail to connect");
         })
     })
+
+     $(document).on('click','.battle-button',function(e){
+        e.preventDefault();
+        $('.battle-container').show();
+        $('.container').hide();
+     })
 
     function getpage(){
     var rankVal = ["Baby I","Baby II","Child","Adult","Perfect","Ultimate","Armor","Hybrid"];

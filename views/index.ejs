@@ -44,19 +44,14 @@
         </form>
     
     <div class="content d-flex flex-column flex-column-fluid" >
+      <%- include('DigimonSystem/battleSystem') %>
 <div class="container" >
-<div class="d-flex justify-content-between align-items-center ">
-  <div class="pagination-wrapper mb-0">
-    <ul class="pagination mb-0" id="pages">
-    </ul>
-  </div>
-
+   <button class="battle-button">Battle</button>
   <div class="text-end">
     <button id="addDigimon" type="button" class="btn btn-primary">
       <i class="fa fa-plus"></i> Add Digimon
     </button>
   </div>
-</div>
 
         
 
@@ -75,6 +70,10 @@
 </thead>
 <tbody id="userTable"></tbody>
 </table>
+  <div class="pagination-wrapper mb-0">
+    <ul class="pagination mb-0" id="pages">
+    </ul>
+  </div>
 <%- include('loginSystem/loginPage') %>
 </div>
 </div>
