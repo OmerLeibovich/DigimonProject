@@ -38,7 +38,6 @@ app.use(session({
 app.use('/',DigiRoutes);
 app.use('/',loginRoute);
 app.get('/', (req, res) => {
-  console.log("SESSION:", req.session);
   if (req.session && req.session.user) {
     res.render('index', { isLoggedIn: true });
   } else {

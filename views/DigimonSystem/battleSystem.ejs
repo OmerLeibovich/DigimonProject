@@ -1,10 +1,24 @@
-
 <div class="battle-wrapper">
   <div class="battle-container">
-    <div class="display-screen">
-      <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png" alt="Digimon" class="digimon-img">
-      <h3>Pikachu Lv. 10</h3>
+    <div class="display-screen">  
+      <div class="opponent-health-bar">
+        <div class="opponent-progress-bar">
+        <div class="opponent-percentage">
+        </div>
+        </div>
+        <h5 id="opponent-battleName"></h5>
+      </div>   
+      <img id="opponent-battlePhoto" src="" alt="Digimon" class="opponent-digimon-img" title="" >
+      <h5 id="your-battleName" class="your-battleName"></h5>
+        <div class="your-health-bar">
+        <div class="your-progress-bar">
+        <div class="your-percentage">
+        </div>
+        </div>
+        </div>
+         <img id="your-battlePhoto" src="" alt="Digimon" class="your-digimon-img" title="">
     </div>
+    
 
     <div class="battle-screen">
       <div class="text-box">
@@ -13,8 +27,6 @@
 
       <div class="options-box">
         <button class="battle-btn">FIGHT</button>
-        <button class="battle-btn">BAG</button>
-        <button class="battle-btn">POKEMON</button>
         <button class="battle-btn">RUN</button>
       </div>
     </div>

@@ -68,18 +68,16 @@ $(document).ready(function () {
          else{
             return(Math.floor(Math.random() * (100 - 18) + 18));
          }
-
-
     }
     
     // culc base stats according to him level
     function culc_stats(level){
-        var hp = Math.floor(Math.random() * ((level*8) - (level*6)) + (level*6));
+        var hp = Math.floor(Math.random() * ((level*5.5) - (level*3)) + (level*3));
         var attack = Math.floor(Math.random() * ((level*5.5) - (level*3)) + (level*3));
-        var defense = Math.floor(Math.random() * ((level*3) - (level*1.3)) + (level*1.3));
+        var defense = Math.floor(Math.random() * ((level*5.5) - (level*3)) + (level*3));
         return [hp, attack, defense];
     }
-
+    // return 
     $(document).on('click','.btn-page',function(e){
         e.preventDefault();
         const page = $(this).data('page');
@@ -180,11 +178,90 @@ $(document).ready(function () {
 
      $(document).on('click','.battle-button',function(e){
         e.preventDefault();
-        $('.battle-container').show();
+        $('#digimon-select-container').show();
         $('.container').hide();
+        $.ajax({
+            url:'/getuserdigis',
+            method:'GET',
+        })
+        .done(function(data){
+             $('#digimon-select-container').html(data).show();
+        })
+        .fail(function(data){
+                alert("fail to getDigis");
+        })
      })
+     $(document).on('click','.btn-success',function(e){
+         e.preventDefault();
+         const selected = $('#digimon-select option:selected');
+         const selectedValue = selected.val();
+         if(selectedValue !== ""){
+          $('#digimon-select-container').hide();
+           $('.battle-container').show();
+           console.log(selected.data('rank'));
+           console.log(selected.data('photo'));
+           getrandomDigi(selected.data('rank'),selected.data('photo'),selected.data('name'),selected.data('hp'),selected.data('at'),selected.data('de'));
+         }
+         else{
+            alert("You need to choose digimon");
+         }
+     })
+     // change photo
+     $(document).on('change', '#digimon-select', function () {
+        const selected = $(this).find(':selected');
+        const photo = selected.data('photo');
+        if (photo) {
+            $('#selected-photo').attr('src', photo).show();
+        } else {
+            $('#selected-photo').hide();
+        }
+        });
+    
+    function getrandomDigi(digiRank,photo,name,HP,at,de){
+    var rankVal = ["Baby I","Baby II","Child","Adult","Perfect","Ultimate","Armor","Hybrid"];
+    var rank = ["Baby","In_traning","Rookie","Champion","Ultimate","Mega","Armor","Hybrid"];
+    var rankindex = rank.indexOf(digiRank);
+    var level = culc_level(rank[rankindex]);
+    var [hp, attack, defense] = culc_stats(level);
+    var id = Math.floor(Math.random() * (1489 - 1) + 1);
+    $.ajax({
+            url: `https://digi-api.com/api/v1/digimon/${id}`,
+            method: 'GET',
+            }).done(function(response) {
+            if (response.levels.length !== 0){
+            for (var i = 0;i<response.levels.length;i++){
+                if(response.levels[i].level === rankVal[rankindex]){
+                    // opponent 
+                    clearBackground(response.images[0].href).done(function(data) {
+                    const cleanedUrl = data.cleanedImageUrl;
+                    $('#opponent-battlePhoto').attr('src', cleanedUrl);
+                    })
+                    $('#opponent-battlePhoto').attr('title',("HP/Attack/Defense: " + hp + "/" +attack + "/" + defense));
+                    $('#opponent-battleName').text(response.name);
+                    $('.opponent-progress-bar').css('width', (30/hp)*100 + '%');
+                    $('.opponent-percentage').text(30+"/"+hp);
+                    // your
+                     clearBackground(photo).done(function(data) {
+                    const cleanedUrl = data.cleanedImageUrl;
+                    $('#your-battlePhoto').attr('src', cleanedUrl);
+                    })
+                    $('#your-battlePhoto').attr('title',("HP/Attack/Defense: " + HP + "/" + at + "/" + de));
+                    $('#your-battleName').text(name);
+                    $('.your-progress-bar').css('width', (30/hp)*100 + '%');
+                    $('.your-percentage').text(30+"/"+hp);
+                    return;
+                }
+            }
+        }
+            getrandomDigi(digiRank,photo,name,HP,at,de);
+            }).fail(function() {
+            console.log("fail to get information");
+            getrandomDigi(digiRank,photo,name,HP,at,de);
+            });
+    }
 
-    function getpage(){
+
+    function getdigi(){
     var rankVal = ["Baby I","Baby II","Child","Adult","Perfect","Ultimate","Armor","Hybrid"];
     var rank = ["Baby","In_traning","Rookie","Champion","Ultimate","Mega","Armor","Hybrid"];
     const randomIndex = Math.floor(Math.random() * rankVal.length);
@@ -212,15 +289,51 @@ $(document).ready(function () {
                 }
             }
         }
-            getpage();
+            getdigi();
             }).fail(function() {
             console.log("fail to get information");
-            getpage();
+            getrandomDigi();
             });
     }
 
+
+
+    // clear photobackground
+        function clearBackground(photo) {
+            return $.ajax({
+                method: "POST",
+                url: "/remove-bg",
+                data: { imageUrl: photo }
+            });
+        }
+
+    // function clearBackground(photo){
+    // const formData = new FormData();
+    // formData.append("size", "auto");
+    // formData.append("image_url", photo);
+    //     $.ajax({
+    //         method: "POST",
+    //         url:"https://api.remove.bg/v1.0/removebg",
+    //         headers: { "X-Api-Key": process.env.REMOVEBG },
+    //          data: formData,
+    //         contentType: false,
+    //         processData: false,
+    //         xhrFields: {
+    //             responseType: 'blob' 
+            
+    //             },
+    //     })
+    //         .done(function(data){
+    //             const url = URL.createObjectURL(data);
+    //             return url;
+    //         })
+    //         .fail(function(data){
+    //             console.log("fail to clearbackground");
+    //         })
+    // }
+
     $('#addDigimon').on("click",function() {
-        getpage();
+        getdigi();
         $('#DigiForm').show();
         $('#addDigimon').prop('disabled', true);
     })
