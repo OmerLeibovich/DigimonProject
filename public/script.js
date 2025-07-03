@@ -7,6 +7,7 @@ $(document).ready(function () {
             $('#addDigimon').show();
             $('#DigiList').show();
             $('#userTable').show();
+            $('.battle-button').show();
             updateList(); 
             pages()
         }
@@ -156,6 +157,7 @@ $(document).ready(function () {
         e.preventDefault();
         const username = $('#username').val();
         const password = $('#password').val();
+         console.log(username);
         $.ajax({
             method:'POST',
             url:'/login',
@@ -165,10 +167,13 @@ $(document).ready(function () {
             }
         })
         .done(function(data){
-            $('.login-container').show();
-            $('#addDigimon').hide();
-            $('#DigiList').hide();
-            $('#userTable').hide();
+            $('.login-container').hide();
+            $('#addDigimon').show();
+            $('#DigiList').show();
+            $('#userTable').show();
+            $('.battle-button').show();
+            updateList(); 
+            pages()
         
     })
         .fail(function(data){
@@ -200,7 +205,9 @@ $(document).ready(function () {
            $('.battle-container').show();
            console.log(selected.data('rank'));
            console.log(selected.data('photo'));
-           getrandomDigi(selected.data('rank'),selected.data('photo'),selected.data('name'),selected.data('hp'),selected.data('at'),selected.data('de'));
+           getrandomDigi(selected.data('rank'),selected.data('level'),
+           selected.data('photo'),selected.data('name'),
+           selected.data('hp'),selected.data('at'),selected.data('de'));
          }
          else{
             alert("You need to choose digimon");
@@ -217,11 +224,10 @@ $(document).ready(function () {
         }
         });
     
-    function getrandomDigi(digiRank,photo,name,HP,at,de){
+    function getrandomDigi(digiRank,level,photo,name,HP,at,de){
     var rankVal = ["Baby I","Baby II","Child","Adult","Perfect","Ultimate","Armor","Hybrid"];
     var rank = ["Baby","In_traning","Rookie","Champion","Ultimate","Mega","Armor","Hybrid"];
     var rankindex = rank.indexOf(digiRank);
-    var level = culc_level(rank[rankindex]);
     var [hp, attack, defense] = culc_stats(level);
     var id = Math.floor(Math.random() * (1489 - 1) + 1);
     $.ajax({
@@ -232,34 +238,37 @@ $(document).ready(function () {
             for (var i = 0;i<response.levels.length;i++){
                 if(response.levels[i].level === rankVal[rankindex]){
                     // opponent 
-                    clearBackground(response.images[0].href).done(function(data) {
-                    const cleanedUrl = data.cleanedImageUrl;
-                    $('#opponent-battlePhoto').attr('src', cleanedUrl);
-                    })
-                    $('#opponent-battlePhoto').attr('title',("HP/Attack/Defense: " + hp + "/" +attack + "/" + defense));
+                    // clearBackground(response.images[0].href,response.name).done(function(data) {
+                    // const cleanedUrl = data.cleanedImageUrl;
+                    // $('#opponent-battlePhoto').attr('src', cleanedUrl);
+                    // })
+                    console.log(response.name);
+                    $('#opponent-battlePhoto').attr('src', response.images[0].href);
+                    $('#opponent-battlePhoto').attr('title',("HP: " + hp + "  Attack: " +attack + "  defense: " + defense));
                     $('#opponent-battleName').text(response.name);
                     $('.opponent-progress-bar').css('width', (30/hp)*100 + '%');
                     $('.opponent-percentage').text(30+"/"+hp);
                     // your
-                     clearBackground(photo).done(function(data) {
-                    const cleanedUrl = data.cleanedImageUrl;
-                    $('#your-battlePhoto').attr('src', cleanedUrl);
-                    })
-                    $('#your-battlePhoto').attr('title',("HP/Attack/Defense: " + HP + "/" + at + "/" + de));
+                    //  clearBackground(photo,name).done(function(data) {
+                    // const cleanedUrl = data.cleanedImageUrl;
+                    // $('#your-battlePhoto').attr('src', cleanedUrl);
+                    // })
+                     console.log(name);
+                    $('#your-battlePhoto').attr('src', photo);
+                    $('#your-battlePhoto').attr('title',("HP: " + HP + "  Attack: " + at + "  defense: " + de));
                     $('#your-battleName').text(name);
-                    $('.your-progress-bar').css('width', (30/hp)*100 + '%');
-                    $('.your-percentage').text(30+"/"+hp);
+                    $('.your-progress-bar').css('width', (30/HP)*100 + '%');
+                    $('.your-percentage').text(30+"/"+HP);
                     return;
                 }
             }
         }
-            getrandomDigi(digiRank,photo,name,HP,at,de);
+            getrandomDigi(digiRank,level,photo,name,HP,at,de);
             }).fail(function() {
             console.log("fail to get information");
-            getrandomDigi(digiRank,photo,name,HP,at,de);
+            getrandomDigi(digiRank,level,photo,name,HP,at,de);
             });
     }
-
 
     function getdigi(){
     var rankVal = ["Baby I","Baby II","Child","Adult","Perfect","Ultimate","Armor","Hybrid"];
@@ -296,16 +305,16 @@ $(document).ready(function () {
             });
     }
 
-
-
-    // clear photobackground
-        function clearBackground(photo) {
-            return $.ajax({
-                method: "POST",
-                url: "/remove-bg",
-                data: { imageUrl: photo }
-            });
-        }
+    // // clear photobackground
+    //     function clearBackground(photo,name) {
+    //         return $.ajax({
+    //             method: "POST",
+    //             url: "/remove-bg",
+    //             data: { imageUrl: photo,
+    //                     name: name
+    //              }
+    //         });
+    //     }
 
     // function clearBackground(photo){
     // const formData = new FormData();

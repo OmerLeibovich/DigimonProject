@@ -1,7 +1,9 @@
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 const axios = require('axios');
-const FormData = require('form-data');
+const NodeCache = require( "node-cache" );
+const cache = new NodeCache();
+const { exec } = require('child_process');
 
 
 
@@ -65,28 +67,17 @@ const getUserdigis = async (req,res) =>{
   }
 }
 
-const clearbackground = async (req, res) => {
-  try {
-    const photo = req.body.imageUrl;
-    const formData = new FormData();
-    formData.append("size", "auto");
-    formData.append("image_url", photo);
-
-    const response = await axios.post("https://api.remove.bg/v1.0/removebg", formData, {
-      headers: {
-        ...formData.getHeaders(),
-        "X-Api-Key": process.env.REMOVEBG,
-      },
-      responseType: "arraybuffer",
-    });
-
-    const base64Image = Buffer.from(response.data, "binary").toString("base64");
-    res.send({ cleanedImageUrl: `data:image/png;base64,${base64Image}` });
-  } catch (error) {
-    console.error("Error clearing background:", error.response?.data || error.message);
-    res.status(500).send("Something went wrong");
-  }
-};
+// const clearbackground = async (req, res) => {
+//   try {
+//     const photo = req.body.imageUrl
+//     exec(`rembg i ${photo} ${cleanedImage}`, (error, stdout, stderr) => {
+//     });
+//     res.send({ cleanedImageUrl: cleanedImage});
+//   } catch (error) {
+//     console.error("Error clearing background:", error.response?.data || error.message);
+//     res.status(500).send("Something went wrong");
+//   }
+// };
 const addDigi = async (req, res) => {
     try {
     const photo = req.body.Photo;
@@ -149,7 +140,7 @@ module.exports = {
     getAllDigis,
     getPages,
     getUserdigis,
-    clearbackground,
+    // clearbackground,
     addDigi,
     deleteDigi,
 }

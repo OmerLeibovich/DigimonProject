@@ -7,7 +7,9 @@
     width: 100px;
     height: 100px;
 }
-
+.logout-btn{
+  text-align: end;
+}
 .DigiDetails{
         display: none;
         position: fixed;
@@ -93,6 +95,7 @@ td img {
 
 #addDigimon,
 #DigiList,
+.battle-button,
 #userTable,
 #digimon-select-container {
   display: none;

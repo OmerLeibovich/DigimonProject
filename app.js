@@ -1,6 +1,8 @@
 const { PrismaSessionStore } = require('@quixo3/prisma-session-store');
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
+const NodeCache = require( "node-cache" );
+const cache = new NodeCache(); 
 const DigiRoutes = require('./routes/digimonroute');
 const loginRoute = require('./routes/loginroute');
 const express = require('express');
@@ -44,6 +46,13 @@ app.get('/', (req, res) => {
     res.render('index', { isLoggedIn: false });
   }
 });
+app.get('/logout', async (req, res) =>{
+  const session = req.sessionID;
+  await prisma.Session.delete({
+      where: { id: session }
+    });
+    res.render('index', { isLoggedIn: false });
+})
 
 app.listen(port, () => {
   console.log(`Express app listening at http://localhost:${port}`);
