@@ -3,7 +3,7 @@
 <select id="digimon-select">
   <option value="">Please choose an option</option>
   <% digimons.forEach(digimon => { %>
-  <option data-rank="<%= digimon.rank %>" data-name="<%= digimon.name %>"
+  <option data-id="<%= digimon.id %>" data-rank="<%= digimon.rank %>" data-name="<%= digimon.name %>"
     data-level="<%= digimon.level %>"
     data-photo="<%= digimon.photo %>" data-hp="<%=digimon.hp %>"  
     data-at="<%= digimon.attack %>"  data-de="<%= digimon.defense %>">

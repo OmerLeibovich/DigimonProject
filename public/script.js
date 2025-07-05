@@ -157,6 +157,9 @@ $(document).ready(function () {
          const selected = $('#digimon-select option:selected');
          const selectedValue = selected.val();
          if(selectedValue !== ""){
+
+         $('#your-battlePhoto').data('id',selected.data('id'));
+
           $('#digimon-select-container').hide();
            $('.battle-container').show();
            getopponentrandomDigi(selected.data('rank'),selected.data('level'),

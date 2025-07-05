@@ -1,4 +1,4 @@
-    
+import { updateList } from "./create.js"; 
     // culc the level of digimon according to his rank
   export  function calc_level(rank){
          if (rank === 'Baby I'){
@@ -44,12 +44,12 @@
         if (opponentNewHp < 1){
            finish = true;
            opponentNewHp = 0;
-           endMessage = `you won ${yourName} defeat your opponent ${opponentName}`;
+           endMessage = `you won ${yourName} defeat your opponent ${opponentName},you got +30 experience`;
         }
         else if(yourNewHp < 1){
             finish = true;
             yourNewHp = 0;
-            endMessage = `you lose ${opponentName} defeat your digimon ${yourName}`;
+            endMessage = `you lose ${opponentName} defeat your digimon ${yourName},you got -15 experience`;
         }
         $('.battle-btn').prop('disabled', true);
         // your attack
@@ -88,9 +88,30 @@
                 $('.battle-message').text(endMessage);
             }, 2500);
             setTimeout(() => {
+                var experiance;
+                if (opponentNewHp <= 0){
+                    experiance = 30;
+                }
+                else{
+                    experiance = -15;
+                }
                 $('.battle-container').hide();
                 $('.container').show();
                 $('.battle-btn').prop('disabled', false);
+                 $.ajax({
+                        url:'/updateEXP',
+                        method:'PUT',
+                        data :{
+                            exp : experiance,
+                            id : $('#your-battlePhoto').data('id')
+                        }
+                    })
+                    .done(function(data){
+                        updateList();
+                    })
+                    .fail(function(error){
+                        alert("error:"+error);
+                    })
             }, 4700);
         } else {
             setTimeout(() => {

@@ -1,9 +1,5 @@
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
-const axios = require('axios');
-const NodeCache = require( "node-cache" );
-const cache = new NodeCache();
-const { exec } = require('child_process');
 
 
 
@@ -78,6 +74,51 @@ const getUserdigis = async (req,res) =>{
 //     res.status(500).send("Something went wrong");
 //   }
 // };
+
+const updateEXP = async (req,res) => {
+  try{
+    const id = req.body.id;
+    const exp = req.body.exp;
+
+    const digimonDetails = await prisma.digimon.findUnique({
+    where: {
+      id: parseInt(id),
+    }
+  })
+  var newExperience = parseInt(digimonDetails.experience) + parseInt(exp);
+  var newlvl = parseInt(digimonDetails.level);
+  var maxexp = parseInt(digimonDetails.levelUPExp);
+  if(newExperience < 0){
+    newExperience = 0;
+  }
+  if (newExperience > parseInt(digimonDetails.levelUPExp)){
+    newlvl += 1;
+    newExperience = 0;
+    maxexp +=30
+  }
+
+  console.log("levelUPExp:", digimonDetails.levelUPExp, typeof digimonDetails.levelUPExp);
+  console.log("experience:", digimonDetails.experience, typeof digimonDetails.experience);
+  console.log("newExperience:", newExperience);
+
+  const updateExp = await prisma.digimon.update({
+      where: {
+      id: parseInt(id),
+    },
+      data:{
+        experience : newExperience,
+        level: newlvl.toString(),
+        levelUPExp:maxexp
+    }
+  })
+
+    res.status(200).json(updateExp);
+  }
+  catch (error) {
+    console.error('Error creating digimon:', error);
+    res.status(500).send('Something went wrong');
+  }
+}
 const addDigi = async (req, res) => {
     try {
     const photo = req.body.Photo;
@@ -140,6 +181,7 @@ module.exports = {
     getAllDigis,
     getPages,
     getUserdigis,
+    updateEXP,
     // clearbackground,
     addDigi,
     deleteDigi,
