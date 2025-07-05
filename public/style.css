@@ -1,3 +1,8 @@
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
 .container{
     position: absolute;
     top: 22%;
@@ -9,6 +14,9 @@
 }
 .logout-btn{
   text-align: end;
+}
+:disabled{
+  color:black;
 }
 .DigiDetails{
         display: none;
@@ -244,9 +252,15 @@ td img {
    display: none;
   flex-direction: column;
   align-items: center;
-  background-color: #f2f2f2;
   padding: 30px;
   gap: 20px;
+}
+body {
+  background-image: url("/assets/photos/Digimonbackground.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-attachment: fixed;
 }
 
 .display-screen {
@@ -312,7 +326,6 @@ td img {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #f4f4f4;
 }
 
 .progress-wrapper-battle {
@@ -358,6 +371,9 @@ td img {
   position: absolute;
   top: 0%;
   right: 7%;
+}
+#opponent-battleName {
+  white-space: nowrap;
 }
 
 .your-percentage{

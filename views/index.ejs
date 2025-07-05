@@ -10,13 +10,14 @@
     rel="stylesheet"
   >
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-</head>
-
-<body>
-<div class="navbar">
+  <div class="navbar">
    <a href="/">Home</a>
    <a href="/logout" class="logout-btn">Logout</a>
   </div>
+</head>
+
+<body>
+
     <form id="DigiForm" class="DigiDetails">
              <img id="photo" src="">
              <h3 id="name"></h3>
@@ -44,7 +45,7 @@
 
         </form>
     
-    <div class="content d-flex flex-column flex-column-fluid" >
+<div class="content d-flex flex-column flex-column-fluid" >
       <%- include('DigimonSystem/battleSystem') %>
 <div id="digimon-select-container"></div>
 <div class="container" >
@@ -84,10 +85,10 @@
 
 </body>
 <script>
-  const isLoggedIn = <%= isLoggedIn %>;
+  const isLoggedIn = <%= JSON.stringify(isLoggedIn) %>;
 </script>
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-<script src="/script.js"></script>
+<script type="module" src="/script.js"></script>
 </html>
 
 
