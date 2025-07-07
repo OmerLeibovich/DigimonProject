@@ -1,4 +1,5 @@
 const { PrismaClient } = require('@prisma/client');
+const { evolveDigi } = require('../public/create');
 const prisma = new PrismaClient();
 
 
@@ -59,6 +60,37 @@ const getUserdigis = async (req,res) =>{
   }
   catch (error){
       console.error('Error fetching user digis:', error);
+    res.status(500).send('Something went wrong');
+  }
+}
+
+
+const evolveDigimon = async (req,res) =>{
+  try{
+    const id = req.body.id;
+    const evolve = req.body.evolve;
+    const hp = req.body.hp;
+    const attack = req.body.attack;
+    const defense = req.body.defense;
+   const updateEvolve = await prisma.digimon.update({
+      where: {
+      id: parseInt(id),
+    },
+      data:{
+        photo : evolve.images[0].href,
+        rank : evolve.levels[0].level,
+        type : evolve.types[0].type,
+        name : evolve.name,
+        hp : hp,
+        attack: attack,
+        defense: defense
+    }
+  })
+  res.status(200).json(updateEvolve);
+
+  }
+  catch (error){
+      console.error('Error evolve digimon:', error);
     res.status(500).send('Something went wrong');
   }
 }
@@ -182,6 +214,7 @@ module.exports = {
     getPages,
     getUserdigis,
     updateEXP,
+    evolveDigimon,
     // clearbackground,
     addDigi,
     deleteDigi,

@@ -41,6 +41,7 @@ app.use('/',DigiRoutes);
 app.use('/',loginRoute);
 app.get('/', (req, res) => {
   if (req.session && req.session.user) {
+    console.log(req.session);
     res.render('index', { isLoggedIn: true });
   } else {
     res.render('index', { isLoggedIn: false });
@@ -48,10 +49,12 @@ app.get('/', (req, res) => {
 });
 app.get('/logout', async (req, res) =>{
   const session = req.sessionID;
+  if(session){
   await prisma.Session.delete({
       where: { id: session }
     });
-    res.render('index', { isLoggedIn: false });
+    res.redirect('/');
+  }
 })
 
 app.listen(port, () => {

@@ -1,6 +1,9 @@
-import {calcDmg ,calcNew_hp } from './calculation.js';
+import {calcDmg ,calcNew_hp,calc_stats } from './calculation.js';
 import { getyourrandomDigi,getopponentrandomDigi,pages
-    ,updateList,resetBattlesystem } from './create.js';
+    ,updateList,resetBattlesystem,evolveDigi } from './create.js';
+
+
+
 $(document).ready(function () {
 
 
@@ -10,6 +13,7 @@ $(document).ready(function () {
             $('#DigiList').show();
             $('#userTable').show();
             $('.battle-button').show();
+            $('.bar').show();
             updateList(); 
             pages()
         }
@@ -38,7 +42,6 @@ $(document).ready(function () {
     $(document).on('click', '.deleteDigi', function (e) {
         e.preventDefault();
         const DigiId = $(this).data('id');
-        console.log(DigiId);
         $.ajax({
             method:'DELETE',
             url:'/deleteDigimon',
@@ -48,12 +51,67 @@ $(document).ready(function () {
         })
         .done(function(data){
             updateList();
+            pages();
         })
         .fail(function(){
             alert("fail to delete digimon");
         })
   })
 
+  $(document).on('click','.evolveDigi', async function(e){
+    e.preventDefault();
+    const diginame = $(this).closest('tr').find('td')[1].innerText;
+    const digiRank = $(this).closest('tr').find('td')[2].innerText;
+    const digiLevel = $(this).closest('tr').find('td')[3].innerText;
+    const digiId = $(this).data('id');
+    var rankVal = ["Baby I","Baby II","Child","Adult","Perfect","Ultimate","Armor","Hybrid"];
+    var rank = ["Baby","In_traning","Rookie","Champion","Ultimate","Mega","Armor","Hybrid"];
+     if ((digiRank === rank[0] && digiLevel > 6 ) || (digiRank === rank[1] && digiLevel > 10 )
+        || (digiRank === rank[2] && digiLevel > 17 ) || 
+    (digiRank === rank[3] && digiLevel > 30 ) || (digiRank === rank[4] && digiLevel > 45 )){
+        const evoTree = await evolveDigi(diginame,rankVal[rank.indexOf(digiRank) + 1]);
+        console.log(evoTree);
+        const random = Math.floor(Math.random() * (evoTree.length));
+        const [hp, attack, defense] = calc_stats(level);
+        $.ajax({
+            url:'/evolve',
+            method:'PUT',
+            data : {
+                id: digiId,
+                evolve: evoTree[random],
+                hp: hp,
+                attack: attack,
+                defense: defense,
+            }
+        })
+        .done(function(data){
+            alert(diginame + " evolve to: " + evoTree[random].name)
+            updateList();
+        })
+        .fail(function(error){
+            alert("fail to evolve digimon");
+        })
+    }
+    else{
+        alert("you still cant digivolve");
+    }
+
+})
+
+//  $.ajax({
+//             url:'/evolve',
+//             method:'GET',
+//             data : {
+//                 id: digiId,
+//                 rank : rankVal[rank.indexOf(digiRank)],
+//             }
+//         })
+//         .done(function(data){
+//             alert(diginame + " evolve to: " + data)
+//         })
+//         .fail(function(error){
+//             alert("fail to evolve digimon");
+//         })
 
 
     $('#DigiForm').on('click','.submit-btn',function(e){ 
@@ -117,11 +175,11 @@ $(document).ready(function () {
         $('#DigiForm').hide();
         $('#addDigimon').prop('disabled', false);
     })
+
+    $(document).on('click', '.dropdown-toggle', function (e) {
+
+    });
     
-
-
-
-
     ///// ---- battle system ------/////
     
 
@@ -134,7 +192,26 @@ $(document).ready(function () {
         })
 
 
+    $(document).on('click','.run-btn',function(e){
+        e.preventDefault();
+        $('.run-btn').prop('disabled', true);
+        const runChance = Math.floor(Math.random() * 10) + 1;
+        if (runChance === 1){
+            $('.battle-message').text("You couldn’t get away!");
+            setTimeout(() => {
+            $('.battle-message').text("What will your next move?");
+        }, 1700);
 
+        }
+        else{
+            $('.battle-message').text("You successfully fled from battle!");
+        setTimeout(() => {
+            $('.battle-container').hide();
+            $('.container').show();
+        }, 1700);
+        }
+        $('.run-btn').prop('disabled', false);
+    })
     
      $(document).on('click','.battle-button',function(e){
         e.preventDefault();
@@ -194,8 +271,9 @@ $(document).ready(function () {
             $('#DigiList').show();
             $('#userTable').show();
             $('.battle-button').show();
+            $('.bar').show();
             updateList(); 
-            pages()
+            pages();
         
     })
         .fail(function(data){

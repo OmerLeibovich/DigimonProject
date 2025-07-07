@@ -125,6 +125,52 @@
             });
     }
 
+export async function evolveDigi(name, rank) {
+    const evolveTree = [];
+    try {
+        const response = await $.ajax({
+            url: `https://digi-api.com/api/v1/digimon/${name}`,
+            method: 'GET'
+        });
+
+        const evolutions = response.nextEvolutions || [];
+        for (let i = 0; i < evolutions.length; i++) {
+            const result = await getevolveDigi(evolutions[i].url, rank);
+            if (result.isValid) {
+                evolveTree.push(result.evolve);
+            }
+        }
+
+        console.log(evolveTree); 
+        return evolveTree;
+    } catch (error) {
+        console.error("Error in evolveDigi:", error);
+        alert("error in evolveDigi");
+        return [];
+    }
+}
+
+  export function getevolveDigi(evolution, rank) {
+        return $.ajax({
+            url: evolution,
+            method: 'GET',
+        }).then(function(response) {
+            const levels = response.levels || [];
+            for (let i = 0; i < levels.length; i++) {
+                if (levels[i].level === rank) {
+                    return {
+                        isValid: true,
+                        evolve: response
+                    };
+                }
+            }
+            return { isValid: false };
+        }).catch(function(error) {
+            return { isValid: false }; 
+        });
+    }
+
+
 
     export function resetBattlesystem() {
     $('#your-battlePhoto').attr('src', '');

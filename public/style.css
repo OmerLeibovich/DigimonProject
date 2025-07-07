@@ -105,7 +105,8 @@ td img {
 #DigiList,
 .battle-button,
 #userTable,
-#digimon-select-container {
+#digimon-select-container,
+.bar {
   display: none;
 }
 
@@ -148,6 +149,16 @@ td img {
   right: 0;  
 }
 
+.dropdown-menu {
+  display: flex;
+  flex-direction: column;
+  padding: 0; 
+}
+
+.dropdown-item {
+  width: 100%;
+  text-align: left;
+}
 .pagination-wrapper {
   display: flex;
   justify-content: flex-start;  
@@ -234,9 +245,10 @@ td img {
 
 /* NavBar */
 .navbar {
-  overflow: hidden;
   background-color: #333;
+  overflow: hidden;
 }
+
 
 .navbar a {
   float: left;

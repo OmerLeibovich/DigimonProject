@@ -122,8 +122,8 @@ import { updateList } from "./create.js";
     }
     // Calc every side dmg
   export  function calcDmg(yourAt,yourDe,opponentAt,opponentDe){
-        const randomYourCrit = Math.floor(Math.random() * (11) - (1) + (1));
-        const randomOpponentCrit = Math.floor(Math.random() * (11) - (1) + (1));
+        const randomYourCrit = Math.floor(Math.random() * 10) + 1;
+        const randomOpponentCrit = Math.floor(Math.random() * 10) + 1;
 
         var yourDmg = parseInt(yourAt) - parseInt(opponentDe);
         var opponentDmg = parseInt(opponentAt) - parseInt(yourDe);

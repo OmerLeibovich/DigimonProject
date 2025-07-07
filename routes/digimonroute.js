@@ -10,6 +10,7 @@ router.route('/getpages').get(digimonController.getPages);
 router.route('/getuserdigis').get(digimonController.getUserdigis);
 // router.route('/remove-bg').post(digimonController.clearbackground);
 router.route('/updateEXP').put(digimonController.updateEXP);
+router.route('/evolve').put(digimonController.evolveDigimon);
 
 
 

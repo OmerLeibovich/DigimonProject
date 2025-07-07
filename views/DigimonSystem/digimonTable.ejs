@@ -20,7 +20,17 @@
       </div>
     </td>
     <td>
-      <a href="#" class="deleteDigi" data-id="<%= digimon.id %>">Delete</a>
+<div class="dropdown">
+  <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+    Options
+  </button>
+  <div class="dropdown-menu">
+    <button class="dropdown-item deleteDigi" type="button" data-id="<%= digimon.id %>">Delete</button>
+    <button class="dropdown-item evolveDigi" type="button" 
+    data-id="<%= digimon.id %>" data-level="<%= digimon.level%>" data-rank="<%= digimon.rank %>"
+      >Evolve</button>
+  </div>
+</div>
     </td>
   </tr>
 <% }) %>
