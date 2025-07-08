@@ -20,7 +20,7 @@ $(document).ready(function () {
    
 
    
-    // return 
+    // return list adjusted to the page number
     $(document).on('click','.btn-page',function(e){
         e.preventDefault();
         const page = $(this).data('page');
@@ -72,13 +72,14 @@ $(document).ready(function () {
         const evoTree = await evolveDigi(diginame,rankVal[rank.indexOf(digiRank) + 1]);
         console.log(evoTree);
         const random = Math.floor(Math.random() * (evoTree.length));
-        const [hp, attack, defense] = calc_stats(level);
+        const [hp, attack, defense] = calc_stats(digiLevel);
         $.ajax({
             url:'/evolve',
             method:'PUT',
             data : {
                 id: digiId,
                 evolve: evoTree[random],
+                rank: rank[rank.indexOf(digiRank) + 1],
                 hp: hp,
                 attack: attack,
                 defense: defense,
@@ -256,7 +257,6 @@ $(document).ready(function () {
         e.preventDefault();
         const username = $('#username').val();
         const password = $('#password').val();
-         console.log(username);
         $.ajax({
             method:'POST',
             url:'/login',
@@ -276,8 +276,80 @@ $(document).ready(function () {
             pages();
         
     })
-        .fail(function(data){
-                alert("fail to connect");
-        })
+        .fail(function(error){
+            if(error.statusText === 'Unauthorized'){
+                errorMessage('#errorlogin','Invalid username or password');
+            }
+            else{
+                errorMessage('#errorlogin','Connection failed. Please try again later');
+            }
     })
+});
+
+    
+     $(document).on('click','.register-btn',function(e){
+        e.preventDefault();
+         $('.login-container').hide();
+         $('.register-container').show();
+     })
+
+
+     /// ------- register ------ ///
+
+     function errorMessage(id,message){
+        $(id).text(message).css({
+            'color': 'red',
+            'font-size': '12px'
+            });
+     }
+
+     $(document).on('click','.create-btn',function(e){
+        e.preventDefault();
+        const username = $('#Rusername').val();
+        const email = $('#email').val()
+        const password = $('#Rpassword').val();
+        const confirm_password = $('#confirm-password').val();
+        var pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        var result = email.match(pattern);
+        if(username.length < 5){
+            errorMessage('#erroruser','Username must be at least 4 characters');
+        return;
+        }
+        else{
+            $('#erroruser').text('');
+        }
+        if (result){
+            $('#erroremail').text('');
+        }
+        else{
+            errorMessage('#erroremail','The email is invalid');
+            return;
+        }
+        if (password === confirm_password){
+            $('#errorpass').text('');
+        }
+        else{
+            errorMessage('#errorpass','Passwords do not match');
+            return;
+        }
+        $.ajax({
+            url:'/register',
+            method:'POST',
+            data:{
+                username : username,
+                email: email,
+                password: password,
+            }
+        })
+        .done(function(data){
+            $('.login-container').show();
+            $('.register-container').hide();
+        })
+        .fail(function(error){
+            errorMessage('#errordb',error.responseText);
+            console.log(error.responseText);
+        })
+
+
+     })
 });

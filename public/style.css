@@ -106,7 +106,8 @@ td img {
 .battle-button,
 #userTable,
 #digimon-select-container,
-.bar {
+.bar,
+.register-container {
   display: none;
 }
 
@@ -215,22 +216,48 @@ td img {
   border: 1px solid #ccc;
   border-radius: 4px;
 }
-
 .login-btn {
   margin: 20px 0 10px;
   height: 40px;
   border: none;
   border-radius: 4px;
   background: linear-gradient(to bottom, #fbdc70 0%, #f8b500 100%);
-  color: white;
+  color: black;
   font-weight: bold;
   cursor: pointer;
   box-shadow: 0 2px 0 #d49900;
 }
 
-.login-button:hover {
+.login-btn:hover {
   background: linear-gradient(to bottom, #ffe08a 0%, #ffbd2b 100%);
+  color: white;
+  text-decoration: none;
 }
+
+.register-btn {
+  margin: 10px 0;
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+  background: linear-gradient(to bottom, #a8e063 0%, #56ab2f 100%);
+  color: black;
+  text-decoration: none;
+  font-weight: bold;
+  border-radius: 4px;
+  box-shadow: 0 2px 0 #3d7a1f;
+  display: block;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.register-btn:hover {
+  background: linear-gradient(to bottom, #bff199 0%, #6fcf3b 100%);
+  text-decoration: none;
+  color: white;
+}
+
+
 
 .forgot-password {
   text-align: center;
@@ -242,6 +269,75 @@ td img {
  .forgot-password:hover {
   text-decoration: underline;
 }
+
+/* register */
+.register-container {
+  width: 300px;
+  margin: 50px auto;
+  padding: 25px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+  font-family: Arial, sans-serif;
+}
+
+.register-container h2 {
+  text-align: center;
+  color: #888;
+  margin-bottom: 20px;
+  font-size: 20px;
+}
+
+.highlight {
+  color: #00aaff;
+  font-weight: bold;
+}
+
+.register-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.register-form label {
+  margin: 10px 0 5px;
+  font-weight: bold;
+  color: #666;
+}
+
+.register-form input {
+  height: 35px;
+  padding: 5px 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+  transition: border 0.2s ease;
+}
+
+.register-form input:focus {
+  border-color: #00aaff;
+  outline: none;
+}
+
+.create-btn {
+  margin-top: 20px;
+  height: 40px;
+  border: none;
+  border-radius: 6px;
+  background: linear-gradient(to bottom, #00c6ff 0%, #0072ff 100%);
+  color: black;
+  font-weight: bold;
+  font-size: 15px;
+  cursor: pointer;
+  box-shadow: 0 2px 0 #005bbf;
+  transition: background 0.3s ease;
+}
+
+.create-btn:hover {
+    background: linear-gradient(to bottom, #00c6ff 0%, #0072ff 100%);
+  text-decoration: none;
+  color: white;
+}
+
 
 /* NavBar */
 .navbar {

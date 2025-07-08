@@ -1,5 +1,4 @@
 const { PrismaClient } = require('@prisma/client');
-const { evolveDigi } = require('../public/create');
 const prisma = new PrismaClient();
 
 
@@ -69,21 +68,24 @@ const evolveDigimon = async (req,res) =>{
   try{
     const id = req.body.id;
     const evolve = req.body.evolve;
+    const rank = req.body.rank;
     const hp = req.body.hp;
     const attack = req.body.attack;
     const defense = req.body.defense;
+    console.log(hp,attack,defense,rank);
    const updateEvolve = await prisma.digimon.update({
       where: {
       id: parseInt(id),
     },
       data:{
         photo : evolve.images[0].href,
-        rank : evolve.levels[0].level,
-        type : evolve.types[0].type,
+        rank : rank,
+        type : evolve.attributes[0].attribute,
         name : evolve.name,
-        hp : hp,
-        attack: attack,
-        defense: defense
+        hp: hp.toString(),
+        attack: attack.toString(),
+        defense: defense.toString(),
+
     }
   })
   res.status(200).json(updateEvolve);

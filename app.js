@@ -5,6 +5,7 @@ const NodeCache = require( "node-cache" );
 const cache = new NodeCache(); 
 const DigiRoutes = require('./routes/digimonroute');
 const loginRoute = require('./routes/loginroute');
+const registerRoute = require('./routes/registerroute');
 const express = require('express');
 const session = require('express-session');
 const app = express();
@@ -39,6 +40,7 @@ app.use(session({
 
 app.use('/',DigiRoutes);
 app.use('/',loginRoute);
+app.use('/',registerRoute);
 app.get('/', (req, res) => {
   if (req.session && req.session.user) {
     console.log(req.session);
