@@ -12,9 +12,6 @@ html, body {
     width: 100px;
     height: 100px;
 }
-.logout-btn{
-  text-align: end;
-}
 :disabled{
   color:black;
 }
@@ -211,9 +208,7 @@ td img {
 }
 
 .login-form input {
-  height: 30px;
-  padding: 5px 10px;
-  border: 1px solid #ccc;
+  margin: 0.5vw;
   border-radius: 4px;
 }
 .login-btn {
@@ -343,17 +338,22 @@ td img {
 .navbar {
   background-color: #333;
   overflow: hidden;
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
 }
-
 
 .navbar a {
-  float: left;
   font-size: 16px;
   color: white;
-  text-align: center;
-  padding: 14px 16px;
   text-decoration: none;
+  padding: 14px 16px;
 }
+
+.navbar .logout-btn {
+  margin-left: auto; 
+}
+
 
 /* BattleSystem */
 .battle-container {
@@ -522,6 +522,8 @@ body {
   bottom: 15%;
   left:59%
 }
+
+
 /* 
 .progress-bar-battle {
   width: 50%;
@@ -545,6 +547,7 @@ body {
   font-size: 14px;
   z-index: 1;
 } */
+
 
 
 

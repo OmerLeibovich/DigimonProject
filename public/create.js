@@ -33,7 +33,7 @@
     }
 
 
-
+    // return opponent digimon in battle with same level and rank
     export function getopponentrandomDigi(digiRank,level,photo,name,HP,at,de){
     var rankVal = ["Baby I","Baby II","Child","Adult","Perfect","Ultimate","Armor","Hybrid"];
     var rank = ["Baby","In_traning","Rookie","Champion","Ultimate","Mega","Armor","Hybrid"];
@@ -125,6 +125,7 @@
             });
     }
 
+    //return evolve tree for the digimon you choose
 export async function evolveDigi(name, rank) {
     const evolveTree = [];
     try {
@@ -139,9 +140,7 @@ export async function evolveDigi(name, rank) {
             if (result.isValid) {
                 evolveTree.push(result.evolve);
             }
-        }
-
-        console.log(evolveTree); 
+        } 
         return evolveTree;
     } catch (error) {
         console.error("Error in evolveDigi:", error);
@@ -149,7 +148,7 @@ export async function evolveDigi(name, rank) {
         return [];
     }
 }
-
+    // check if the evolve rank above the rank of digimon you try to evolve
   export function getevolveDigi(evolution, rank) {
         return $.ajax({
             url: evolution,
@@ -171,7 +170,7 @@ export async function evolveDigi(name, rank) {
     }
 
 
-
+    // reset battlesystem before every new battle
     export function resetBattlesystem() {
     $('#your-battlePhoto').attr('src', '');
     $('#your-battleName').text('');

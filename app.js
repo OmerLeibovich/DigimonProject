@@ -42,12 +42,11 @@ app.use('/',DigiRoutes);
 app.use('/',loginRoute);
 app.use('/',registerRoute);
 app.get('/', (req, res) => {
-  if (req.session && req.session.user) {
-    console.log(req.session);
-    res.render('index', { isLoggedIn: true });
+  if (req.session && req.session.user ) {
+    res.render('index', { isLoggedIn: true, user: req.session.user });
   } else {
     res.render('index', { isLoggedIn: false });
-  }
+    }
 });
 app.get('/logout', async (req, res) =>{
   const session = req.sessionID;

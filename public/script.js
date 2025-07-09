@@ -1,3 +1,5 @@
+
+
 import {calcDmg ,calcNew_hp,calc_stats } from './calculation.js';
 import { getyourrandomDigi,getopponentrandomDigi,pages
     ,updateList,resetBattlesystem,evolveDigi } from './create.js';
@@ -6,8 +8,8 @@ import { getyourrandomDigi,getopponentrandomDigi,pages
 
 $(document).ready(function () {
 
-
         if (isLoggedIn) {
+            if (sessionStorage.user){
             $('.login-container').hide();
             $('#addDigimon').show();
             $('#DigiList').show();
@@ -16,8 +18,16 @@ $(document).ready(function () {
             $('.bar').show();
             updateList(); 
             pages()
+            }
+        else{
+            const username = user.username;
+            const password = user.password;
+            $('#username').val(username);
+            $('#password').val(password);
         }
+    }
    
+
 
    
     // return list adjusted to the page number
@@ -57,7 +67,7 @@ $(document).ready(function () {
             alert("fail to delete digimon");
         })
   })
-
+  // if digimon can evolve return the evovle of this digimon
   $(document).on('click','.evolveDigi', async function(e){
     e.preventDefault();
     const diginame = $(this).closest('tr').find('td')[1].innerText;
@@ -99,22 +109,7 @@ $(document).ready(function () {
 
 })
 
-//  $.ajax({
-//             url:'/evolve',
-//             method:'GET',
-//             data : {
-//                 id: digiId,
-//                 rank : rankVal[rank.indexOf(digiRank)],
-//             }
-//         })
-//         .done(function(data){
-//             alert(diginame + " evolve to: " + data)
-//         })
-//         .fail(function(error){
-//             alert("fail to evolve digimon");
-//         })
-
-
+    // form to add random digimon
     $('#DigiForm').on('click','.submit-btn',function(e){ 
         e.preventDefault();       
         const photo = $('#photo').attr('src');
@@ -151,26 +146,14 @@ $(document).ready(function () {
         });
     });
 
-     // change photo
-     $(document).on('change', '#digimon-select', function () {
-        const selected = $(this).find(':selected');
-        const photo = selected.data('photo');
-        if (photo) {
-            $('#selected-photo').attr('src', photo).show();
-        } else {
-            $('#selected-photo').hide();
-        }
-        });
-
-
-       
+       // open form to add digimon
     $('#addDigimon').on("click",function() {
         getyourrandomDigi();
         $('#DigiForm').show();
         $('#addDigimon').prop('disabled', true);
         
     })
-
+    // close digimon form
     $('#DigiForm').on('click','.cancel-btn',function(e){
         e.preventDefault();
         $('#DigiForm').hide();
@@ -182,8 +165,21 @@ $(document).ready(function () {
     });
     
     ///// ---- battle system ------/////
-    
 
+
+    
+     // change photo
+     $(document).on('change', '#digimon-select', function () {
+        const selected = $(this).find(':selected');
+        const photo = selected.data('photo');
+        if (photo) {
+            $('#selected-photo').attr('src', photo).show();
+        } else {
+            $('#selected-photo').hide();
+        }
+        });
+    
+        // calc new damage in battle and new hp after got this damage
     $(document).on('click','.battle-btn',function(e){
         e.preventDefault();
         const { yourDmg, opponentDmg } = calcDmg($('#your-battlePhoto').data('at'),$('#your-battlePhoto').data('de'),
@@ -192,7 +188,7 @@ $(document).ready(function () {
         ,$('#opponent-battlePhoto').data('hp'),$('#opponent-battlePhoto').data('maxhp'),opponentDmg)
         })
 
-
+        // have chance of 90% to exit from battle
     $(document).on('click','.run-btn',function(e){
         e.preventDefault();
         $('.run-btn').prop('disabled', true);
@@ -213,7 +209,7 @@ $(document).ready(function () {
         }
         $('.run-btn').prop('disabled', false);
     })
-    
+    // show user digimons to choose for battle
      $(document).on('click','.battle-button',function(e){
         e.preventDefault();
         $('#digimon-select-container').empty().hide();
@@ -252,20 +248,23 @@ $(document).ready(function () {
 
 
  //// ----- login -----////
-
+     // login to user
      $(document).on('click','.login-btn',function(e){
         e.preventDefault();
         const username = $('#username').val();
         const password = $('#password').val();
+        const remamber = $('#remamber').is(":checked");
         $.ajax({
             method:'POST',
             url:'/login',
             data: {
                 username: username,
                 password: password,
+                remamber: remamber
             }
         })
         .done(function(data){
+            sessionStorage.setItem("user", JSON.stringify({ username: username}));
             $('.login-container').hide();
             $('#addDigimon').show();
             $('#DigiList').show();
@@ -286,7 +285,7 @@ $(document).ready(function () {
     })
 });
 
-    
+    // move to register
      $(document).on('click','.register-btn',function(e){
         e.preventDefault();
          $('.login-container').hide();
@@ -295,14 +294,15 @@ $(document).ready(function () {
 
 
      /// ------- register ------ ///
-
+     
+     // func show error message
      function errorMessage(id,message){
         $(id).text(message).css({
             'color': 'red',
             'font-size': '12px'
             });
      }
-
+     // Checks if all variables are correct and register
      $(document).on('click','.create-btn',function(e){
         e.preventDefault();
         const username = $('#Rusername').val();

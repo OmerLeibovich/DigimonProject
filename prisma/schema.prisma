@@ -29,7 +29,9 @@ model digimon {
   hp         String
   attack     String
   defense    String
-}
+  wins       Int    @default(0)
+  loses      Int    @default(0)
+  }
 model user{
   id         Int    @id @default(autoincrement())
   username String @unique
