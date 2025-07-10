@@ -38,16 +38,19 @@ import { updateList } from "./create.js";
         var yourNewHp = yourHp - opponetDmg;
         var opponentNewHp = opponentHp - yourDmg;
         var finish = false;
+        var result;
         var endMessage ;
         const opponentName = $('#opponent-battleName').text();
         const yourName = $('#your-battleName').text();
         if (opponentNewHp < 1){
            finish = true;
+           result = "wins";
            opponentNewHp = 0;
            endMessage = `you won ${yourName} defeat your opponent ${opponentName},you got +30 experience`;
         }
         else if(yourNewHp < 1){
             finish = true;
+            result = "loses";
             yourNewHp = 0;
             endMessage = `you lose ${opponentName} defeat your digimon ${yourName},you got -15 experience`;
         }
@@ -103,7 +106,8 @@ import { updateList } from "./create.js";
                         method:'PUT',
                         data :{
                             exp : experiance,
-                            id : $('#your-battlePhoto').data('id')
+                            id : $('#your-battlePhoto').data('id'),
+                            result : result
                         }
                     })
                     .done(function(data){

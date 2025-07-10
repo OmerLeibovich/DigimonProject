@@ -79,7 +79,9 @@ tr:nth-child(even) {
   background-color: #f9f9f9;
 }
 td:nth-child(2), th:nth-child(2) {
-  white-space: nowrap;
+  white-space: normal;
+  word-break: break-word;
+  max-width: 150px;
 }
 
 .row-number {
@@ -104,7 +106,8 @@ td img {
 #userTable,
 #digimon-select-container,
 .bar,
-.register-container {
+.register-container,
+.message {
   display: none;
 }
 
@@ -124,11 +127,20 @@ td img {
   box-shadow: 0 2px 6px rgba(0,0,0,0.2);
 }
 
-
+.message {
+  width: 800px;
+  height: 80px;
+  margin-top: 10%;
+  margin-left: 30%;
+  padding: 10px;
+  border: 5px solid gray;
+  background-color: white;
+  text-align: center;
+}
 .progress-wrapper {
   width: 100%;
   height: 15px;
-  background-color: white; 
+  background-color: #ddd;
   border: 1px solid #ccc;
   border-radius: 8px;
   overflow: hidden;
@@ -136,9 +148,22 @@ td img {
 
 .progress-bar {
   height: 100%;
-  background-color: blue;
-  transition: width 0.3s ease;
+  background-color: #4caf50; 
+  transition: width 0.4s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 10px;
+  font-weight: bold;
+  background-color: skyblue !important;
 }
+
+
+.progress-text {
+  padding: 0 4px;
+}
+
 
 
 

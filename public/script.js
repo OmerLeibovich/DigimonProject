@@ -73,12 +73,28 @@ $(document).ready(function () {
     const diginame = $(this).closest('tr').find('td')[1].innerText;
     const digiRank = $(this).closest('tr').find('td')[2].innerText;
     const digiLevel = $(this).closest('tr').find('td')[3].innerText;
+    $('.message').fadeIn();
+    $('.container').fadeOut();
+    // setTimeout(() => {
+    //      $('.message').fadeOut();
+    //      $('.container').fadeIn();
+    // }, 1500);
     const digiId = $(this).data('id');
     var rankVal = ["Baby I","Baby II","Child","Adult","Perfect","Ultimate","Armor","Hybrid"];
     var rank = ["Baby","In_traning","Rookie","Champion","Ultimate","Mega","Armor","Hybrid"];
      if ((digiRank === rank[0] && digiLevel > 6 ) || (digiRank === rank[1] && digiLevel > 10 )
         || (digiRank === rank[2] && digiLevel > 17 ) || 
     (digiRank === rank[3] && digiLevel > 30 ) || (digiRank === rank[4] && digiLevel > 45 )){
+
+
+        $('.message').text(`you want to evolve ${diginame} ?`);
+         $('.message').append("</br>");
+         $('.message').append("<button class='yesbutton'>yes</button>");
+        $('.message').append("<button class='nobutton'>no</button>");
+
+
+
+        $(".yesbutton").click(async function() {
         const evoTree = await evolveDigi(diginame,rankVal[rank.indexOf(digiRank) + 1]);
         console.log(evoTree);
         const random = Math.floor(Math.random() * (evoTree.length));
@@ -96,15 +112,28 @@ $(document).ready(function () {
             }
         })
         .done(function(data){
-            alert(diginame + " evolve to: " + evoTree[random].name)
+            $('.message').text(diginame + " evolve to: " + evoTree[random].name);
+            setTimeout(() => {
+            $('.message').fadeOut();
+            $('.container').fadeIn();
+            }, 3000);
             updateList();
         })
         .fail(function(error){
             alert("fail to evolve digimon");
         })
+    })
+     $(".nobutton").click(function() {
+         $('.message').fadeOut();
+         $('.container').fadeIn();
+     })
     }
     else{
-        alert("you still cant digivolve");
+        $('.message').text("you still cant digivolve");
+        setTimeout(() => {
+            $('.message').fadeOut();
+         $('.container').fadeIn();
+        }, 3000);
     }
 
 })

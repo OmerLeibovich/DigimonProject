@@ -113,6 +113,7 @@ const updateEXP = async (req,res) => {
   try{
     const id = req.body.id;
     const exp = req.body.exp;
+    const result = req.body.result;
 
     const digimonDetails = await prisma.digimon.findUnique({
     where: {
@@ -142,7 +143,8 @@ const updateEXP = async (req,res) => {
       data:{
         experience : newExperience,
         level: newlvl.toString(),
-        levelUPExp:maxexp
+        levelUPExp:maxexp,
+        [`${result}`]: 1
     }
   })
 

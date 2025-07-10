@@ -90,7 +90,7 @@
             });
     }
 
-    export function getyourrandomDigi(){
+    export async function getyourrandomDigi(){
     var rankVal = ["Baby I","Baby II","Child","Adult","Perfect","Ultimate","Armor","Hybrid"];
     var rank = ["Baby","In_traning","Rookie","Champion","Ultimate","Mega","Armor","Hybrid"];
     const randomIndex = Math.floor(Math.random() * rankVal.length);
@@ -99,7 +99,7 @@
     var id = Math.floor(Math.random() * (1489 - 1) + 1);
     $('#photo').attr('src','');
     if (level === 'Select digimon level') return;
-    $.ajax({
+    await $.ajax({
             url: `https://digi-api.com/api/v1/digimon/${id}`,
             method: 'GET',
             }).done(function(response) {
