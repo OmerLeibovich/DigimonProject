@@ -9,7 +9,7 @@ import { getyourrandomDigi,getopponentrandomDigi,pages
 $(document).ready(function () {
 
         if (isLoggedIn) {
-            if (sessionStorage.user){
+        if (sessionStorage.user){
             $('.login-container').hide();
             $('#addDigimon').show();
             $('#DigiList').show();
@@ -19,7 +19,7 @@ $(document).ready(function () {
             updateList(); 
             pages()
             }
-        else{
+        else if (user.remamber === 'true'){
             const username = user.username;
             const password = user.password;
             $('#username').val(username);
@@ -382,3 +382,6 @@ $(document).ready(function () {
 
      })
 });
+
+
+

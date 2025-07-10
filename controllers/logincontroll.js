@@ -19,7 +19,7 @@ const Checkuser =  async (req, res) => {
     req.session.regenerate(function (err) {
       if (err) return next(err);
 
-      req.session.user = { id: user.id, username: user.username , remamber: remamber };
+      req.session.user = { id: user.id, username: user.username , password: password,remamber: remamber };
       
    if (remamber === true){
       req.session.save(function (err) {
