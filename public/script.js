@@ -2,7 +2,8 @@
 
 import {calcDmg ,calcNew_hp,calc_stats } from './calculation.js';
 import { getyourrandomDigi,getopponentrandomDigi,pages
-    ,updateList,resetBattlesystem,evolveDigi } from './create.js';
+    ,updateList,evolveDigi } from './create.js';
+import {resetBattlesystem,resetRegisterPage} from './reset.js';
 
 
 
@@ -273,6 +274,12 @@ $(document).ready(function () {
             alert("You need to choose digimon");
          }
      })
+     $(document).on('click','.back-link',function(e){
+        e.preventDefault();
+        $('.login-container').show();
+        $('.register-container').hide();
+        $('.forgot-container').hide();
+     });
 
 
 
@@ -308,6 +315,9 @@ $(document).ready(function () {
             if(error.statusText === 'Unauthorized'){
                 errorMessage('#errorlogin','Invalid username or password');
             }
+            else if(error.statusText === 'Forbidden'){
+                errorMessage('#errorlogin','You need verification email');
+            }
             else{
                 errorMessage('#errorlogin','Connection failed. Please try again later');
             }
@@ -340,7 +350,7 @@ $(document).ready(function () {
         const confirm_password = $('#confirm-password').val();
         var pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         var result = email.match(pattern);
-        if(username.length < 5){
+        if(username.length < 4){
             errorMessage('#erroruser','Username must be at least 4 characters');
         return;
         }
@@ -371,8 +381,10 @@ $(document).ready(function () {
             }
         })
         .done(function(data){
+            resetRegisterPage();
             $('.login-container').show();
             $('.register-container').hide();
+            errorMessage('#errorlogin',"User created successfully. Please verify your email to complete the registration");
         })
         .fail(function(error){
             errorMessage('#errordb',error.responseText);
@@ -380,6 +392,14 @@ $(document).ready(function () {
         })
 
 
+     })
+
+     ////------- forget password ------ //////
+
+     $(document).on('click','.forgot-password', function(e){
+        e.preventDefault();
+        $('.login-container').hide();
+        $('.forgot-container').show();
      })
 });
 

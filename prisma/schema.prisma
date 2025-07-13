@@ -37,6 +37,8 @@ model user{
   username String @unique
   email String  @unique
   password String
+  isActivate Boolean @default(false)
+  token String
   digimons digimon[]
 }
 

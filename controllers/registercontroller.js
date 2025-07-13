@@ -1,5 +1,7 @@
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
+const jwt = require('jsonwebtoken');
+const mailsender = require('../mailsender');
 
 
 const adduser = async (req, res) =>{
@@ -7,14 +9,22 @@ const adduser = async (req, res) =>{
     const password = req.body.password;
     const email = req.body.email;
 
+    const token = jwt.sign({
+            data: 'Token Data'  
+        }, 'DigiSecretKey', { expiresIn: '180m' }  
+    );    
+
   try {
     const newUser = await prisma.user.create({
         data:{
             email: email,
             password: password,
-            username: username
+            username: username,
+            token : token
         }
       });
+
+      mailsender.sendmail(token,email,username);
           res.status(200).json(newUser);
   } catch (error) {
     console.error(error);
@@ -31,6 +41,45 @@ const adduser = async (req, res) =>{
   }
 };
 
+const confirm_email = async(req, res) =>{
+    const {token} = req.params;
+  try {
+    const user = await prisma.user.findFirst({
+       where :{
+        token: token,
+       }
+      });
+
+    const confirm = jwt.verify(token, 'DigiSecretKey');
+    if (confirm){
+        await prisma.user.update({
+            where:{
+                id: user.id,
+            },
+            data :{
+                isActivate:{
+                    set: true,
+                },
+                token:
+                {
+                    set:null,
+                }
+            },
+           })
+            res.render('userconfirm');
+        }
+    else{
+        res.status(502).send('An error occurred while verification the user');
+    }
+
+  } catch (error) {
+    res.status(500).send('An error occurred while verification the user');
+  }
+
+}
+
+
 module.exports ={
     adduser,
+    confirm_email,
 }
