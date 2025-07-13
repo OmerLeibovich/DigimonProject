@@ -4,6 +4,7 @@ const registerontroller = require('../controllers/registercontroller');
 
 router.route('/register').post(registerontroller.adduser);
 router.route('/verify/:token').get(registerontroller.confirm_email);
+router.route('/resetpassword').post(registerontroller.resetpassword);
 
 
 

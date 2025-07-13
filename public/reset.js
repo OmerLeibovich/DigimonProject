@@ -15,9 +15,9 @@
 }
 
 export function resetRegisterPage(){
-    $('#Rusername').text('');
-    $('#email').text('');
-    $('#Rpassword').text('');
-    $('#confirm_password').text('');
+    $('#Rusername').val('');
+    $('#email').val('');
+    $('#Rpassword').val('');
+    $('#confirm_password').val('');
 
 }

@@ -24,7 +24,7 @@ const adduser = async (req, res) =>{
         }
       });
 
-      mailsender.sendmail(token,email,username);
+      mailsender.sendmail(token,email,username,'register');
           res.status(200).json(newUser);
   } catch (error) {
     console.error(error);
@@ -78,8 +78,25 @@ const confirm_email = async(req, res) =>{
 
 }
 
+const resetpassword = async(req,res) =>{
+    const email = req.body.email;
+    try{
+        const user = await prisma.user.findFirst({
+            where:{
+                email: email,
+            }
+        })
+        mailsender.sendmail(user.token,email,user.username,'resetpassword');
+        res.status(200).json(user);
+    }
+    catch(error){
+        res.status(500).send('An error occurred while reset your password');
+    }
+}
+
 
 module.exports ={
     adduser,
     confirm_email,
+    resetpassword,
 }

@@ -401,6 +401,25 @@ $(document).ready(function () {
         $('.login-container').hide();
         $('.forgot-container').show();
      })
+
+     $(document).on('click','.reset-btn',function(e){
+         e.preventDefault();
+         const email = $('#R-email').val();
+         $.ajax({
+            url:'/resetpassword',
+            method:"POST",
+            data:{
+                email: email,
+            }
+            })
+            .done(function(data){
+                errorMessage('#errorreset',"A password reset link has been sent to your email");
+                $('#R-email').val('');
+            })
+            .fail(function(error){
+                errorMessage('#errorreset',"Email doesn't exist");
+            })
+     })
 });
 
 

@@ -1,7 +1,36 @@
 const nodemailer = require('nodemailer');
 require('dotenv').config();
 
-function sendmail(token,email,username) {
+function sendmail(token,email, username ,type) {
+    var message;
+    var title;
+    if (type === 'register'){
+        message = `Hi DigiDestined ${username},
+
+            Your adventure starts now!  
+            To begin, simply click the link below:
+
+            http://localhost:${process.env.PORT}/verify/${token}
+
+            Good luck!`;
+        title = 'Email Verification';
+    }
+    else{
+        message = `Hi DigiDestined ${username},
+
+            We received a request to reset your password. You can reset it by clicking the link below:
+
+            Reset your password:
+             http://localhost:${process.env.PORT}/reset/${token}
+
+            If you didn’t request a password reset, you can ignore this email.
+
+            Thanks,  
+            The digimon-tra Team
+            `;
+            title = 'reset password';
+    }
+
 
 
 const transporter = nodemailer.createTransport({
@@ -21,17 +50,10 @@ const mailConfigurations = {
     to: email,
 
     // Subject of Email
-    subject: 'Email Verification',
+    subject: title,
     
     // This would be the text of email body
-    text: `Hi DigiDestined ${username},
-
-           Your adventure starts now!  
-           To begin, simply click the link below:
-
-           http://localhost:${process.env.PORT}/verify/${token}
-
-           Good luck!`
+    text: message,
 
 };
 
