@@ -9,6 +9,10 @@ import {resetBattlesystem,resetRegisterPage} from './reset.js';
 
 $(document).ready(function () {
 
+        if(Havetoken){
+            $('.login-container').hide();
+            $('.reset-container').show();
+        }
         if (isLoggedIn) {
         if (sessionStorage.user){
             $('.login-container').hide();
@@ -279,6 +283,8 @@ $(document).ready(function () {
         $('.login-container').show();
         $('.register-container').hide();
         $('.forgot-container').hide();
+        resetRegisterPage();
+        $('#R-email').val('');
      });
 
 
@@ -417,8 +423,47 @@ $(document).ready(function () {
                 $('#R-email').val('');
             })
             .fail(function(error){
-                errorMessage('#errorreset',"Email doesn't exist");
+                errorMessage('#errorreset',error.responseText);
             })
+     })
+
+
+     /////-------reset password -------/////
+
+     $(document).on('click','.Creset-btn',function(e){
+        e.preventDefault();
+           console.log("hey");
+        const Password = $('#NewPassword').val();
+        const ConfirmPassword = $('#confirmPassword').val();
+        if (Password === ConfirmPassword){
+        $.ajax({
+            url:'/confirmReset',
+            method:'PUT',
+            data: {
+                password: Password,
+                token: token,
+            }
+        })
+        .done(function(data){
+            console.log("hey");
+            $('#NewPassword').val('');
+            $('#confirmPassword').val('');
+            $('.message').fadeIn();
+            $('.message').text("Password reset successful. Redirecting to login page...");
+            $('.reset-container').fadeOut();
+
+            setTimeout(() => {
+                $('.message').fadeOut();
+                $('.login-container').fadeIn();
+            }, 4000);
+        })
+        .fail(function(error){
+            errorMessage('#errordb',error.responseText);
+        })
+    }
+    else{
+        errorMessage('#errorpass',"Passwords do not match. Please try again");
+    }
      })
 });
 

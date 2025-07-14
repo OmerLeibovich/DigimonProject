@@ -5,28 +5,35 @@ function sendmail(token,email, username ,type) {
     var message;
     var title;
     if (type === 'register'){
-        message = `Hi DigiDestined ${username},
+        message = `<h2>Hi DigiDestined ${username}</h2>
 
-            Your adventure starts now!  
-            To begin, simply click the link below:
-
-            http://localhost:${process.env.PORT}/verify/${token}
-
-            Good luck!`;
+            <span>Your adventure starts now!  
+            To begin, simply click the link below:</span>
+            <br><br>
+            <a href="http://localhost:${process.env.PORT}/verify/${token}">Click Here</a>
+            <br><br>
+           <span>Good luck!</span>
+           <br>
+           <img src="https://i.postimg.cc/mkrktwyY/logo.png">
+           `;
         title = 'Email Verification';
     }
     else{
-        message = `Hi DigiDestined ${username},
+        message = `<h2>Hi DigiDestined ${username}</h2>
 
-            We received a request to reset your password. You can reset it by clicking the link below:
-
-            Reset your password:
-             http://localhost:${process.env.PORT}/reset/${token}
-
-            If you didn’t request a password reset, you can ignore this email.
-
-            Thanks,  
-            The digimon-tra Team
+            <span>We received a request to reset your password. You can reset it by clicking the link below:</span>
+            <br>
+            <span>Reset your password:</span>
+            <br>
+             <a href="http://localhost:${process.env.PORT}/reset/${token}">Click Here</a>
+            <br><br>
+            <span>If you didn’t request a password reset, you can ignore this email.</span>
+            <br><br>
+            <span>Thanks,</span>  
+            <br>
+            <span>The digimon-tra Team<span>
+            <br>
+            <img src="https://i.postimg.cc/mkrktwyY/logo.png">
             `;
             title = 'reset password';
     }
@@ -53,7 +60,7 @@ const mailConfigurations = {
     subject: title,
     
     // This would be the text of email body
-    text: message,
+    html: message,
 
 };
 

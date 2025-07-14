@@ -82,7 +82,8 @@
   </div>
 <%- include('loginSystem/loginPage') %>
 <%- include('RegisterSystem/registerPage') %>
-<%- include('loginSystem/forgotpasspage') %>
+<%- include('RegisterSystem/forgotpasspage') %>
+<%- include('RegisterSystem/resetpassword') %>
 </div>
 </div>
 
@@ -91,9 +92,14 @@
 </body>
 <script>
   const isLoggedIn = <%= JSON.stringify(isLoggedIn) %>;
+  const Havetoken = <%= JSON.stringify(Havetoken) %>;
 <% if (isLoggedIn) { %>
   const user = <%- JSON.stringify(user) %>;
 <% } %>
+<% if (Havetoken) { %>
+  const token = <%- JSON.stringify(token) %>;
+<% } %>
+
 
 </script>
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>

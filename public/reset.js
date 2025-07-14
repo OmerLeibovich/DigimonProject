@@ -18,6 +18,6 @@ export function resetRegisterPage(){
     $('#Rusername').val('');
     $('#email').val('');
     $('#Rpassword').val('');
-    $('#confirm_password').val('');
+    $('#confirm-password').val('');
 
 }

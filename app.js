@@ -42,12 +42,17 @@ app.use('/',DigiRoutes);
 app.use('/',loginRoute);
 app.use('/',registerRoute);
 app.get('/', (req, res) => {
+  if(req.session && req.session.Havetoken && req.session.token){
+      res.render('index',{isLoggedIn: false, Havetoken: true ,token : req.session.token});
+  }
+  else{
   if (req.session && req.session.user) {
-    res.render('index', { isLoggedIn: true, user: req.session.user });
+    res.render('index', { isLoggedIn: true, user: req.session.user,Havetoken: false });
   }
   else {
-      res.render('index', { isLoggedIn: false });
+      res.render('index', { isLoggedIn: false, Havetoken: false });
     }
+  }
 });
 
 
@@ -59,6 +64,12 @@ app.get('/logout', async (req, res) =>{
     });
     res.redirect('/');
   }
+})
+
+app.get('/reset/:token',(req,res) =>{
+    req.session.Havetoken = true;
+    req.session.token = req.params.token;
+    res.redirect('/');
 })
 
 app.listen(port, () => {
