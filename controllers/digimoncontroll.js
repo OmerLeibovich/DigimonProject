@@ -246,7 +246,6 @@ const getstatisticData = async (req,res) =>{
       wins=digimon.wins;
     }
     const values = [wins,loses];
-    console.log(values);
     res.status(200).json({ values });
   }
   catch(error){

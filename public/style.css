@@ -692,7 +692,7 @@ body {
 
 /* statistic */
 .statistic-container {
-  width: 50%;
+  width: 35%;
   height: 40%;
   background-color: #f5f5f5;
   border-radius: 8px;
@@ -716,4 +716,20 @@ body {
   gap: 10px;              
   margin-left: 7%;
   margin-top: 2%;
+}
+.statistic-photo{
+  width: 150px; 
+  height: 120px;
+  margin-left: 20%;
+   display: none;
+}
+#winsCanvas {
+    position: absolute;
+    top: 35px;    
+    left: 450px; 
+}
+#losesCanvas {
+    position: absolute;
+    top: 200px;    
+    left: 450px; 
 }

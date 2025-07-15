@@ -2,12 +2,13 @@
 
 import {calcDmg ,calcNew_hp,calc_stats } from './calculation.js';
 import { getyourrandomDigi,getopponentrandomDigi,pages
-    ,updateList,evolveDigi } from './create.js';
+    ,updateList,evolveDigi,createCircle } from './create.js';
 import {resetBattlesystem,resetRegisterPage} from './reset.js';
 
 
 
 $(document).ready(function () {
+    
         let currentChart = null;
 
         if(Havetoken){
@@ -496,6 +497,14 @@ $(document).ready(function () {
             var id;
             var userid;
             var name;
+            const photo = selected.data('photo');
+            if (photo) {
+                console.log(photo);
+            $('#statistic-photo').attr('src', photo).show();
+            }
+            else {
+            $('#statistic-photo').hide();
+            }   
             if(selected.val() !== ""){
                  id = selected.data('id');
                 userid = false;
@@ -542,6 +551,7 @@ $(document).ready(function () {
                 }
                 },
             })
+            createCircle(data.values);
             })
             .fail(function(error){
                 alert('Failed to load digimon information.');

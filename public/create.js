@@ -170,19 +170,30 @@ export async function evolveDigi(name, rank) {
     }
 
 
-    // reset battlesystem before every new battle
-    export function resetBattlesystem() {
-    $('#your-battlePhoto').attr('src', '');
-    $('#your-battleName').text('');
-    $('.your-progress-bar').css('width', '100%');
-    $('.your-percentage').text('');
+function drawCircle(canvasTitle, color, label, number) {
+    const canvas = document.getElementById(canvasTitle);
+    const ctx = canvas.getContext("2d");
 
-    $('#opponent-battlePhoto').attr('src', '');
-    $('#opponent-battleName').text('');
-    $('.opponent-progress-bar').css('width', '100%');
-    $('.opponent-percentage').text('');
 
-    $('.battle-message').text('');
-    $('.battle-btn').prop('disabled', false);
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    ctx.beginPath();
+    ctx.arc(95, 60, 55, 0, 2 * Math.PI);
+    ctx.fillStyle = color;
+    ctx.fill();
+    ctx.stroke();
+
+    ctx.font = "20px Arial";
+    ctx.fillStyle = "black";
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    ctx.fillText(label, 95, 40);
+
+    ctx.font = "30px Arial";
+    ctx.fillText(number, 95, 80);
 }
 
+export function createCircle(numbers) {
+    drawCircle("winsCanvas", "blue", "WINS", numbers[0]);
+    drawCircle("losesCanvas", "red", "LOSES", numbers[1]);
+}
