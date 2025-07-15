@@ -8,6 +8,7 @@ import {resetBattlesystem,resetRegisterPage} from './reset.js';
 
 
 $(document).ready(function () {
+        let currentChart = null;
 
         if(Havetoken){
             $('.login-container').hide();
@@ -251,6 +252,9 @@ $(document).ready(function () {
         $.ajax({
             url:'/getuserdigis',
             method:'GET',
+            data:{
+                page: 'battle',
+            }
         })
         .done(function(data){
              $('#digimon-select-container').html(data).show();
@@ -306,7 +310,7 @@ $(document).ready(function () {
             }
         })
         .done(function(data){
-            sessionStorage.setItem("user", JSON.stringify({ username: username}));
+            sessionStorage.setItem("user", JSON.stringify({ username: username, id: data.id}));
             $('.login-container').hide();
             $('#addDigimon').show();
             $('#DigiList').show();
@@ -465,6 +469,117 @@ $(document).ready(function () {
         errorMessage('#errorpass',"Passwords do not match. Please try again");
     }
      })
+
+
+    /////--------navbar-------/////
+        $(document).on('click', '.Statistic', function(e) {
+        e.preventDefault();
+        $('.container').hide();
+        $.ajax({
+            url: '/getuserdigis',
+            method: 'GET',
+            data:{
+                page: 'statistic',
+            }
+        })
+        .done(function(data) {
+            $('#digimon-select-container').html(data).show();
+        })
+        .fail(function() {
+            alert('Failed to load statistics.');
+        })
+        });
+
+        $(document).on('click','.btn-choose',function (e){
+            e.preventDefault();
+            const selected = $('#digimon-statistic option:selected');
+            var id;
+            var userid;
+            var name;
+            if(selected.val() !== ""){
+                 id = selected.data('id');
+                userid = false;
+                name = selected.data('name');
+            }
+            else{
+                id = JSON.parse(sessionStorage.user).id;
+                userid = true;
+                name = "all digimons";
+            }
+            $.ajax({
+                url:'/chartdata',
+                method:'GET',
+                data: {
+                    id: id,
+                    userid: userid,
+                }
+            })
+            .done(function(data){
+                   if (currentChart) {
+                        currentChart.destroy();
+                    }
+                currentChart = new Chart("digiChart", {
+                type: "bar",
+                data: {
+                    labels: ["wins","loses"],
+                    datasets: [{
+                    backgroundColor: ["blue","red"],
+                    data: data.values,
+                    }]
+                },
+                 options: {
+                    legend: {display: false},
+                    scales: {
+                    yAxes: [{
+                        ticks: {
+                        beginAtZero: true
+                        }
+                    }]
+                    },
+                title: {
+                display: true,
+                text: name
+                }
+                },
+            })
+            })
+            .fail(function(error){
+                alert('Failed to load digimon information.');
+            })
+        })
+
+
+        //   const xValues = ["Italy", "France", "Spain", "USA", "Argentina"];
+        // const yValues = [55, 49, 44, 24, 15];
+        // const barColors = ["red", "green","blue","orange","brown"];
+
+        // new Chart("myChart", {
+        // type: "bar",
+        // data: {
+        //     labels: xValues,
+        //     datasets: [{
+        //     backgroundColor: barColors,
+        //     data: yValues
+        //     }]
+        // },
+        // options: {
+        //     legend: {display: false},
+        //     scales: {
+        //     yAxes: [{
+        //         ticks: {
+        //         beginAtZero: true
+        //         }
+        //     }]
+        //     },
+
+        //     title: {
+        //     display: true,
+        //     text: "World Wine Production 2018"
+        //     }
+        // }
+        // });
+
+    
 });
 
 

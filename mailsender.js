@@ -31,7 +31,7 @@ function sendmail(token,email, username ,type) {
             <br><br>
             <span>Thanks,</span>  
             <br>
-            <span>The digimon-tra Team<span>
+            <span>The digi-tra Team<span>
             <br>
             <img src="https://i.postimg.cc/mkrktwyY/logo.png">
             `;

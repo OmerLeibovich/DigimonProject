@@ -1,4 +1,5 @@
 const { PrismaClient } = require('@prisma/client');
+const { json } = require('express');
 const prisma = new PrismaClient();
 
 
@@ -46,6 +47,7 @@ const getPages = async (req, res) => {
 };
 
 const getUserdigis = async (req,res) =>{
+  const page = req.query.page;
   try{
       if (!req.session?.user?.id) {
       return res.status(401).send('Unauthorized');
@@ -54,8 +56,12 @@ const getUserdigis = async (req,res) =>{
       where: { userid: req.session.user.id },
       orderBy: { level: 'asc' }
     });
-
+    if (page === 'statistic'){
+      res.render('DigimonSystem/statistic',{digimons});
+    }
+    else{
     res.render('DigimonSystem/userdigimons', { digimons });
+    }
   }
   catch (error){
       console.error('Error fetching user digis:', error);
@@ -213,6 +219,42 @@ const deleteDigi = async (req, res) =>{
   }
 }
 
+
+const getstatisticData = async (req,res) =>{
+  try{
+    const id = parseInt(req.query.id);
+    var loses = 0;
+    var wins = 0;
+    if(req.query.userid === 'true'){
+      const check = await prisma.digimon.findMany({
+        where:{
+          userid: id,
+        }
+      })
+      check.forEach(digi => {
+        loses += digi.loses;
+        wins += digi.wins;
+      });
+    }
+    else{
+      const digimon = await prisma.digimon.findFirst({
+        where:{
+          id: id,
+        }
+      })
+      loses=digimon.loses;
+      wins=digimon.wins;
+    }
+    const values = [wins,loses];
+    console.log(values);
+    res.status(200).json({ values });
+  }
+  catch(error){
+      console.error('Error get digimon information:', error);
+    res.status(500).send('Something went wrong');
+  }
+}
+
 module.exports = {
     getAllDigis,
     getPages,
@@ -222,4 +264,5 @@ module.exports = {
     // clearbackground,
     addDigi,
     deleteDigi,
+    getstatisticData,
 }
