@@ -114,6 +114,7 @@
                     $('#hp').text("Hp: " + hp);
                     $('#attack').text("Attack: " + attack);
                     $('#defense').text("Defense: " + defense);
+                    $('#DigiForm').show(); 
                     return;
                 }
             }

@@ -1,9 +1,10 @@
 
 
-import {calcDmg ,calcNew_hp,calc_stats } from './calculation.js';
-import { getyourrandomDigi,getopponentrandomDigi,pages
+import {calc_stats } from './calculation.js';
+import { getyourrandomDigi,pages
     ,updateList,evolveDigi,createCircle } from './create.js';
-import {resetBattlesystem,resetRegisterPage} from './reset.js';
+import {resetRegisterPage} from './reset.js';
+import {battle}from './battlesystem.js'; 
 
 
 
@@ -33,6 +34,16 @@ $(document).ready(function () {
             $('#password').val(password);
         }
     }
+
+
+    function showMessage(text, duration) {
+    $('.message').text(text).fadeIn();
+    setTimeout(() => {
+        $('.message').fadeOut();
+        $('.container').fadeIn();
+    }, duration);
+}
+
    
 
 
@@ -82,10 +93,6 @@ $(document).ready(function () {
     const digiLevel = $(this).closest('tr').find('td')[3].innerText;
     $('.message').fadeIn();
     $('.container').fadeOut();
-    // setTimeout(() => {
-    //      $('.message').fadeOut();
-    //      $('.container').fadeIn();
-    // }, 1500);
     const digiId = $(this).data('id');
     var rankVal = ["Baby I","Baby II","Child","Adult","Perfect","Ultimate","Armor","Hybrid"];
     var rank = ["Baby","In_traning","Rookie","Champion","Ultimate","Mega","Armor","Hybrid"];
@@ -119,28 +126,19 @@ $(document).ready(function () {
             }
         })
         .done(function(data){
-            $('.message').text(diginame + " evolve to: " + evoTree[random].name);
-            setTimeout(() => {
-            $('.message').fadeOut();
-            $('.container').fadeIn();
-            }, 3000);
+            showMessage(`${diginame} + " evolve to: " + ${evoTree[random].name}`,3000);
             updateList();
         })
         .fail(function(error){
-            alert("fail to evolve digimon");
+            showMessage("fail to evolve digimon",3000);
         })
     })
      $(".nobutton").click(function() {
-         $('.message').fadeOut();
-         $('.container').fadeIn();
+        showMessage("",0);
      })
     }
     else{
-        $('.message').text("you still cant digivolve");
-        setTimeout(() => {
-            $('.message').fadeOut();
-         $('.container').fadeIn();
-        }, 3000);
+        showMessage("you still cant digivolve",3000);
     }
 
 })
@@ -183,9 +181,9 @@ $(document).ready(function () {
     });
 
        // open form to add digimon
-    $('#addDigimon').on("click",function() {
-        getyourrandomDigi();
-        $('#DigiForm').show();
+    $('#addDigimon').on("click", async function() {
+        $('#DigiForm')[0].reset();
+        await getyourrandomDigi();
         $('#addDigimon').prop('disabled', true);
         
     })
@@ -196,94 +194,7 @@ $(document).ready(function () {
         $('#addDigimon').prop('disabled', false);
     })
 
-    $(document).on('click', '.dropdown-toggle', function (e) {
-
-    });
-    
-    ///// ---- battle system ------/////
-
-
-    
-     // change photo
-     $(document).on('change', '#digimon-select', function () {
-        const selected = $(this).find(':selected');
-        const photo = selected.data('photo');
-        if (photo) {
-            $('#selected-photo').attr('src', photo).show();
-        } else {
-            $('#selected-photo').hide();
-        }
-        });
-    
-        // calc new damage in battle and new hp after got this damage
-    $(document).on('click','.battle-btn',function(e){
-        e.preventDefault();
-        const { yourDmg, opponentDmg } = calcDmg($('#your-battlePhoto').data('at'),$('#your-battlePhoto').data('de'),
-                $('#opponent-battlePhoto').data('at'),$('#opponent-battlePhoto').data('de'));
-        calcNew_hp($('#your-battlePhoto').data('hp'),$('#your-battlePhoto').data('maxhp'),yourDmg
-        ,$('#opponent-battlePhoto').data('hp'),$('#opponent-battlePhoto').data('maxhp'),opponentDmg)
-        })
-
-        // have chance of 90% to exit from battle
-    $(document).on('click','.run-btn',function(e){
-        e.preventDefault();
-        $('.run-btn').prop('disabled', true);
-        const runChance = Math.floor(Math.random() * 10) + 1;
-        if (runChance === 1){
-            $('.battle-message').text("You couldn’t get away!");
-            setTimeout(() => {
-            $('.battle-message').text("What will your next move?");
-        }, 1700);
-
-        }
-        else{
-            $('.battle-message').text("You successfully fled from battle!");
-        setTimeout(() => {
-            $('.battle-container').hide();
-            $('.container').show();
-        }, 1700);
-        }
-        $('.run-btn').prop('disabled', false);
-    })
-    // show user digimons to choose for battle
-     $(document).on('click','.battle-button',function(e){
-        e.preventDefault();
-        $('#digimon-select-container').empty().hide();
-        $('.container').hide();
-        $.ajax({
-            url:'/getuserdigis',
-            method:'GET',
-            data:{
-                page: 'battle',
-            }
-        })
-        .done(function(data){
-             $('#digimon-select-container').html(data).show();
-        })
-        .fail(function(data){
-                alert("fail to getDigis");
-        })
-     })
-     $(document).on('click','.btn-success',function(e){
-         e.preventDefault();
-         resetBattlesystem();
-         const selected = $('#digimon-select option:selected');
-         const selectedValue = selected.val();
-         if(selectedValue !== ""){
-
-         $('#your-battlePhoto').data('id',selected.data('id'));
-
-          $('#digimon-select-container').hide();
-           $('.battle-container').show();
-           getopponentrandomDigi(selected.data('rank'),selected.data('level'),
-           selected.data('photo'),selected.data('name'),
-           selected.data('hp'),selected.data('at'),selected.data('de'));
-         }
-         else{
-            alert("You need to choose digimon");
-         }
-     })
-     $(document).on('click','.back-link',function(e){
+       $(document).on('click','.back-link',function(e){
         e.preventDefault();
         $('.login-container').show();
         $('.register-container').hide();
@@ -291,10 +202,14 @@ $(document).ready(function () {
         resetRegisterPage();
         $('#R-email').val('');
      });
+    
+    ///// ---- battle system ------/////
+    battle();
 
+    
 
-
- //// ----- login -----////
+ 
+    //// ----- login -----////
      // login to user
      $(document).on('click','.login-btn',function(e){
         e.preventDefault();
@@ -437,7 +352,6 @@ $(document).ready(function () {
 
      $(document).on('click','.Creset-btn',function(e){
         e.preventDefault();
-           console.log("hey");
         const Password = $('#NewPassword').val();
         const ConfirmPassword = $('#confirmPassword').val();
         if (Password === ConfirmPassword){
@@ -450,17 +364,11 @@ $(document).ready(function () {
             }
         })
         .done(function(data){
-            console.log("hey");
             $('#NewPassword').val('');
             $('#confirmPassword').val('');
             $('.message').fadeIn();
-            $('.message').text("Password reset successful. Redirecting to login page...");
             $('.reset-container').fadeOut();
-
-            setTimeout(() => {
-                $('.message').fadeOut();
-                $('.login-container').fadeIn();
-            }, 4000);
+            showMessage("Password reset successful. Redirecting to login page...",4000);
         })
         .fail(function(error){
             errorMessage('#errordb',error.responseText);
@@ -490,6 +398,30 @@ $(document).ready(function () {
             alert('Failed to load statistics.');
         })
         });
+
+
+        $(document).on('click','.Shop',function(e){
+            e.preventDefault();
+            setTimeout(() => {
+                $('#digimon-select-container').hide();
+                $('.container').show();
+            }, 200);
+            $.ajax({
+                url:'/getshopitems',
+                method:'GET',
+            })
+            .done(function(data){
+                $('.digimonsT').hide();
+                $('#addDigimon').css('visibility', 'hidden');
+                $('.battle-button').css('visibility', 'hidden');
+                $('.shopT').show();
+                $('#userTable').html(data); 
+            })
+            .fail(function(error){
+                console.error('Error fetching data:', error);
+            })
+        })
+
 
         $(document).on('click','.btn-choose',function (e){
             e.preventDefault();
@@ -557,39 +489,9 @@ $(document).ready(function () {
                 alert('Failed to load digimon information.');
             })
         })
-
-
-        //   const xValues = ["Italy", "France", "Spain", "USA", "Argentina"];
-        // const yValues = [55, 49, 44, 24, 15];
-        // const barColors = ["red", "green","blue","orange","brown"];
-
-        // new Chart("myChart", {
-        // type: "bar",
-        // data: {
-        //     labels: xValues,
-        //     datasets: [{
-        //     backgroundColor: barColors,
-        //     data: yValues
-        //     }]
-        // },
-        // options: {
-        //     legend: {display: false},
-        //     scales: {
-        //     yAxes: [{
-        //         ticks: {
-        //         beginAtZero: true
-        //         }
-        //     }]
-        //     },
-
-        //     title: {
-        //     display: true,
-        //     text: "World Wine Production 2018"
-        //     }
-        // }
-        // });
-
-    
+        
+        
+    ///------shop------///
 });
 
 

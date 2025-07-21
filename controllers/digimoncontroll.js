@@ -24,7 +24,7 @@ const getAllDigis = async (req, res) => {
 
       res.render('DigimonSystem/digimonTable', { DigiPage}); 
   } catch (error) {
-    console.error('Error fetching digimons (AJAX):', error);
+    console.error('Error fetching digimons:', error);
     res.status(500).send('Something went wrong');
   }
   }
@@ -46,6 +46,18 @@ const getPages = async (req, res) => {
   }
 };
 
+
+const getshopitems = async (req,res) =>{
+  try{
+    const shopitems = await prisma.shop.findMany();
+
+    res.render('shopSystem/shoppage', {shopitems})
+  }
+ catch (error){
+      console.error('Error fetching shopitems:', error);
+    res.status(500).send('Something went wrong');
+  }
+}
 const getUserdigis = async (req,res) =>{
   const page = req.query.page;
   try{
@@ -78,8 +90,7 @@ const evolveDigimon = async (req,res) =>{
     const hp = req.body.hp;
     const attack = req.body.attack;
     const defense = req.body.defense;
-    console.log(hp,attack,defense,rank);
-   const updateEvolve = await prisma.digimon.update({
+   const evolveDigimon = await prisma.digimon.update({
       where: {
       id: parseInt(id),
     },
@@ -94,7 +105,7 @@ const evolveDigimon = async (req,res) =>{
 
     }
   })
-  res.status(200).json(updateEvolve);
+  res.status(200).json(evolveDigimon);
 
   }
   catch (error){
@@ -142,7 +153,7 @@ const updateEXP = async (req,res) => {
   console.log("experience:", digimonDetails.experience, typeof digimonDetails.experience);
   console.log("newExperience:", newExperience);
 
-  const updateExp = await prisma.digimon.update({
+  const expDigimon = await prisma.digimon.update({
       where: {
       id: parseInt(id),
     },
@@ -154,7 +165,7 @@ const updateEXP = async (req,res) => {
     }
   })
 
-    res.status(200).json(updateExp);
+    res.status(200).json(expDigimon);
   }
   catch (error) {
     console.error('Error creating digimon:', error);
@@ -260,6 +271,7 @@ module.exports = {
     getUserdigis,
     updateEXP,
     evolveDigimon,
+    getshopitems,
     // clearbackground,
     addDigi,
     deleteDigi,
