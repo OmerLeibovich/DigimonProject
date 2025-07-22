@@ -50,7 +50,7 @@ app.get('/', (req, res) => {
     res.render('index', { isLoggedIn: true, user: req.session.user,Havetoken: false });
   }
   else {
-      res.render('index', { isLoggedIn: false, Havetoken: false });
+      res.render('index', { isLoggedIn: false, user: req.session.user || null, Havetoken: false });
     }
   }
 });

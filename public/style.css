@@ -382,6 +382,13 @@ td img {
 .navbar .logout-btn {
   margin-left: auto; 
 }
+.money-display {
+    margin-left: auto;        
+    margin-right: 12%;        
+    color: yellow;           
+    font-weight: bold;        
+    font-size: 20px;
+}
 
 
 /* BattleSystem */

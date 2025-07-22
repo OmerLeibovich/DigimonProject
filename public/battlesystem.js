@@ -70,20 +70,12 @@ export function battle(){
          const selected = $('#digimon-select option:selected');
          const selectedValue = selected.val();
          if(selectedValue !== ""){
-            const Digimon = {
-                rank: selected.data('rank'),
-                level: selected.data('level'),
-                photo: selected.data('photo'),
-                name: selected.data('name'),
-                hp: selected.data('hp'),
-                attack: selected.data('at'),
-                defense: selected.data('de')
-            };
-
          $('#your-battlePhoto').data('id',selected.data('id'));
           $('#digimon-select-container').hide();
            $('.battle-container').show();
-           await getopponentrandomDigi(Digimon);
+           await getopponentrandomDigi(selected.data('rank'),selected.data('level'),
+           selected.data('photo'),selected.data('name'),
+           selected.data('hp'),selected.data('at'),selected.data('de'));
          }
          else{
             alert("You need to choose digimon");

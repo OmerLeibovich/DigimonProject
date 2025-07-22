@@ -13,6 +13,7 @@ router.route('/updateEXP').put(digimonController.updateEXP);
 router.route('/evolve').put(digimonController.evolveDigimon);
 router.route('/chartdata').get(digimonController.getstatisticData);
 router.route('/getshopitems').get(digimonController.getshopitems);
+router.route('/additem').post(digimonController.buyitem);
 
 
 

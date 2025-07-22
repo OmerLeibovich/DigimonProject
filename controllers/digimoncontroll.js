@@ -49,7 +49,7 @@ const getPages = async (req, res) => {
 
 const getshopitems = async (req,res) =>{
   try{
-    const shopitems = await prisma.shop.findMany();
+    const shopitems = await prisma.item.findMany();
 
     res.render('shopSystem/shoppage', {shopitems})
   }
@@ -57,6 +57,50 @@ const getshopitems = async (req,res) =>{
       console.error('Error fetching shopitems:', error);
     res.status(500).send('Something went wrong');
   }
+}
+
+
+const buyitem = async(req,res) =>{
+  try{
+  const itemid = req.body.itemid;
+  const userid = req.body.userid;
+  const amount = req.body.amount;
+
+  const checkItem = await prisma.inventory.findFirst({
+    where:{
+      userId:  parseInt(userid),
+      itemId: parseInt(itemid),
+    }
+  })
+  if (checkItem){
+    let newamount = parseInt(amount)+ checkItem.quantity;
+    const updateitem = await prisma.inventory.update({
+      where:{
+        id : checkItem.id,
+      },
+      data:{
+        quantity: newamount,
+      }
+    })
+    res.status(200).json(updateitem);
+  }
+
+  else{
+  const newitem = await prisma.inventory.create({
+    data:{
+      quantity: parseInt(amount),
+      userId: parseInt(userid),
+      itemId: parseInt(itemid),
+    }
+    })
+     res.status(200).json(newitem);
+  }
+}
+    catch (error){
+      console.error('Error fetching buy item:', error);
+    res.status(500).send('Something went wrong');
+  }
+
 }
 const getUserdigis = async (req,res) =>{
   const page = req.query.page;
@@ -131,15 +175,21 @@ const updateEXP = async (req,res) => {
     const id = req.body.id;
     const exp = req.body.exp;
     const result = req.body.result;
+    const userid = req.body.userid;
 
     const digimonDetails = await prisma.digimon.findUnique({
     where: {
       id: parseInt(id),
     }
   })
-  var newExperience = parseInt(digimonDetails.experience) + parseInt(exp);
-  var newlvl = parseInt(digimonDetails.level);
-  var maxexp = parseInt(digimonDetails.levelUPExp);
+  const user = await prisma.user.findUnique({
+    where:{
+      id:parseInt(userid),
+    }
+  })
+  let newExperience = parseInt(digimonDetails.experience) + parseInt(exp);
+  let newlvl = parseInt(digimonDetails.level);
+  let maxexp = parseInt(digimonDetails.levelUPExp);
   if(newExperience < 0){
     newExperience = 0;
   }
@@ -148,11 +198,16 @@ const updateEXP = async (req,res) => {
     newExperience = 0;
     maxexp +=30
   }
-
-  console.log("levelUPExp:", digimonDetails.levelUPExp, typeof digimonDetails.levelUPExp);
-  console.log("experience:", digimonDetails.experience, typeof digimonDetails.experience);
-  console.log("newExperience:", newExperience);
-
+  let newMoney = user.money + 30;
+  await prisma.user.update({
+      where:{
+      id:parseInt(userid),
+    },
+    data:{
+      money: newMoney,
+    }
+  })
+  req.session.user.money = newMoney;
   const expDigimon = await prisma.digimon.update({
       where: {
       id: parseInt(id),
@@ -234,8 +289,8 @@ const deleteDigi = async (req, res) =>{
 const getstatisticData = async (req,res) =>{
   try{
     const id = parseInt(req.query.id);
-    var loses = 0;
-    var wins = 0;
+    let loses = 0;
+    let wins = 0;
     if(req.query.userid === 'true'){
       const check = await prisma.digimon.findMany({
         where:{
@@ -272,6 +327,7 @@ module.exports = {
     updateEXP,
     evolveDigimon,
     getshopitems,
+    buyitem,
     // clearbackground,
     addDigi,
     deleteDigi,

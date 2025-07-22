@@ -19,12 +19,12 @@ const Checkuser =  async (req, res) => {
     req.session.regenerate(function (err) {
       if (err) return next(err);
 
-      req.session.user = { id: user.id, username: user.username , password: password,remamber: remamber};
+      req.session.user = { id: user.id, username: user.username , password: password,remamber: remamber,money:user.money};
       
    if (user.isActivate) {
       req.session.save(function (err) {
         if (err) return next(err);
-        res.status(200).json({ isLoggedIn: true,id: user.id });
+        res.redirect('/');
       });
    }
   else{

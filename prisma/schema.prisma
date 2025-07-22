@@ -20,7 +20,6 @@ model digimon {
   attack     String
   defense    String
   userid     Int
-  money      Int    @default(0)
   loses      Int    @default(0)
   wins       Int    @default(0)
   user       user   @relation(fields: [userid], references: [id])
@@ -33,15 +32,18 @@ model user {
   email      String    @unique
   isActivate Boolean   @default(false)
   token      String
+  money      Int    @default(300)
   digimons   digimon[]
+  inventories inventory[]
 }
 
-model shop{
+model item{
   id     Int @id @default(autoincrement())
   name   String
   price  Int
   photo  String
   description String
+  inventories inventory[]
 }
 
 model Session {
@@ -51,4 +53,17 @@ model Session {
   expiresAt DateTime
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+model inventory {
+  id        Int    @id @default(autoincrement())
+
+  userId    Int
+  itemId    Int
+  quantity  Int    @default(0)
+
+  user      user   @relation(fields: [userId], references: [id])
+  item      item   @relation(fields: [itemId], references: [id])
+
+  @@unique([userId, itemId])
 }

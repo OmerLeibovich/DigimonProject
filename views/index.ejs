@@ -16,6 +16,12 @@
     <a href="/">Home</a>
     <a href="" class="Statistic">Statistic</a>
     <a href="" class="Shop">Shop</a>
+    <a href="" class="bag">Bag</a>
+    <% if (user) { %>
+    <span class="money-display">
+        <i class="fa fa-money"></i> : <%= user.money %>
+    </span>
+<% } %>
     <a href="/logout" class="logout-btn">Logout</a>
   </div>
   </div>

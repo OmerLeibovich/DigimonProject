@@ -38,6 +38,7 @@ $(document).ready(function () {
 
     function showMessage(text, duration) {
     $('.message').text(text).fadeIn();
+    $('.container').fadeOut();
     setTimeout(() => {
         $('.message').fadeOut();
         $('.container').fadeIn();
@@ -94,8 +95,8 @@ $(document).ready(function () {
     $('.message').fadeIn();
     $('.container').fadeOut();
     const digiId = $(this).data('id');
-    var rankVal = ["Baby I","Baby II","Child","Adult","Perfect","Ultimate","Armor","Hybrid"];
-    var rank = ["Baby","In_traning","Rookie","Champion","Ultimate","Mega","Armor","Hybrid"];
+    let rankVal = ["Baby I","Baby II","Child","Adult","Perfect","Ultimate","Armor","Hybrid"];
+    let rank = ["Baby","In_traning","Rookie","Champion","Ultimate","Mega","Armor","Hybrid"];
      if ((digiRank === rank[0] && digiLevel > 6 ) || (digiRank === rank[1] && digiLevel > 10 )
         || (digiRank === rank[2] && digiLevel > 17 ) || 
     (digiRank === rank[3] && digiLevel > 30 ) || (digiRank === rank[4] && digiLevel > 45 )){
@@ -274,8 +275,8 @@ $(document).ready(function () {
         const email = $('#email').val()
         const password = $('#Rpassword').val();
         const confirm_password = $('#confirm-password').val();
-        var pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        var result = email.match(pattern);
+        let pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        let result = email.match(pattern);
         if(username.length < 4){
             errorMessage('#erroruser','Username must be at least 4 characters');
         return;
@@ -426,9 +427,9 @@ $(document).ready(function () {
         $(document).on('click','.btn-choose',function (e){
             e.preventDefault();
             const selected = $('#digimon-statistic option:selected');
-            var id;
-            var userid;
-            var name;
+            let id;
+            let userid;
+            let name;
             const photo = selected.data('photo');
             if (photo) {
                 console.log(photo);
@@ -492,6 +493,42 @@ $(document).ready(function () {
         
         
     ///------shop------///
+        $(document).on("click",".btn-buy", function(e){
+            const itemid = $(this).closest('tr').find('td').eq(0).data('item');
+            const itemName = $(this).closest('tr').find('td')[1].innerText;
+            const amountInput = $(this).closest('tr').find('.amount-input');
+            const amount = amountInput.val();
+
+            if (amount > 0 ){
+                    $.ajax({
+                        url:'/additem',
+                        method:'POST',
+                        data :{
+                            userid : JSON.parse(sessionStorage.user).id,
+                            itemid : itemid,
+                            amount : amount,
+                        }
+                    })
+                    .done(function(data){
+                        if (data.quantity > amount){
+                            let newamount = data.quantity+parseInt(amount);
+                            showMessage(`updated amount of ${itemName} from ${data.quantity} to ${newamount} `,2500);
+                        }
+                        else{
+                        showMessage(`completed to buy ${amount} of ${itemName} `,2500);
+                        }
+                        amountInput.val('');
+                    })
+                    .fail(function(error){
+                        alert(`Failed to buy ${itemName}.`);
+                    })
+            }
+            else{
+                showMessage(`amount of item must bigger then 0 `,2000);
+                amountInput.val('');
+            }
+        })
+
 });
 
 

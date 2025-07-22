@@ -87,6 +87,7 @@ import { updateList } from "./create.js";
         }
          //end of attacks
          if (finish) {
+            const userid = JSON.parse(sessionStorage.user).id
             setTimeout(() => {
                 $('.battle-message').text(endMessage);
             }, 2500);
@@ -107,7 +108,8 @@ import { updateList } from "./create.js";
                         data :{
                             exp : experiance,
                             id : $('#your-battlePhoto').data('id'),
-                            result : result
+                            result : result,
+                            userid : userid,
                         }
                     })
                     .done(function(data){
