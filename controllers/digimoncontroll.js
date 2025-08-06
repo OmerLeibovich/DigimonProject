@@ -102,6 +102,39 @@ const buyitem = async(req,res) =>{
   }
 
 }
+
+const getalluseritems = async (req,res) =>{
+  try{
+  const id = req.query.id;
+
+  const useritems = await prisma.inventory.findMany({
+  where: {
+    userId: parseInt(id),
+  },
+  select: {
+    quantity: true,
+    item: {
+      select: {
+        name: true,
+        description: true,
+        photo: true,
+      }
+    }
+  },
+  orderBy:{
+    quantity:'asc',
+  }
+});
+    console.log(useritems);
+    res.render('inventorySystem/inventorypage', {useritems})
+  }
+ catch (error){
+      console.error('Error fetching useritems:', error);
+    res.status(500).send('Something went wrong');
+  }
+}
+
+// }
 const getUserdigis = async (req,res) =>{
   const page = req.query.page;
   try{
@@ -208,7 +241,7 @@ const updateEXP = async (req,res) => {
     }
   })
   req.session.user.money = newMoney;
-  const expDigimon = await prisma.digimon.update({
+  await prisma.digimon.update({
       where: {
       id: parseInt(id),
     },
@@ -220,7 +253,7 @@ const updateEXP = async (req,res) => {
     }
   })
 
-    res.status(200).json(expDigimon);
+    res.status(200).json({newMoney: newMoney});
   }
   catch (error) {
     console.error('Error creating digimon:', error);
@@ -327,6 +360,7 @@ module.exports = {
     updateEXP,
     evolveDigimon,
     getshopitems,
+    getalluseritems,
     buyitem,
     // clearbackground,
     addDigi,

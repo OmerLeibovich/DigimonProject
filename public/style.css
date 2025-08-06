@@ -110,7 +110,8 @@ td img {
 .message,
 .forgot-container,
 .reset-container,
-.shopT {
+.shopT,
+.bagT {
   display: none;
 }
 
@@ -742,18 +743,20 @@ body {
     left: 450px; 
 }
 
-/* shop */
+/* shop+inventory */
 
-  .btn.btn-buy {
-      background-color: #388E3C !important;
-      color: white !important;
-      padding: 5px 10px;
-      border-radius: 8px;
-      font-size: 16px;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-    }
+.btn.btn-buy,
+.btn.btn-use {
+    background-color: #388E3C !important;
+    color: white !important;
+    padding: 5px 10px;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
 
-    .btn.btn-buy:hover {
-      background-color: #388E3C !important;
-    }
+.btn.btn-buy:hover,
+.btn.btn-use:hover {
+    background-color: #388E3C !important;
+}

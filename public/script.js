@@ -7,7 +7,22 @@ import {resetRegisterPage} from './reset.js';
 import {battle}from './battlesystem.js'; 
 
 
+export async function getuserdigi(page){
+        $.ajax({
+            url: '/getuserdigis',
+            method: 'GET',
+            data:{
+                page: page,
+            }
+        })
+        .done(function(data) {
+            $('#digimon-select-container').html(data).show();
+        })
+        .fail(function() {
+            alert('Failed to load statistics.');
+        })
 
+}
 $(document).ready(function () {
     
         let currentChart = null;
@@ -44,6 +59,7 @@ $(document).ready(function () {
         $('.container').fadeIn();
     }, duration);
 }
+
 
    
 
@@ -127,7 +143,7 @@ $(document).ready(function () {
             }
         })
         .done(function(data){
-            showMessage(`${diginame} + " evolve to: " + ${evoTree[random].name}`,3000);
+            showMessage(`${diginame}  " evolve to: "  ${evoTree[random].name}`,3000);
             updateList();
         })
         .fail(function(error){
@@ -385,21 +401,35 @@ $(document).ready(function () {
         $(document).on('click', '.Statistic', function(e) {
         e.preventDefault();
         $('.container').hide();
-        $.ajax({
-            url: '/getuserdigis',
-            method: 'GET',
-            data:{
-                page: 'statistic',
-            }
-        })
-        .done(function(data) {
-            $('#digimon-select-container').html(data).show();
-        })
-        .fail(function() {
-            alert('Failed to load statistics.');
-        })
+        getuserdigi('statistic');
         });
 
+
+         $(document).on('click','.bag',function(e){
+            e.preventDefault();
+            setTimeout(() => {
+                $('#digimon-select-container').hide();
+                $('.container').show();
+            }, 200);
+            $.ajax({
+                url:'/getuseritems',
+                method:'GET',
+                data:{
+                    id : JSON.parse(sessionStorage.user).id,
+                }
+            })
+            .done(function(data){
+                $('.digimonsT').hide();
+                $('.shopT').hide();
+                $('#addDigimon').css('visibility', 'hidden');
+                $('.battle-button').css('visibility', 'hidden');
+                $('.bagT').show();
+                $('#userTable').html(data); 
+            })
+            .fail(function(error){
+                console.error('Error fetching data:', error);
+            })
+           })
 
         $(document).on('click','.Shop',function(e){
             e.preventDefault();
@@ -413,6 +443,7 @@ $(document).ready(function () {
             })
             .done(function(data){
                 $('.digimonsT').hide();
+                $('.bagT').hide();
                 $('#addDigimon').css('visibility', 'hidden');
                 $('.battle-button').css('visibility', 'hidden');
                 $('.shopT').show();
@@ -423,6 +454,8 @@ $(document).ready(function () {
             })
         })
 
+
+        ////-----statistic-----////
 
         $(document).on('click','.btn-choose',function (e){
             e.preventDefault();
@@ -511,8 +544,7 @@ $(document).ready(function () {
                     })
                     .done(function(data){
                         if (data.quantity > amount){
-                            let newamount = data.quantity+parseInt(amount);
-                            showMessage(`updated amount of ${itemName} from ${data.quantity} to ${newamount} `,2500);
+                            showMessage(`updated amount of ${itemName} add more ${amount} `,2500);
                         }
                         else{
                         showMessage(`completed to buy ${amount} of ${itemName} `,2500);
@@ -528,6 +560,15 @@ $(document).ready(function () {
                 amountInput.val('');
             }
         })
+
+
+    ////-------userbag-------//////
+   $(document).on('click','.btn-use',function(e){
+    e.preventDefault();
+    const itemid = $(this).closest('tr').find('td').eq(0).data('item');
+    $('.container').hide();
+    getuserdigi('battle');
+   })
 
 });
 

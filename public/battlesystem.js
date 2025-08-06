@@ -2,6 +2,7 @@
 import {calcDmg ,calcNew_hp } from './calculation.js';
 import {getopponentrandomDigi} from './create.js';
 import {resetBattlesystem} from './reset.js';
+import {getuserdigi} from './script.js';
 
 export function battle(){
      // change photo
@@ -50,20 +51,8 @@ export function battle(){
         e.preventDefault();
         $('#digimon-select-container').empty().hide();
         $('.container').hide();
-        $.ajax({
-            url:'/getuserdigis',
-            method:'GET',
-            data:{
-                page: 'battle',
-            }
+        getuserdigi('battle');
         })
-        .done(function(data){
-             $('#digimon-select-container').html(data).show();
-        })
-        .fail(function(data){
-                alert("fail to getDigis");
-        })
-     })
      $(document).on('click','.btn-success', async function(e){
          e.preventDefault();
          resetBattlesystem();

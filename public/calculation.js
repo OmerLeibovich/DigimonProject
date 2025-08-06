@@ -1,10 +1,10 @@
 import { updateList } from "./create.js"; 
     // culc the level of digimon according to his rank
   export  function calc_level(rank){
-         if (rank === 'Baby I'){
+         if (rank === 'Baby'){
             return(Math.floor(Math.random() * (7 - 1) + 1));
          }
-         else if(rank === 'Baby II'){
+         else if(rank === 'In_traning'){
             return(Math.floor(Math.random() * (11 - 7) + 7));
          }
          else if(rank === 'Rookie'){
@@ -114,6 +114,7 @@ import { updateList } from "./create.js";
                     })
                     .done(function(data){
                         updateList();
+                        $('.money-display').html(`<i class="fa fa-money"></i> : ${data.newMoney}`);
                     })
                     .fail(function(error){
                         alert("error:"+error);
