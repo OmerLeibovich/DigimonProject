@@ -112,9 +112,11 @@ const getalluseritems = async (req,res) =>{
     userId: parseInt(id),
   },
   select: {
-    quantity: true,
+      quantity: true,
+      itemId: true,  
     item: {
       select: {
+        id: true,
         name: true,
         description: true,
         photo: true,

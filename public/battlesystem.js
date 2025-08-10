@@ -51,9 +51,10 @@ export function battle(){
         e.preventDefault();
         $('#digimon-select-container').empty().hide();
         $('.container').hide();
+        $('.btn-use').hide();
         getuserdigi('battle');
         })
-     $(document).on('click','.btn-success', async function(e){
+     $(document).on('click','#submit-digimon', async function(e){
          e.preventDefault();
          resetBattlesystem();
          const selected = $('#digimon-select option:selected');

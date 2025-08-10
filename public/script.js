@@ -7,7 +7,7 @@ import {resetRegisterPage} from './reset.js';
 import {battle}from './battlesystem.js'; 
 
 
-export async function getuserdigi(page){
+export async function getuserdigi(page,itemName = null,itemId = null){
         $.ajax({
             url: '/getuserdigis',
             method: 'GET',
@@ -17,13 +17,23 @@ export async function getuserdigi(page){
         })
         .done(function(data) {
             $('#digimon-select-container').html(data).show();
+            if (page === 'items'){
+                    $('#submit-digimon').hide();
+                    $('.titleItem').text(`use ${itemName} on your Digimon`).attr('data-id', itemId);;
+            }
+            if (page === 'battle'){
+                    $('#use-digimon').hide();
+            }
         })
         .fail(function() {
             alert('Failed to load statistics.');
         })
 
+
 }
 $(document).ready(function () {
+
+    
     
         let currentChart = null;
 
@@ -566,8 +576,18 @@ $(document).ready(function () {
    $(document).on('click','.btn-use',function(e){
     e.preventDefault();
     const itemid = $(this).closest('tr').find('td').eq(0).data('item');
+    const itemName = $(this).closest('tr').find('td')[1].innerText;
     $('.container').hide();
-    getuserdigi('battle');
+    getuserdigi('items',itemName,itemid);
+   })
+   $(document).on('click','#use-digimon',function(e){
+    e.preventDefault();
+    const id = $('.titleItem').data('id');
+    const selected = $('#digimon-select option:selected');
+    console.log(id);
+    console.log(selected.data('id'))
+    console.log(JSON.parse(sessionStorage.user).id);
+    
    })
 
 });

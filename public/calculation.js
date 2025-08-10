@@ -28,7 +28,7 @@ import { updateList } from "./create.js";
    export function calc_stats(level){
         var hp = Math.floor(Math.random() * ((level*5.5) - (level*3)) + (level*3));
         var attack = Math.floor(Math.random() * ((level*5.5) - (level*3)) + (level*3));
-        var defense = Math.floor(Math.random() * ((level*5.5) - (level*3)) + (level*3));
+        var defense = Math.floor(Math.random() * ((level*2.75) - (level*1.5)) + (level*1.5));
         return [hp, attack, defense];
     }
 
