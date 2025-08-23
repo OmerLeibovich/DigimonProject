@@ -18,10 +18,13 @@
     }
 
         //send pages
-    export  function pages(){
+    export  function pages(element){
         $.ajax({
             url:'/getpages',
             method:'GET',
+            data:{
+                element : element,
+            }
         })
         .done(function(data){
             $('#pages').html(data);

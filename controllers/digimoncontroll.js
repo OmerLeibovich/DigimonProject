@@ -33,12 +33,14 @@ const getAllDigis = async (req, res) => {
 const getPages = async (req, res) => {
   try {
     const userId = req.session?.user?.id;
+    const element = req.query.element;
+    let count = 0; 
     if (!userId) return res.status(401).send("Unauthorized");
-
-    const count = await prisma.digimon.count({
+    if (element === "digimons"){
+    count = await prisma.digimon.count({
       where: { userid: userId }
     });
-
+  }
     res.render('DigimonSystem/digimonPages', { count });
   } catch (error) {
     console.error('Error fetching page count:', error);
@@ -65,7 +67,18 @@ const buyitem = async(req,res) =>{
   const itemid = req.body.itemid;
   const userid = req.body.userid;
   const amount = req.body.amount;
+  const money = req.body.money;
 
+  let newMoney = money - (100*amount);
+  req.session.user.money = newMoney;
+  const updateMoney = await prisma.user.update({
+    where:{
+      id: parseInt(userid)
+    },
+    data:{
+      money: newMoney,
+    }
+  })
   const checkItem = await prisma.inventory.findFirst({
     where:{
       userId:  parseInt(userid),
@@ -82,7 +95,10 @@ const buyitem = async(req,res) =>{
         quantity: newamount,
       }
     })
-    res.status(200).json(updateitem);
+    res.status(200).json({
+      updateitem,
+      newMoney: newMoney
+    });
   }
 
   else{
@@ -127,7 +143,6 @@ const getalluseritems = async (req,res) =>{
     quantity:'asc',
   }
 });
-    console.log(useritems);
     res.render('inventorySystem/inventorypage', {useritems})
   }
  catch (error){
@@ -353,6 +368,20 @@ const getstatisticData = async (req,res) =>{
       console.error('Error get digimon information:', error);
     res.status(500).send('Something went wrong');
   }
+}
+
+const useitem = async (req,res) =>{
+   const itemid = req.body.itemid;
+  const digimonid = req.body.digimonid;
+  const userid = req.body.userid;
+  const stat = req.body.stat;
+   try{
+   }
+     catch(error){
+      console.error('Error get digimon information:', error);
+    res.status(500).send('Something went wrong');
+  }
+
 }
 
 module.exports = {

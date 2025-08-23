@@ -19,7 +19,7 @@ export async function getuserdigi(page,itemName = null,itemId = null){
             $('#digimon-select-container').html(data).show();
             if (page === 'items'){
                     $('#submit-digimon').hide();
-                    $('.titleItem').text(`use ${itemName} on your Digimon`).attr('data-id', itemId);;
+                    $('.titleItem').text(`use ${itemName} on your Digimon`).attr('data-id', itemId).attr('data-name', itemName);
             }
             if (page === 'battle'){
                     $('#use-digimon').hide();
@@ -50,7 +50,7 @@ $(document).ready(function () {
             $('.battle-button').show();
             $('.bar').show();
             updateList(); 
-            pages()
+            pages("digimons")
             }
         else if (user.remamber === 'true'){
             const username = user.username;
@@ -106,7 +106,7 @@ $(document).ready(function () {
         })
         .done(function(data){
             updateList();
-            pages();
+            pages("digimons");
         })
         .fail(function(){
             alert("fail to delete digimon");
@@ -199,7 +199,7 @@ $(document).ready(function () {
         .done(function(data){
             $('#DigiForm').hide(); 
             updateList();
-            pages()
+            pages("digimons")
             $('#addDigimon').prop('disabled', false);
         })
         .fail(function(){
@@ -261,7 +261,7 @@ $(document).ready(function () {
             $('.battle-button').show();
             $('.bar').show();
             updateList(); 
-            pages();
+            pages("digimons");
         
     })
         .fail(function(error){
@@ -434,6 +434,7 @@ $(document).ready(function () {
                 $('#addDigimon').css('visibility', 'hidden');
                 $('.battle-button').css('visibility', 'hidden');
                 $('.bagT').show();
+                $('#pages').hide();
                 $('#userTable').html(data); 
             })
             .fail(function(error){
@@ -457,6 +458,7 @@ $(document).ready(function () {
                 $('#addDigimon').css('visibility', 'hidden');
                 $('.battle-button').css('visibility', 'hidden');
                 $('.shopT').show();
+                $('#pages').hide();
                 $('#userTable').html(data); 
             })
             .fail(function(error){
@@ -541,8 +543,9 @@ $(document).ready(function () {
             const itemName = $(this).closest('tr').find('td')[1].innerText;
             const amountInput = $(this).closest('tr').find('.amount-input');
             const amount = amountInput.val();
-
-            if (amount > 0 ){
+            const money = user.money;
+            if (amount > 0){
+                if(money>(amount*100)){
                     $.ajax({
                         url:'/additem',
                         method:'POST',
@@ -550,21 +553,29 @@ $(document).ready(function () {
                             userid : JSON.parse(sessionStorage.user).id,
                             itemid : itemid,
                             amount : amount,
+                            money: money,
                         }
                     })
                     .done(function(data){
-                        if (data.quantity > amount){
+                        if (data.quantity-amount > 0){
                             showMessage(`updated amount of ${itemName} add more ${amount} `,2500);
                         }
                         else{
                         showMessage(`completed to buy ${amount} of ${itemName} `,2500);
                         }
                         amountInput.val('');
+                        user.money = data.newMoney;
+                          $(".money-display").html(`<i class="fa fa-money"></i> : ${user.money}`);
                     })
                     .fail(function(error){
-                        alert(`Failed to buy ${itemName}.`);
+                        showMessage(`Failed to buy ${itemName}.`,2000);
                     })
             }
+              else{
+            showMessage(`you have only ${money}$ and you try to buy in ${(amount*100)}$ `,2000);
+            amountInput.val('');
+        }
+        }
             else{
                 showMessage(`amount of item must bigger then 0 `,2000);
                 amountInput.val('');
@@ -583,7 +594,28 @@ $(document).ready(function () {
    $(document).on('click','#use-digimon',function(e){
     e.preventDefault();
     const id = $('.titleItem').data('id');
+    const itemName = $('.titleItem').data('name');
     const selected = $('#digimon-select option:selected');
+    let StatName = itemName.replace(/UP$/, '');
+    $.ajax({
+        url:'/useitem',
+        method:'POST',
+        data:{
+            itemid: id,
+            digimonid: selected.data('id'),
+            userid: JSON.parse(sessionStorage.user).id,
+            stat: StatName.toLowerCase(),
+
+        }
+    })
+    .done(function(data){
+        showMessage(`increse ${selected.data('name')} ${StatName} by 1.`,2000);
+            $('#digimon-select-container').hide();
+
+    }).fail(function(error){
+        showMessage(`Failed to buy ${itemName}.`,2000);
+        })
+
     console.log(id);
     console.log(selected.data('id'))
     console.log(JSON.parse(sessionStorage.user).id);
@@ -591,6 +623,3 @@ $(document).ready(function () {
    })
 
 });
-
-
-
