@@ -4,7 +4,7 @@ import {getopponentrandomDigi} from './create.js';
 import {resetBattlesystem} from './reset.js';
 import {getuserdigi} from './script.js';
 
-export function battle(){
+export function battleSystem(){
      // change photo
      $(document).on('change', '#digimon-select', function () {
         const selected = $(this).find(':selected');

@@ -15,6 +15,7 @@ router.route('/chartdata').get(digimonController.getstatisticData);
 router.route('/getshopitems').get(digimonController.getshopitems);
 router.route('/additem').post(digimonController.buyitem);
 router.route('/getuseritems').get(digimonController.getalluseritems);
+router.route('/useitem').put(digimonController.useitem);
 
 
 

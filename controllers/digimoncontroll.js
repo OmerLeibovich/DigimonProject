@@ -126,6 +126,9 @@ const getalluseritems = async (req,res) =>{
   const useritems = await prisma.inventory.findMany({
   where: {
     userId: parseInt(id),
+      quantity: {
+      gt: 0,  
+    },
   },
   select: {
       quantity: true,
@@ -143,6 +146,9 @@ const getalluseritems = async (req,res) =>{
     quantity:'asc',
   }
 });
+  if (!useritems){
+    useritems = [];
+  }
     res.render('inventorySystem/inventorypage', {useritems})
   }
  catch (error){
@@ -376,6 +382,37 @@ const useitem = async (req,res) =>{
   const userid = req.body.userid;
   const stat = req.body.stat;
    try{
+      await prisma.inventory.update({
+        where: {
+          userId_itemId: {
+            userId: parseInt(userid),
+            itemId: parseInt(itemid),
+          }
+        },
+        data: {
+          quantity: { decrement: 1 } 
+        }
+      })
+
+      const digimon = await prisma.digimon.findUnique({
+         where:{
+          id : parseInt(digimonid),
+        },
+      })
+
+      let digistat = parseInt(digimon[stat]);
+      digistat++;
+      const upstat = await prisma.digimon.update({
+        where:{
+          id : parseInt(digimonid),
+        },
+        data:{
+          [`${stat}`]: digistat.toString() 
+        }
+
+      })
+      res.status(200).json(upstat);
+
    }
      catch(error){
       console.error('Error get digimon information:', error);
@@ -397,4 +434,5 @@ module.exports = {
     addDigi,
     deleteDigi,
     getstatisticData,
+    useitem,
 }

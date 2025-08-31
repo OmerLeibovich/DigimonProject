@@ -1,23 +1,23 @@
 <div class="statistic-container">
+  <div class="statistic-main">
     <div class="statistic-controls">
-    <select id="digimon-statistic">
+      <select id="digimon-statistic">
         <option value="">all</option>
         <% digimons.forEach(digimon => { %>
             <option data-id="<%= digimon.id %>" data-name="<%= digimon.name %>" data-photo="<%= digimon.photo %>">
-                  <%= digimon.name %>
-                    &nbsp;
-                    <%= digimon.level %>
+              <%= digimon.name %> &nbsp; <%= digimon.level %>
             </option>
         <% }) %>
-    </select>
-    <button id="statistic-digimon" class="btn-choose">choose</button>
+      </select>
+      <button id="statistic-digimon" class="btn-choose">choose</button>
     </div>
-     <img id="statistic-photo" src="" alt="Digimon Photo" class="mb-3 statistic-photo"/>
-    <canvas id="digiChart" class="canvas-chart">
-    </canvas>
-    <canvas id="winsCanvas">
-        </canvas>
 
-    <canvas id="losesCanvas">
-        </canvas>
+    <img id="statistic-photo" src="" alt="Digimon Photo" class="statistic-photo"/>
+    <canvas id="digiChart" class="canvas-chart"></canvas>
+  </div>
+
+  <div class="wins-loses-wrapper">
+    <canvas id="winsCanvas"></canvas>
+    <canvas id="losesCanvas"></canvas>
+  </div>
 </div>

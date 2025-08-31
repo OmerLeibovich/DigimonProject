@@ -1,10 +1,13 @@
 
 
-import {calc_stats } from './calculation.js';
-import { getyourrandomDigi,pages
-    ,updateList,evolveDigi,createCircle } from './create.js';
-import {resetRegisterPage} from './reset.js';
-import {battle}from './battlesystem.js'; 
+import {pages,updateList} from './create.js';
+import {battleSystem}from './battlesystem.js'; 
+import { accountSystem } from './accountSystem.js';
+import { navbar } from './navbar.js';
+import { statistic } from './Pages/statistic.js';
+import { inventory } from './Pages/inventory.js';
+import { shop } from './Pages/shop.js';
+import { table } from './tableFunc.js';
 
 
 export async function getuserdigi(page,itemName = null,itemId = null){
@@ -31,11 +34,47 @@ export async function getuserdigi(page,itemName = null,itemId = null){
 
 
 }
+    export async function getuseritems(){
+            $.ajax({
+                url:'/getuseritems',
+                method:'GET',
+                data:{
+                    id : JSON.parse(sessionStorage.user).id,
+                }
+            })
+            .done(function(data){
+                $('.digimonsT').hide();
+                $('.shopT').hide();
+                $('#addDigimon').css('visibility', 'hidden');
+                $('.battle-button').css('visibility', 'hidden');
+                $('.bagT').show();
+                $('#pages').hide();
+                $('#userTable').html(data); 
+            })
+            .fail(function(error){
+                console.error('Error fetching data:', error);
+                showMessage('Error fatching data',2000);
+            })
+    }
+
+
+    export function showMessage(text, duration) {
+    $('.message').text(text).fadeIn();
+    $('.container').fadeOut();
+    setTimeout(() => {
+        $('.message').fadeOut();
+        $('.container').fadeIn();
+    }, duration);
+}
+  // func show error message
+     export function errorMessage(id,message){
+        $(id).text(message).css({
+            'color': 'red',
+            'font-size': '12px'
+            });
+     }
 $(document).ready(function () {
 
-    
-    
-        let currentChart = null;
 
         if(Havetoken){
             $('.login-container').hide();
@@ -60,566 +99,28 @@ $(document).ready(function () {
         }
     }
 
+    ///----table----////
+    table();
 
-    function showMessage(text, duration) {
-    $('.message').text(text).fadeIn();
-    $('.container').fadeOut();
-    setTimeout(() => {
-        $('.message').fadeOut();
-        $('.container').fadeIn();
-    }, duration);
-}
-
-
-   
-
-
-   
-    // return list adjusted to the page number
-    $(document).on('click','.btn-page',function(e){
-        e.preventDefault();
-        const page = $(this).data('page');
-        updateList((page+1));
-    })
-
-    // ON MANY ITEMS with same element need class no ID
-    $(document).on('click', '.openphoto', function (e) {
-        e.preventDefault();
-        $('#DigiPhoto').show();
-        const img = $(this).find('img').attr("src"); 
-        $('#photopage').attr('src', img);
-        $('#DigiPhoto').on('click','.close-btn',function(e){
-        e.preventDefault()
-        $('#DigiPhoto').hide();
-    })
-      })
-      // delete digimon from list
-    $(document).on('click', '.deleteDigi', function (e) {
-        e.preventDefault();
-        const DigiId = $(this).data('id');
-        $.ajax({
-            method:'DELETE',
-            url:'/deleteDigimon',
-            data: {
-                id : DigiId,
-            }
-        })
-        .done(function(data){
-            updateList();
-            pages("digimons");
-        })
-        .fail(function(){
-            alert("fail to delete digimon");
-        })
-  })
-  // if digimon can evolve return the evovle of this digimon
-  $(document).on('click','.evolveDigi', async function(e){
-    e.preventDefault();
-    const diginame = $(this).closest('tr').find('td')[1].innerText;
-    const digiRank = $(this).closest('tr').find('td')[2].innerText;
-    const digiLevel = $(this).closest('tr').find('td')[3].innerText;
-    $('.message').fadeIn();
-    $('.container').fadeOut();
-    const digiId = $(this).data('id');
-    let rankVal = ["Baby I","Baby II","Child","Adult","Perfect","Ultimate","Armor","Hybrid"];
-    let rank = ["Baby","In_traning","Rookie","Champion","Ultimate","Mega","Armor","Hybrid"];
-     if ((digiRank === rank[0] && digiLevel > 6 ) || (digiRank === rank[1] && digiLevel > 10 )
-        || (digiRank === rank[2] && digiLevel > 17 ) || 
-    (digiRank === rank[3] && digiLevel > 30 ) || (digiRank === rank[4] && digiLevel > 45 )){
-
-
-        $('.message').text(`you want to evolve ${diginame} ?`);
-         $('.message').append("</br>");
-         $('.message').append("<button class='yesbutton'>yes</button>");
-        $('.message').append("<button class='nobutton'>no</button>");
-
-
-
-        $(".yesbutton").click(async function() {
-        const evoTree = await evolveDigi(diginame,rankVal[rank.indexOf(digiRank) + 1]);
-        console.log(evoTree);
-        const random = Math.floor(Math.random() * (evoTree.length));
-        const [hp, attack, defense] = calc_stats(digiLevel);
-        $.ajax({
-            url:'/evolve',
-            method:'PUT',
-            data : {
-                id: digiId,
-                evolve: evoTree[random],
-                rank: rank[rank.indexOf(digiRank) + 1],
-                hp: hp,
-                attack: attack,
-                defense: defense,
-            }
-        })
-        .done(function(data){
-            showMessage(`${diginame}  " evolve to: "  ${evoTree[random].name}`,3000);
-            updateList();
-        })
-        .fail(function(error){
-            showMessage("fail to evolve digimon",3000);
-        })
-    })
-     $(".nobutton").click(function() {
-        showMessage("",0);
-     })
-    }
-    else{
-        showMessage("you still cant digivolve",3000);
-    }
-
-})
-
-    // form to add random digimon
-    $('#DigiForm').on('click','.submit-btn',function(e){ 
-        e.preventDefault();       
-        const photo = $('#photo').attr('src');
-        const name = $('#name').text().split(" ").slice(1).join(" ");
-        const rank = $('#rank').text().split(" ")[1];
-        const level = $('#level').text().split(" ")[1];
-        const attribute = $('#attribute').text().split(" ")[1];
-        const hp = $('#hp').text().split(" ")[1];
-        const attack = $('#attack').text().split(" ")[1];
-        const defense = $('#defense').text().split(" ")[1];
-
-        $.ajax({
-            method: "POST",
-            url: "/addDigimon",
-            data: {
-                Photo: photo,
-                Name: name,
-                Rank: rank,
-                Level: level,
-                Attribute: attribute,
-                Hp: hp,
-                Attack: attack,
-                Defense: defense,
-            }
-        })
-        .done(function(data){
-            $('#DigiForm').hide(); 
-            updateList();
-            pages("digimons")
-            $('#addDigimon').prop('disabled', false);
-        })
-        .fail(function(){
-            alert("fail to add digimon");
-        });
-    });
-
-       // open form to add digimon
-    $('#addDigimon').on("click", async function() {
-        $('#DigiForm')[0].reset();
-        await getyourrandomDigi();
-        $('#addDigimon').prop('disabled', true);
-        
-    })
-    // close digimon form
-    $('#DigiForm').on('click','.cancel-btn',function(e){
-        e.preventDefault();
-        $('#DigiForm').hide();
-        $('#addDigimon').prop('disabled', false);
-    })
-
-       $(document).on('click','.back-link',function(e){
-        e.preventDefault();
-        $('.login-container').show();
-        $('.register-container').hide();
-        $('.forgot-container').hide();
-        resetRegisterPage();
-        $('#R-email').val('');
-     });
-    
     ///// ---- battle system ------/////
-    battle();
+    battleSystem();
 
-    
-
- 
     //// ----- login -----////
-     // login to user
-     $(document).on('click','.login-btn',function(e){
-        e.preventDefault();
-        const username = $('#username').val();
-        const password = $('#password').val();
-        const remamber = $('#remamber').is(":checked");
-        $.ajax({
-            method:'POST',
-            url:'/login',
-            data: {
-                username: username,
-                password: password,
-                remamber: remamber
-            }
-        })
-        .done(function(data){
-            sessionStorage.setItem("user", JSON.stringify({ username: username, id: data.id}));
-            $('.login-container').hide();
-            $('#addDigimon').show();
-            $('#DigiList').show();
-            $('#userTable').show();
-            $('.battle-button').show();
-            $('.bar').show();
-            updateList(); 
-            pages("digimons");
-        
-    })
-        .fail(function(error){
-            if(error.statusText === 'Unauthorized'){
-                errorMessage('#errorlogin','Invalid username or password');
-            }
-            else if(error.statusText === 'Forbidden'){
-                errorMessage('#errorlogin','You need verification email');
-            }
-            else{
-                errorMessage('#errorlogin','Connection failed. Please try again later');
-            }
-    })
-});
-
-    // move to register
-     $(document).on('click','.register-btn',function(e){
-        e.preventDefault();
-         $('.login-container').hide();
-         $('.register-container').show();
-     })
-
-
-     /// ------- register ------ ///
-     
-     // func show error message
-     function errorMessage(id,message){
-        $(id).text(message).css({
-            'color': 'red',
-            'font-size': '12px'
-            });
-     }
-     // Checks if all variables are correct and register
-     $(document).on('click','.create-btn',function(e){
-        e.preventDefault();
-        const username = $('#Rusername').val();
-        const email = $('#email').val()
-        const password = $('#Rpassword').val();
-        const confirm_password = $('#confirm-password').val();
-        let pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        let result = email.match(pattern);
-        if(username.length < 4){
-            errorMessage('#erroruser','Username must be at least 4 characters');
-        return;
-        }
-        else{
-            $('#erroruser').text('');
-        }
-        if (result){
-            $('#erroremail').text('');
-        }
-        else{
-            errorMessage('#erroremail','The email is invalid');
-            return;
-        }
-        if (password === confirm_password){
-            $('#errorpass').text('');
-        }
-        else{
-            errorMessage('#errorpass','Passwords do not match');
-            return;
-        }
-        $.ajax({
-            url:'/register',
-            method:'POST',
-            data:{
-                username : username,
-                email: email,
-                password: password,
-            }
-        })
-        .done(function(data){
-            resetRegisterPage();
-            $('.login-container').show();
-            $('.register-container').hide();
-            errorMessage('#errorlogin',"User created successfully. Please verify your email to complete the registration");
-        })
-        .fail(function(error){
-            errorMessage('#errordb',error.responseText);
-            console.log(error.responseText);
-        })
-
-
-     })
-
-     ////------- forget password ------ //////
-
-     $(document).on('click','.forgot-password', function(e){
-        e.preventDefault();
-        $('.login-container').hide();
-        $('.forgot-container').show();
-     })
-
-     $(document).on('click','.reset-btn',function(e){
-         e.preventDefault();
-         const email = $('#R-email').val();
-         $.ajax({
-            url:'/resetpassword',
-            method:"POST",
-            data:{
-                email: email,
-            }
-            })
-            .done(function(data){
-                errorMessage('#errorreset',"A password reset link has been sent to your email");
-                $('#R-email').val('');
-            })
-            .fail(function(error){
-                errorMessage('#errorreset',error.responseText);
-            })
-     })
-
-
-     /////-------reset password -------/////
-
-     $(document).on('click','.Creset-btn',function(e){
-        e.preventDefault();
-        const Password = $('#NewPassword').val();
-        const ConfirmPassword = $('#confirmPassword').val();
-        if (Password === ConfirmPassword){
-        $.ajax({
-            url:'/confirmReset',
-            method:'PUT',
-            data: {
-                password: Password,
-                token: token,
-            }
-        })
-        .done(function(data){
-            $('#NewPassword').val('');
-            $('#confirmPassword').val('');
-            $('.message').fadeIn();
-            $('.reset-container').fadeOut();
-            showMessage("Password reset successful. Redirecting to login page...",4000);
-        })
-        .fail(function(error){
-            errorMessage('#errordb',error.responseText);
-        })
-    }
-    else{
-        errorMessage('#errorpass',"Passwords do not match. Please try again");
-    }
-     })
-
+    /// ------- register ------ ///
+    ///---reset+forget password----///
+    accountSystem();
 
     /////--------navbar-------/////
-        $(document).on('click', '.Statistic', function(e) {
-        e.preventDefault();
-        $('.container').hide();
-        getuserdigi('statistic');
-        });
-
-
-         $(document).on('click','.bag',function(e){
-            e.preventDefault();
-            setTimeout(() => {
-                $('#digimon-select-container').hide();
-                $('.container').show();
-            }, 200);
-            $.ajax({
-                url:'/getuseritems',
-                method:'GET',
-                data:{
-                    id : JSON.parse(sessionStorage.user).id,
-                }
-            })
-            .done(function(data){
-                $('.digimonsT').hide();
-                $('.shopT').hide();
-                $('#addDigimon').css('visibility', 'hidden');
-                $('.battle-button').css('visibility', 'hidden');
-                $('.bagT').show();
-                $('#pages').hide();
-                $('#userTable').html(data); 
-            })
-            .fail(function(error){
-                console.error('Error fetching data:', error);
-            })
-           })
-
-        $(document).on('click','.Shop',function(e){
-            e.preventDefault();
-            setTimeout(() => {
-                $('#digimon-select-container').hide();
-                $('.container').show();
-            }, 200);
-            $.ajax({
-                url:'/getshopitems',
-                method:'GET',
-            })
-            .done(function(data){
-                $('.digimonsT').hide();
-                $('.bagT').hide();
-                $('#addDigimon').css('visibility', 'hidden');
-                $('.battle-button').css('visibility', 'hidden');
-                $('.shopT').show();
-                $('#pages').hide();
-                $('#userTable').html(data); 
-            })
-            .fail(function(error){
-                console.error('Error fetching data:', error);
-            })
-        })
-
+       navbar();
 
         ////-----statistic-----////
+        statistic();
 
-        $(document).on('click','.btn-choose',function (e){
-            e.preventDefault();
-            const selected = $('#digimon-statistic option:selected');
-            let id;
-            let userid;
-            let name;
-            const photo = selected.data('photo');
-            if (photo) {
-                console.log(photo);
-            $('#statistic-photo').attr('src', photo).show();
-            }
-            else {
-            $('#statistic-photo').hide();
-            }   
-            if(selected.val() !== ""){
-                 id = selected.data('id');
-                userid = false;
-                name = selected.data('name');
-            }
-            else{
-                id = JSON.parse(sessionStorage.user).id;
-                userid = true;
-                name = "all digimons";
-            }
-            $.ajax({
-                url:'/chartdata',
-                method:'GET',
-                data: {
-                    id: id,
-                    userid: userid,
-                }
-            })
-            .done(function(data){
-                   if (currentChart) {
-                        currentChart.destroy();
-                    }
-                currentChart = new Chart("digiChart", {
-                type: "bar",
-                data: {
-                    labels: ["wins","loses"],
-                    datasets: [{
-                    backgroundColor: ["blue","red"],
-                    data: data.values,
-                    }]
-                },
-                 options: {
-                    legend: {display: false},
-                    scales: {
-                    yAxes: [{
-                        ticks: {
-                        beginAtZero: true
-                        }
-                    }]
-                    },
-                title: {
-                display: true,
-                text: name
-                }
-                },
-            })
-            createCircle(data.values);
-            })
-            .fail(function(error){
-                alert('Failed to load digimon information.');
-            })
-        })
-        
         
     ///------shop------///
-        $(document).on("click",".btn-buy", function(e){
-            const itemid = $(this).closest('tr').find('td').eq(0).data('item');
-            const itemName = $(this).closest('tr').find('td')[1].innerText;
-            const amountInput = $(this).closest('tr').find('.amount-input');
-            const amount = amountInput.val();
-            const money = user.money;
-            if (amount > 0){
-                if(money>(amount*100)){
-                    $.ajax({
-                        url:'/additem',
-                        method:'POST',
-                        data :{
-                            userid : JSON.parse(sessionStorage.user).id,
-                            itemid : itemid,
-                            amount : amount,
-                            money: money,
-                        }
-                    })
-                    .done(function(data){
-                        if (data.quantity-amount > 0){
-                            showMessage(`updated amount of ${itemName} add more ${amount} `,2500);
-                        }
-                        else{
-                        showMessage(`completed to buy ${amount} of ${itemName} `,2500);
-                        }
-                        amountInput.val('');
-                        user.money = data.newMoney;
-                          $(".money-display").html(`<i class="fa fa-money"></i> : ${user.money}`);
-                    })
-                    .fail(function(error){
-                        showMessage(`Failed to buy ${itemName}.`,2000);
-                    })
-            }
-              else{
-            showMessage(`you have only ${money}$ and you try to buy in ${(amount*100)}$ `,2000);
-            amountInput.val('');
-        }
-        }
-            else{
-                showMessage(`amount of item must bigger then 0 `,2000);
-                amountInput.val('');
-            }
-        })
+     shop();
 
-
-    ////-------userbag-------//////
-   $(document).on('click','.btn-use',function(e){
-    e.preventDefault();
-    const itemid = $(this).closest('tr').find('td').eq(0).data('item');
-    const itemName = $(this).closest('tr').find('td')[1].innerText;
-    $('.container').hide();
-    getuserdigi('items',itemName,itemid);
-   })
-   $(document).on('click','#use-digimon',function(e){
-    e.preventDefault();
-    const id = $('.titleItem').data('id');
-    const itemName = $('.titleItem').data('name');
-    const selected = $('#digimon-select option:selected');
-    let StatName = itemName.replace(/UP$/, '');
-    $.ajax({
-        url:'/useitem',
-        method:'POST',
-        data:{
-            itemid: id,
-            digimonid: selected.data('id'),
-            userid: JSON.parse(sessionStorage.user).id,
-            stat: StatName.toLowerCase(),
-
-        }
-    })
-    .done(function(data){
-        showMessage(`increse ${selected.data('name')} ${StatName} by 1.`,2000);
-            $('#digimon-select-container').hide();
-
-    }).fail(function(error){
-        showMessage(`Failed to buy ${itemName}.`,2000);
-        })
-
-    console.log(id);
-    console.log(selected.data('id'))
-    console.log(JSON.parse(sessionStorage.user).id);
-    
-   })
-
+    ////-------userinventory-------//////
+    inventory();
+   
 });
