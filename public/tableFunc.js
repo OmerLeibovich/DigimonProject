@@ -1,4 +1,4 @@
-import { showMessage } from "./script.js";
+import { showMessage } from './Messages.js';
 import {calc_stats } from './calculation.js';
 import { getyourrandomDigi,pages,updateList,evolveDigi} from './create.js';
 export function table(){

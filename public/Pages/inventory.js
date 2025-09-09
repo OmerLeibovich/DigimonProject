@@ -1,4 +1,5 @@
-import { showMessage,getuserdigi } from "../script.js";
+import { showMessage } from "../Messages.js";
+import { getuserdigi } from "../userDigiAndItems.js";
 export function inventory(){
         ////-------userinventory-------//////
        $(document).on('click','.btn-use',function(e){

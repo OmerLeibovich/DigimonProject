@@ -1,4 +1,4 @@
-import { showMessage,errorMessage } from "./script.js";
+import {showMessage,errorMessage} from './Messages.js';
 import {resetRegisterPage} from './reset.js';
 export function accountSystem(){
 

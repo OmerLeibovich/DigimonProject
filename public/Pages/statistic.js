@@ -1,4 +1,4 @@
-import { showMessage } from "../script.js";
+import { showMessage } from "../Messages.js";
 import { createCircle } from "../create.js";
 export function statistic(){
     ////-----statistic-----////

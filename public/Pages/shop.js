@@ -1,4 +1,4 @@
-import { showMessage } from "../script.js";
+import { showMessage } from "../Messages.js";
 export function shop(){
          
         ///------shop------///
