@@ -52,7 +52,7 @@ const transporter = nodemailer.createTransport({
 const mailConfigurations = {
 
     // It should be a string of sender/server email
-    from: 'DigiTra@gmail.com',
+    from: process.env.EMAIL,
 
     to: email,
 
