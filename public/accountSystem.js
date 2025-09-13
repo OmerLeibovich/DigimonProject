@@ -87,7 +87,7 @@ export function accountSystem(){
             resetRegisterPage();
             $('.login-container').show();
             $('.register-container').hide();
-            errorMessage('#errorlogin',"User created successfully. Please verify your email to complete the registration",green);
+            errorMessage('#errorlogin',"User created successfully. Please verify your email to complete the registration","green");
 
         })
         .fail(function(error){
