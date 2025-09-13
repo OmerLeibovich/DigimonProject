@@ -41,13 +41,14 @@ function sendmail(token,email, username ,type) {
     }
 
 
-
 const transporter = nodemailer.createTransport({
-    service: 'gmail',
-    auth: {
-        user: process.env.EMAIL,
-        pass: process.env.PASSWORD
-    }
+    host: "smtp.sendgrid.net",
+    port: 587,
+    secure: false,
+  auth: {
+    user: 'apikey',
+    pass: process.env.SENDGRID_API_KEY
+  }
 });
 
 
