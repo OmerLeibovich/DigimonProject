@@ -55,7 +55,7 @@ const transporter = nodemailer.createTransport({
 const mailConfigurations = {
 
     // It should be a string of sender/server email
-    from: process.env.EMAIL,
+    from: "omerlibo7@gmail.com",
 
     to: email,
 
