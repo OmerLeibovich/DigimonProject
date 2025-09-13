@@ -2,8 +2,7 @@ const nodemailer = require('nodemailer');
 require('dotenv').config();
 
 function sendmail(token,email, username ,type) {
-    console.log("EMAIL:", process.env.EMAIL);
-    console.log("PASSWORD exists?", !!process.env.PASSWORD);
+    console.log("SendGrid Key loaded?", !!process.env.SENDGRID_API_KEY);
     var message;
     var title;
     if (type === 'register'){
