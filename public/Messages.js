@@ -8,9 +8,9 @@
     }, duration);
 }
   // func show error message
-     export function errorMessage(id,message){
+     export function errorMessage(id,message,color = "red"){
         $(id).text(message).css({
-            'color': 'red',
+            'color': color,
             'font-size': '12px'
             });
      }
