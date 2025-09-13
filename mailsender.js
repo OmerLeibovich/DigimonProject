@@ -2,6 +2,8 @@ const nodemailer = require('nodemailer');
 require('dotenv').config();
 
 function sendmail(token,email, username ,type) {
+    console.log("EMAIL:", process.env.EMAIL);
+    console.log("PASSWORD exists?", !!process.env.PASSWORD);
     var message;
     var title;
     if (type === 'register'){
