@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: Digi-Tra
+    env: node
+    plan: free
+    buildCommand: "npm install && npx prisma generate"
+    startCommand: "npm start"
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: Digi-Tra-postgres-db
+          property: connectionString
+
+databases:
+  - name: Digi-Tra-postgres-db
+    plan: free
