@@ -1,8 +1,7 @@
 import {showMessage,errorMessage} from './Messages.js';
 import {resetRegisterPage} from './reset.js';
+import { updateList } from './create.js';
 export function accountSystem(){
-    console.log("accountSystem loaded");
-
 
 //// ----- login -----////
      // login to user
@@ -88,7 +87,8 @@ export function accountSystem(){
             resetRegisterPage();
             $('.login-container').show();
             $('.register-container').hide();
-            errorMessage('#errorlogin',"User created successfully. Please verify your email to complete the registration");
+            errorMessage('#errorlogin',"User created successfully. Please verify your email to complete the registration",green);
+
         })
         .fail(function(error){
             errorMessage('#errordb',error.responseText);
