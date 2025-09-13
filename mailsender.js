@@ -12,7 +12,7 @@ function sendmail(token,email, username ,type) {
             <span>Your adventure starts now!  
             To begin, simply click the link below:</span>
             <br><br>
-            <a href="http://localhost:${process.env.PORT}/verify/${token}">Click Here</a>
+            <a href="http://nodejs-production-d8d3.up.railway.app/verify/${token}">Click Here</a>
             <br><br>
            <span>Good luck!</span>
            <br>
@@ -27,7 +27,7 @@ function sendmail(token,email, username ,type) {
             <br>
             <span>Reset your password:</span>
             <br>
-             <a href="http://localhost:${process.env.PORT}/reset/${token}">Click Here</a>
+             <a href="https://nodejs-production-d8d3.up.railway.app/reset/${token}">Click Here</a>
             <br><br>
             <span>If you didn’t request a password reset, you can ignore this email.</span>
             <br><br>
