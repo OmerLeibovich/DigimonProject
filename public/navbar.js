@@ -1,4 +1,4 @@
-import { getuserdigi,getuserdigi } from "./userDigiAndItems.js";
+import { getuserdigi, getuseritems } from "./userDigiAndItems.js";
 import { showMessage } from "./Messages.js";
 
 export function navbar(){

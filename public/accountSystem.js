@@ -1,6 +1,8 @@
 import {showMessage,errorMessage} from './Messages.js';
 import {resetRegisterPage} from './reset.js';
 export function accountSystem(){
+    console.log("accountSystem loaded");
+
 
 //// ----- login -----////
      // login to user

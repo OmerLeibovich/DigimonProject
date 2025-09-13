@@ -2,7 +2,7 @@
 import {calcDmg ,calcNew_hp } from './calculation.js';
 import {getopponentrandomDigi} from './create.js';
 import {resetBattlesystem} from './reset.js';
-import {getuserdigi} from './script.js';
+import {getuserdigi} from './userDigiAndItems.js';
 
 export function battleSystem(){
      // change photo
