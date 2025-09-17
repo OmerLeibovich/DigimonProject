@@ -1,0 +1,38 @@
+<% DigiPage.forEach(digimon => { %>
+  <tr>
+  <td style="position: relative;">
+  <a href="" class="openphoto">
+    <img class="Photourl" src="<%= digimon.photo %>" alt="Photo" width="40" />
+  </a>
+</td>
+    <td><%= digimon.name %></td>
+    <td><%= digimon.rank %></td>
+    <td><%= digimon.level %></td>
+    <td><%= digimon.type %></td>
+    <td><%= digimon.hp %> / <%= digimon.attack %> / <%= digimon.defense %></td>
+    <td class="vertical">
+      <%= digimon.experience %> / <%= digimon.levelUPExp %>
+      <%
+        const percent = (digimon.experience / digimon.levelUPExp) * 100;
+      %>
+      <div class="progress-wrapper">
+        <div class="progress-bar" style="width:<%= percent %>%"></div>
+      </div>
+    </td>
+    <td>
+<div class="dropdown">
+  <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+    Options
+  </button>
+  <div class="dropdown-menu">
+    <button class="dropdown-item deleteDigi" type="button" data-id="<%= digimon.id %>">Delete</button>
+    <button class="dropdown-item evolveDigi" type="button" data-id="<%= digimon.id %>">Evolve</button>
+  </div>
+</div>
+    </td>
+  </tr>
+<% }) %>
+
+
+
+

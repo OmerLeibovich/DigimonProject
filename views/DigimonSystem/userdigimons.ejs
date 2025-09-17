@@ -1,0 +1,20 @@
+<div class="battle-container text-center d-flex flex-column align-items-center justify-content-center" style="min-height: 80vh;">
+  <h2 class="titleItem">Select your Digimon</h2>
+<select id="digimon-select">
+  <option value="">Please choose an option</option>
+  <% digimons.forEach(digimon => { %>
+  <option data-id="<%= digimon.id %>" data-rank="<%= digimon.rank %>" data-name="<%= digimon.name %>"
+    data-level="<%= digimon.level %>"
+    data-photo="<%= digimon.photo %>" data-hp="<%=digimon.hp %>"  
+    data-at="<%= digimon.attack %>"  data-de="<%= digimon.defense %>">
+    <%= digimon.name %>
+    &nbsp;
+    <%= digimon.level %>
+  </option>
+  <% }) %>
+</select>
+  <img id="selected-photo" src="" alt="Digimon Photo" style="width: 150px; height: 150px; display: none;" class="mb-3"/>
+
+  <button id="submit-digimon" class="btn btn-success">Submit</button>
+  <button id="use-digimon" class="btn btn-success">Use</button>
+</div>

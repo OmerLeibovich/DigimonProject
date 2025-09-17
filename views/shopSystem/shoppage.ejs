@@ -1,0 +1,20 @@
+<% shopitems.forEach(item => { %>
+  <tr>
+  <td style="position: relative;" data-item="<%= item.id %>">
+  <a href="" class="openphoto">
+    <img class="ItemUrl" src="<%= item.photo %>" alt="Photo" width="40" />
+  </a>
+</td>
+    <td><%= item.name %></td>
+    <td><%= item.description %></td>
+    <td><%= item.price %></td>
+    <td>
+        <input class="amount-input" type="number" placeholder="amount"/>
+    </td>
+<td>
+  <button class="btn btn-buy" type="button" >
+    buy
+  </button>
+    </td>
+  </tr>
+<% }) %>

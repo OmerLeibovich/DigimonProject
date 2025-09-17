@@ -1,0 +1,17 @@
+<% useritems.forEach(useritem => { %>
+  <tr>
+  <td style="position: relative;" data-item="<%= useritem.item.id %>">
+  <a href="" class="openphoto">
+    <img class="ItemUrl" src="<%= useritem.item.photo %>" alt="Photo" width="40" />
+  </a>
+</td>
+    <td><%= useritem.item.name %></td>
+    <td><%= useritem.item.description %></td>
+    <td><%= useritem.quantity %></td>
+<td>
+  <button class="btn btn-use" type="button" >
+    use
+  </button>
+    </td>
+  </tr>
+<% }) %>
