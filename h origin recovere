@@ -1,0 +1,80 @@
+[33ma684f03[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mrecovere[m[33m)[m HEAD@{0}: checkout: moving from recovered to recovere
+[33m3883d36[m[33m ([m[1;32mrecovered[m[33m)[m HEAD@{1}: commit: temp changes before checkout
+[33ma83575d[m HEAD@{2}: checkout: moving from old-history to recovered
+[33m153022a[m[33m ([m[1;32mold-history[m[33m)[m HEAD@{3}: commit: temp save before checkout
+[33m7fd6435[m HEAD@{4}: checkout: moving from main to old-history
+[33me949646[m[33m ([m[1;31morigin/main[m[33m, [m[1;32mmain[m[33m)[m HEAD@{5}: Branch: renamed refs/heads/clean-main to refs/heads/main
+[33me949646[m[33m ([m[1;31morigin/main[m[33m, [m[1;32mmain[m[33m)[m HEAD@{7}: commit (initial): Initial clean commit
+[33m7fd6435[m HEAD@{8}: pull --rebase origin main (finish): returning to refs/heads/main
+[33m7fd6435[m HEAD@{9}: pull --rebase origin main (pick): change sendgridApi
+[33ma83575d[m HEAD@{10}: pull --rebase origin main (pick): change sendgridApi
+[33ma684f03[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mrecovere[m[33m)[m HEAD@{11}: pull --rebase origin main (pick): remove .env file
+[33m33409c9[m HEAD@{12}: pull --rebase origin main (pick): change to sendgrid
+[33m5eed98a[m HEAD@{13}: pull --rebase origin main (pick): change to sendgrid
+[33m1b4647a[m HEAD@{14}: pull --rebase origin main (start): checkout 1b4647a005f65dcfe746ef9e2731c799473d77f6
+[33m55a8ed2[m HEAD@{15}: reset: moving to HEAD
+[33m55a8ed2[m HEAD@{16}: reset: moving to HEAD
+[33m55a8ed2[m HEAD@{17}: commit: change sendgridApi
+[33m23c5232[m HEAD@{18}: commit: change sendgridApi
+[33m7f19a0a[m HEAD@{19}: commit: remove .env file
+[33m4f7ba42[m HEAD@{20}: commit: change to sendgrid
+[33m3970999[m HEAD@{21}: commit: change to sendgrid
+[33mcfe9bfc[m HEAD@{22}: commit: change to sendgrid
+[33m2d523cc[m HEAD@{23}: commit: fix mailsender
+[33m1c73ab3[m HEAD@{24}: commit: fix mailsender
+[33ma19de41[m HEAD@{25}: commit: fix mailsender
+[33m2f16d0b[m HEAD@{26}: commit: fix mailsender
+[33mb5c03f5[m HEAD@{27}: commit: fix update tabels
+[33mb4d38e8[m HEAD@{28}: commit: add color to error message
+[33mdbad71f[m HEAD@{29}: commit: fix somethings
+[33m5bb7d0e[m HEAD@{30}: commit: add render.yaml
+[33mf195390[m HEAD@{31}: commit: add render.yaml
+[33mc47f045[m HEAD@{32}: commit: add render.yaml
+[33mabc6e82[m HEAD@{33}: commit: Complete final phase
+[33ma673492[m HEAD@{34}: commit: Complete final phase
+[33m33a8a08[m HEAD@{35}: commit: start work on use item
+[33m012b309[m HEAD@{36}: commit: continue inventory
+[33ma19bbf2[m HEAD@{37}: commit: add inventory
+[33mb49e9e8[m HEAD@{38}: commit: complete shop start work on bag
+[33m236d96a[m HEAD@{39}: commit: add shop
+[33mfc9e744[m HEAD@{40}: commit: add canvas
+[33mc0af7bc[m HEAD@{41}: commit: start work on statistic
+[33m686d16e[m HEAD@{42}: commit: complete email verification and password reset
+[33m7d12422[m HEAD@{43}: commit: complete email verification,start reset password
+[33m281acc0[m HEAD@{44}: commit: complete email verification,start reset password
+[33m43ab4da[m HEAD@{45}: commit: start work on fadein message
+[33mc852bbb[m HEAD@{46}: rebase (finish): returning to refs/heads/main
+[33mc852bbb[m HEAD@{47}: rebase (pick): start work on fadein message
+[33md5d994c[m HEAD@{48}: pull --rebase (start): checkout d5d994c3b0dfbec0a99b76462b98dced3849f137
+[33m2560cc4[m[33m ([m[1;32mbackup-before-rebase[m[33m)[m HEAD@{49}: checkout: moving from main to main
+[33m2560cc4[m[33m ([m[1;32mbackup-before-rebase[m[33m)[m HEAD@{50}: rebase (finish): returning to refs/heads/main
+[33m2560cc4[m[33m ([m[1;32mbackup-before-rebase[m[33m)[m HEAD@{51}: rebase (finish): refs/heads/main onto d5d994c3b0dfbec0a99b76462b98dced3849f137
+[33m2560cc4[m[33m ([m[1;32mbackup-before-rebase[m[33m)[m HEAD@{52}: checkout: moving from main to main
+[33m2560cc4[m[33m ([m[1;32mbackup-before-rebase[m[33m)[m HEAD@{53}: checkout: moving from 787d5eafa713a630b555a352605b7849710979f3 to main
+[33m787d5ea[m HEAD@{54}: commit: start work on fadein message
+[33md5d994c[m HEAD@{55}: pull --rebase (start): checkout d5d994c3b0dfbec0a99b76462b98dced3849f137
+[33m2560cc4[m[33m ([m[1;32mbackup-before-rebase[m[33m)[m HEAD@{56}: checkout: moving from backup-before-rebase to main
+[33m2560cc4[m[33m ([m[1;32mbackup-before-rebase[m[33m)[m HEAD@{57}: checkout: moving from main to backup-before-rebase
+[33m2560cc4[m[33m ([m[1;32mbackup-before-rebase[m[33m)[m HEAD@{58}: rebase (abort): returning to refs/heads/main
+[33m2560cc4[m[33m ([m[1;32mbackup-before-rebase[m[33m)[m HEAD@{59}: rebase (abort): returning to refs/heads/main
+[33m2560cc4[m[33m ([m[1;32mbackup-before-rebase[m[33m)[m HEAD@{60}: checkout: moving from c7a94da47b5af13d98afc6f14b50e85096c954a8 to main
+[33mc7a94da[m HEAD@{61}: commit: start work on fadein message
+[33md5d994c[m HEAD@{62}: pull --rebase (start): checkout d5d994c3b0dfbec0a99b76462b98dced3849f137
+[33m2560cc4[m[33m ([m[1;32mbackup-before-rebase[m[33m)[m HEAD@{63}: commit: start work on fadein message
+[33m36c09c7[m HEAD@{64}: commit (amend): complete register session
+[33md5d994c[m HEAD@{65}: commit (amend): work on register session
+[33m1a1f164[m HEAD@{66}: commit (amend): work on register session
+[33mb7475b0[m HEAD@{67}: commit: work on registar session
+[33m7ebc5f9[m HEAD@{68}: commit: add register
+[33m207579c[m HEAD@{69}: commit: add evolve system
+[33mfd844b5[m HEAD@{70}: commit: continue work on battle system(add experiance system)
+[33m6fb9a40[m HEAD@{71}: commit: continue work on battle system
+[33m9db9cda[m HEAD@{72}: commit: add logout
+[33m7bb69a2[m HEAD@{73}: commit: add clearbackground to photos from api
+[33me2b72ac[m HEAD@{74}: commit: start work on battle system
+[33m0217bb3[m HEAD@{75}: commit: add session+pages
+[33m4e12903[m HEAD@{76}: commit: add login
+[33mbab1841[m HEAD@{77}: commit: add delete
+[33m07a89ae[m HEAD@{78}: commit: add Prisma
+[33m628fe2d[m HEAD@{79}: commit: add tamplate
+[33m2caf185[m HEAD@{80}: commit (initial): first commit
