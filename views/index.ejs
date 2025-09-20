@@ -117,10 +117,10 @@
 </body>
 <script>
   const mode = "<%= mode %>";
-  <% if (user) { %>
+  <% if (mode === "loggedIn") { %>
     const user = <%- JSON.stringify(user) %>;
   <% } %>
-  <% if (token) { %>
+  <% if (mode === "reset") { %>
     const token = <%- JSON.stringify(token) %>;
   <% } %>
 </script>
