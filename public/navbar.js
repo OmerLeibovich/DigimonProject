@@ -1,5 +1,6 @@
 import { getuserdigi, getuseritems } from "./userDigiAndItems.js";
 import { showMessage } from "./Messages.js";
+import { updateList,pages } from "./create.js";
 
 export function navbar(){
 /////--------navbar-------/////
@@ -20,6 +21,8 @@ export function navbar(){
                 $('#DigiList').show();
                 $('#userTable').show();
                 $('.battle-button').show();
+                $('.digimonsT').hide();
+                $('.bagT').hide();
                 updateList(); 
                 pages("digimons")
             }, 500);
