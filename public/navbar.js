@@ -1,3 +1,4 @@
+
 import { getuserdigi, getuseritems } from "./userDigiAndItems.js";
 import { showMessage } from "./Messages.js";
 import { updateList,pages } from "./create.js";
@@ -9,6 +10,7 @@ export function navbar(){
         $('.container').hide();
         $('.battle-container').hide();
         getuserdigi('statistic');
+        $('.title').html('StatisticPage');
         });
 
         $(document).on('click','.home',function(e){
@@ -26,6 +28,7 @@ export function navbar(){
         updateList(); 
         pages("digimons");
             }, 600);
+        $('.title').html('HomePage');
     });
 
 
@@ -39,6 +42,7 @@ export function navbar(){
                 $('.container').show();
             }, 500);
             getuseritems();
+            $('.title').html('InventoryPage');
            })
 
         $(document).on('click','.Shop',function(e){
@@ -60,7 +64,7 @@ export function navbar(){
                 $('.shopT').show();
                 $('#pages').hide();
                 $('#userTable').html(data); 
-                $('.title').html('shopPage');
+                $('.title').html('ShopPage');
             })
             .fail(function(){
                 console.error('Error fetching data:', error);

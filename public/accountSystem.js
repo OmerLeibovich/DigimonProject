@@ -1,3 +1,4 @@
+
 import {showMessage,errorMessage} from './Messages.js';
 import {resetRegisterPage} from './reset.js';
 import { updateList,pages } from './create.js';
@@ -30,6 +31,7 @@ export function accountSystem(){
             $('.money-display').html(`<i class="fa fa-money"></i> : ${data.money}`);
             updateList(); 
             pages("digimons");
+            $('.title').html('HomePage');
         
     })
         .fail(function(error){
@@ -132,6 +134,7 @@ export function accountSystem(){
     ///-----forget password ----///
      $(document).on('click','.forgot-password', function(e){
         e.preventDefault();
+        $('.title').html('ResetPasswordPage');
         $('.login-container').hide();
         $('.forgot-container').show();
      })
@@ -158,6 +161,7 @@ export function accountSystem(){
          // move to register
      $(document).on('click','.register-btn',function(e){
         e.preventDefault();
+           $('.title').html('RegisterPage');
          $('.login-container').hide();
          $('.register-container').show();
      })
@@ -165,6 +169,7 @@ export function accountSystem(){
              ///---backtoLogin----///
             $(document).on('click','.back-link',function(e){
              e.preventDefault();
+             $('.title').html('LoginPage');
              $('.login-container').show();
              $('.register-container').hide();
              $('.forgot-container').hide();
