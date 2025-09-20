@@ -13,6 +13,7 @@ export function navbar(){
 
         $(document).on('click','.home',function(e){
         e.preventDefault();
+         setTimeout(() => {
         $('#digimon-select-container').hide();
         $('.battle-container').hide();
         $('.container').show();
@@ -24,6 +25,7 @@ export function navbar(){
         $('#pages').show();
         updateList(); 
         pages("digimons");
+            }, 400);
     });
 
 
@@ -32,6 +34,8 @@ export function navbar(){
             setTimeout(() => {
                 $('#digimon-select-container').hide();
                 $('.battle-container').hide();
+                $('#addDigimon').hide();
+                $('.battle-button').hide();
                 $('.container').show();
             }, 500);
             getuseritems();
