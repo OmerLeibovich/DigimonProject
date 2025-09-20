@@ -20,7 +20,7 @@ export function accountSystem(){
             }
         })
         .done(function(data){
-            sessionStorage.setItem("user", JSON.stringify({ username: username, id: data.id}));
+            sessionStorage.setItem("user", JSON.stringify({ username: username, id: data.id,money: user.money}));
             $('.login-container').hide();
             $('#addDigimon').show();
             $('#DigiList').show();

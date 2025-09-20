@@ -147,8 +147,12 @@ const updateEXP = async (req,res) => {
       money: newMoney,
     }
   })
-  req.session.user.money = newMoney;
 }
+else{
+  newMoney = user.money;
+}
+  req.session.user.money = newMoney;
+
   await prisma.digimon.update({
       where: {
       id: parseInt(id),

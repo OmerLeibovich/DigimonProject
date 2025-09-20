@@ -48,18 +48,17 @@ app.use('/',itemRoute);
 app.use('/',statisticRoute);
 app.use('/',shopRoute);
 app.get('/', (req, res) => {
-  if(req.session && req.session.Havetoken && req.session.token){
-      res.render('index',{isLoggedIn: false, Havetoken: true ,token : req.session.token});
-  }
-  else{
-  if (req.session && req.session.user) {
-    res.render('index', { isLoggedIn: true, user: req.session.user,Havetoken: false });
-  }
+  if (req.session && req.session.Havetoken && req.session.token) {
+    res.render('index', { mode: "reset", token: req.session.token });
+  } 
+  else if (req.session && req.session.user) {
+    res.render('index', { mode: "loggedIn", user: req.session.user });
+  } 
   else {
-      res.render('index', { isLoggedIn: false, user: req.session.user || null, Havetoken: false });
-    }
+    res.render('index', { mode: "login" });
   }
 });
+
 
 
 app.get('/logout', async (req, res) =>{

@@ -11,31 +11,26 @@ import { table } from './tableFunc.js';
 
 
 
-$(document).ready(function () {
-
-
-        if(Havetoken){
-            $('.login-container').hide();
-            $('.reset-container').show();
-        }
-        if (isLoggedIn) {
-        if (sessionStorage.user){
-            $('.login-container').hide();
-            $('#addDigimon').show();
-            $('#DigiList').show();
-            $('#userTable').show();
-            $('.battle-button').show();
-            $('.bar').show();
-            updateList(); 
-            pages("digimons")
-            }
-        else if (user.remamber === 'true'){
-            const username = user.username;
-            const password = user.password;
-            $('#username').val(username);
-            $('#password').val(password);
-        }
+    $(document).ready(function () {
+    if (mode === "reset") {
+        $('.login-container').hide();
+        $('.reset-container').show();
+    } 
+    else if (mode === "loggedIn") {
+        $('.login-container').hide();
+        $('#addDigimon').show();
+        $('#DigiList').show();
+        $('#userTable').show();
+        $('.battle-button').show();
+        $('.bar').show();
+        updateList(); 
+        pages("digimons");
+    } 
+    else {
+        $('.login-container').show();
     }
+    });
+
 
     ///----table----////
     table();
