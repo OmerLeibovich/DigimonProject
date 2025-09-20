@@ -17,7 +17,7 @@ function sendmail(token,email, username ,type) {
             <br><br>
            <span>Good luck!</span>
            <br>
-           <img src="https://i.postimg.cc/mkrktwyY/logo.png">
+           <img src="https://digimontra.up.railway.app/assets/logo/digitraLogo.png">
            `;
         title = 'Email Verification';
     }
@@ -36,7 +36,7 @@ function sendmail(token,email, username ,type) {
             <br>
             <span>The digi-tra Team<span>
             <br>
-            <img src="https://i.postimg.cc/mkrktwyY/logo.png">
+            <img src=""https://digimontra.up.railway.app/assets/logo/digitraLogo.png">
             `;
             title = 'reset password';
     }
