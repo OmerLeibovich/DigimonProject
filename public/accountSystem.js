@@ -1,6 +1,6 @@
 import {showMessage,errorMessage} from './Messages.js';
 import {resetRegisterPage} from './reset.js';
-import { updateList } from './create.js';
+import { updateList,pages } from './create.js';
 export function accountSystem(){
 
 //// ----- login -----////
@@ -20,13 +20,14 @@ export function accountSystem(){
             }
         })
         .done(function(data){
-            sessionStorage.setItem("user", JSON.stringify({ username: username, id: data.id,money: data.money}));
+            sessionStorage.setItem("user", JSON.stringify({ username: username, id: data.id}));
             $('.login-container').hide();
             $('#addDigimon').show();
             $('#DigiList').show();
             $('#userTable').show();
             $('.battle-button').show();
             $('.bar').show();
+            $('.money-display').html(`<i class="fa fa-money"></i> : ${data.money}`);
             updateList(); 
             pages("digimons");
         
