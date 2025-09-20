@@ -10,8 +10,6 @@ export function navbar(){
         $('.container').hide();
         $('.battle-container').hide();
         getuserdigi('statistic');
-        $('.title').html('StatisticPage');
-        $('.title').html('StatisticPage');
         });
         
         $(document).on('click','.home',async function(e){
@@ -29,6 +27,7 @@ export function navbar(){
         $('#pages').show();
         await updateList(); 
         pages("digimons");
+            }, 600);
     });
 
 
