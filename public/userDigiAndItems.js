@@ -34,8 +34,8 @@ export async function getuserdigi(page,itemName = null,itemId = null){
             .done(function(data){
                 $('.digimonsT').hide();
                 $('.shopT').hide();
-                $('#addDigimon').css('visibility', 'hidden');
-                $('.battle-button').css('visibility', 'hidden');
+                $('#addDigimon').hide();
+                $('.battle-button').hide();
                 $('.bagT').show();
                 $('#pages').hide();
                 $('#userTable').html(data); 
