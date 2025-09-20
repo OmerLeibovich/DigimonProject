@@ -24,7 +24,7 @@ const Checkuser =  async (req, res) => {
    if (user.isActivate) {
       req.session.save(function (err) {
         if (err) return next(err);
-        res.status(200).json({ isLoggedIn: true,id: user.id,user: req.session.user });
+        res.status(200).json({ isLoggedIn: true,id: user.id,user: req.session.user,money:user.money });
       });
    }
   else{
