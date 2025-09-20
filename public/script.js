@@ -29,7 +29,7 @@ import { table } from './tableFunc.js';
     else {
         $('.login-container').show();
     }
-    });
+
 
 
     ///----table----////
