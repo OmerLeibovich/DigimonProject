@@ -5,6 +5,9 @@ const NodeCache = require( "node-cache" );
 const cache = new NodeCache(); 
 const DigiRoutes = require('./routes/digimonroute');
 const loginRoute = require('./routes/loginroute');
+const itemRoute = require('./routes/inventoryroute')
+const statisticRoute = require('./routes/statisticroute');
+const shopRoute = require('./routes/shoproute');
 const registerRoute = require('./routes/registerroute');
 const express = require('express');
 const session = require('express-session');
@@ -41,6 +44,9 @@ app.use(session({
 app.use('/',DigiRoutes);
 app.use('/',loginRoute);
 app.use('/',registerRoute);
+app.use('/',itemRoute);
+app.use('/',statisticRoute);
+app.use('/',shopRoute);
 app.get('/', (req, res) => {
   if(req.session && req.session.Havetoken && req.session.token){
       res.render('index',{isLoggedIn: false, Havetoken: true ,token : req.session.token});

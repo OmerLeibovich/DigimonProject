@@ -1,6 +1,7 @@
+require('dotenv').config();
 const sgMail = require('@sendgrid/mail');
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-require('dotenv').config();
+
 
 function sendmail(token,email, username ,type) {
     console.log("SendGrid Key loaded?", !!process.env.SENDGRID_API_KEY);
@@ -45,7 +46,6 @@ const msg = {
   to: email,
   from: "omerlibo7@gmail.com",
   subject: title,
-  text: 'and easy to do anywhere, even with Node.js',
   html: message,
 };
 sgMail.send(msg);
