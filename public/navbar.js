@@ -12,21 +12,18 @@ export function navbar(){
         });
 
         $(document).on('click','.home',function(e){
-            e.preventDefault();
-            setTimeout(() => {
-                $('#digimon-select-container').hide();
-                $('.battle-container').hide();
-                $('.container').show();
-                $('#addDigimon').show();
-                $('#DigiList').show();
-                $('#userTable').show();
-                $('.battle-button').show();
-                $('.digimonsT').hide();
-                $('.bagT').hide();
-                updateList(); 
-                pages("digimons")
-            }, 500);
-           });
+        e.preventDefault();
+        $('#digimon-select-container').hide();
+        $('.battle-container').hide();
+        $('.container').show();
+        $('.digimonsT').show();
+        $('.shopT').hide();
+        $('.bagT').hide();
+        $('#addDigimon').show();
+        $('.battle-button').show();
+        updateList(); 
+        pages("digimons");
+    });
 
 
          $(document).on('click','.bag',function(e){
