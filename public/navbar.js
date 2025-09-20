@@ -13,9 +13,10 @@ export function navbar(){
         $('.title').html('StatisticPage');
         });
 
-        $(document).on('click','.home',function(e){
+        $(document).on('click','.home',async function(e){
         e.preventDefault();
-         setTimeout(() => {
+        $('#userTable').empty();
+        $('.title').html('HomePage');
         $('#digimon-select-container').hide();
         $('.battle-container').hide();
         $('.container').show();
@@ -25,10 +26,8 @@ export function navbar(){
         $('#addDigimon').show();
         $('.battle-button').show();
         $('#pages').show();
-        updateList(); 
+        await updateList(); 
         pages("digimons");
-            }, 600);
-        $('.title').html('HomePage');
     });
 
 
