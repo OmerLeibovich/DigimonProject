@@ -21,6 +21,7 @@ export function navbar(){
         $('.bagT').hide();
         $('#addDigimon').show();
         $('.battle-button').show();
+        $('#pages').show();
         updateList(); 
         pages("digimons");
     });
@@ -49,8 +50,8 @@ export function navbar(){
             .done(function(data){
                 $('.digimonsT').hide();
                 $('.bagT').hide();
-                $('#addDigimon').css('visibility', 'hidden');
-                $('.battle-button').css('visibility', 'hidden');
+                $('#addDigimon').hide();
+                $('.battle-button').hide();
                 $('.battle-container').hide();
                 $('.shopT').show();
                 $('#pages').hide();
