@@ -13,6 +13,7 @@
   "dependencies": {
     "@prisma/extension-accelerate": "^2.0.1",
     "@quixo3/prisma-session-store": "^3.1.13",
+    "@sendgrid/mail": "^8.1.6",
     "axios": "^1.10.0",
     "dotenv": "^16.5.0",
     "ejs": "^3.1.10",

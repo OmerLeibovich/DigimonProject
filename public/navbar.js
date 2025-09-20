@@ -6,6 +6,7 @@ export function navbar(){
         $(document).on('click', '.Statistic', function(e) {
         e.preventDefault();
         $('.container').hide();
+        $('.battle-container').hide();
         getuserdigi('statistic');
         });
 
@@ -14,6 +15,7 @@ export function navbar(){
             e.preventDefault();
             setTimeout(() => {
                 $('#digimon-select-container').hide();
+                $('.battle-container').hide();
                 $('.container').show();
             }, 500);
             getuseritems();
@@ -34,6 +36,7 @@ export function navbar(){
                 $('.bagT').hide();
                 $('#addDigimon').css('visibility', 'hidden');
                 $('.battle-button').css('visibility', 'hidden');
+                $('.battle-container').hide();
                 $('.shopT').show();
                 $('#pages').hide();
                 $('#userTable').html(data); 

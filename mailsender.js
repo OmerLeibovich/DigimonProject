@@ -1,4 +1,5 @@
-const nodemailer = require('nodemailer');
+const sgMail = require('@sendgrid/mail');
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 require('dotenv').config();
 
 function sendmail(token,email, username ,type) {
@@ -40,40 +41,15 @@ function sendmail(token,email, username ,type) {
     }
 
 
-const transporter = nodemailer.createTransport({
-    host: "smtp.sendgrid.net",
-    port: 587,
-    secure: false,
-  auth: {
-    user: 'apikey',
-    pass: process.env.SENDGRID_API_KEY
-    
-  }
-});
-
-
-const mailConfigurations = {
-
-    // It should be a string of sender/server email
-    from: "omerlibo7@gmail.com",
-
-    to: email,
-
-    // Subject of Email
-    subject: title,
-    
-    // This would be the text of email body
-    html: message,
-
+const msg = {
+  to: email,
+  from: "omerlibo7@gmail.com",
+  subject: title,
+  text: 'and easy to do anywhere, even with Node.js',
+  html: message,
 };
+sgMail.send(msg);
 
-transporter.sendMail(mailConfigurations, function(error, info){
-    if (error) {
-        console.error("SendMail Error:", error);
-        return;
-    }
-    console.log('Email Sent Successfully:', info);
-});
 }
 
 module.exports = {
