@@ -54,7 +54,6 @@ app.get('/', (req, res) => {
   else{
   if (req.session && req.session.user) {
     res.render('index', { isLoggedIn: true, user: req.session.user ,Havetoken: false });
-    document.title = "homePage"; 
   }
   else {
       res.render('index', { isLoggedIn: false, user: req.session.user || null, Havetoken: false });
@@ -70,7 +69,6 @@ app.get('/logout', async (req, res) =>{
       where: { id: session }
     });
     res.redirect('/');
-    document.title = "loginPage"; 
   }
 })
 

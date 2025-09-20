@@ -134,7 +134,6 @@ export function accountSystem(){
         e.preventDefault();
         $('.login-container').hide();
         $('.forgot-container').show();
-        document.title = "forgetPassword"; 
      })
 
      $(document).on('click','.reset-btn',function(e){
@@ -161,7 +160,6 @@ export function accountSystem(){
         e.preventDefault();
          $('.login-container').hide();
          $('.register-container').show();
-        document.title = "Register"; 
      })
 
              ///---backtoLogin----///

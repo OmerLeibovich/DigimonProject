@@ -9,7 +9,6 @@ export function navbar(){
         $('.container').hide();
         $('.battle-container').hide();
         getuserdigi('statistic');
-        document.title = "statisticPage"; 
         });
 
         $(document).on('click','.home',function(e){
@@ -27,7 +26,6 @@ export function navbar(){
         updateList(); 
         pages("digimons");
             }, 600);
-        document.title = "homePage"; 
     });
 
 
@@ -41,7 +39,6 @@ export function navbar(){
                 $('.container').show();
             }, 500);
             getuseritems();
-            document.title = "inventoryPage"; 
            })
 
         $(document).on('click','.Shop',function(e){
@@ -63,7 +60,7 @@ export function navbar(){
                 $('.shopT').show();
                 $('#pages').hide();
                 $('#userTable').html(data); 
-                document.title = "ShopPage"; 
+                $('.title').html('shopPage');
             })
             .fail(function(){
                 console.error('Error fetching data:', error);
