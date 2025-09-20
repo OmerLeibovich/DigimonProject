@@ -4,7 +4,6 @@ sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 
 function sendmail(token,email, username ,type) {
-    console.log("SendGrid Key loaded?", !!process.env.SENDGRID_API_KEY);
     var message;
     var title;
     if (type === 'register'){
@@ -44,7 +43,7 @@ function sendmail(token,email, username ,type) {
 
 const msg = {
   to: email,
-  from: "omerlibo7@gmail.com",
+  from: "info@digimontra.xyz",
   subject: title,
   html: message,
 };

@@ -10,6 +10,21 @@ export function navbar(){
         getuserdigi('statistic');
         });
 
+        $(document).on('click','.home',function(e){
+            e.preventDefault();
+            setTimeout(() => {
+                $('#digimon-select-container').hide();
+                $('.battle-container').hide();
+                $('.container').show();
+                $('#addDigimon').show();
+                $('#DigiList').show();
+                $('#userTable').show();
+                $('.battle-button').show();
+                updateList(); 
+                pages("digimons")
+            }, 500);
+           });
+
 
          $(document).on('click','.bag',function(e){
             e.preventDefault();
