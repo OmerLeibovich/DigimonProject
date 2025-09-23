@@ -18,6 +18,7 @@ export function battleSystem(){
     
         // calc new damage in battle and new hp after got this damage
     $(document).on('click','.battle-btn',function(e){
+         $('.battle-btn, .run-btn').prop('disabled', true).addClass('disabled-btn');
         e.preventDefault();
         const { yourDmg, opponentDmg } = calcDmg($('#your-battlePhoto').data('at'),$('#your-battlePhoto').data('de'),
                 $('#opponent-battlePhoto').data('at'),$('#opponent-battlePhoto').data('de'));
@@ -27,6 +28,7 @@ export function battleSystem(){
 
         // have chance of 90% to exit from battle
     $(document).on('click','.run-btn',function(e){
+         $('.battle-btn, .run-btn').prop('disabled', true).addClass('disabled-btn');
         e.preventDefault();
         $('.run-btn').prop('disabled', true);
         const runChance = Math.floor(Math.random() * 10) + 1;
@@ -44,7 +46,9 @@ export function battleSystem(){
             $('.container').show();
         }, 1700);
         }
-        $('.run-btn').prop('disabled', false);
+        setTimeout(() => {
+             $('.battle-btn, .run-btn').prop('disabled', false).removeClass('disabled-btn');
+         }, 3000);
     })
     // show user digimons to choose for battle
      $(document).on('click','.battle-button',function(e){
@@ -55,6 +59,8 @@ export function battleSystem(){
         getuserdigi('battle');
         })
      $(document).on('click','#submit-digimon', async function(e){
+         $('.battle-btn, .run-btn').prop('disabled', true).addClass('disabled-btn');
+
          e.preventDefault();
          resetBattlesystem();
          const selected = $('#digimon-select option:selected');
@@ -66,6 +72,9 @@ export function battleSystem(){
            await getopponentrandomDigi(selected.data('rank'),selected.data('level'),
            selected.data('photo'),selected.data('name'),
            selected.data('hp'),selected.data('at'),selected.data('de'));
+           setTimeout(() =>{
+            $('.battle-btn, .run-btn').prop('disabled', false).removeClass('disabled-btn');
+           },3000)
          }
          else{
             alert("You need to choose digimon");

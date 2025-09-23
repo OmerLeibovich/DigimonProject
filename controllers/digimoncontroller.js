@@ -137,8 +137,13 @@ const updateEXP = async (req,res) => {
     newExperience = 0;
     maxexp +=30
   }
+  let newMoney;
   if (result === "wins"){
-  let newMoney = user.money + 30;
+  newMoney = user.money + 30;
+  }
+  else{
+  newMoney = user.money;
+  }
   await prisma.user.update({
       where:{
       id:parseInt(userid),
@@ -147,10 +152,7 @@ const updateEXP = async (req,res) => {
       money: newMoney,
     }
   })
-}
-else{
-  newMoney = user.money;
-}
+
   req.session.user.money = newMoney;
 
   await prisma.digimon.update({
@@ -161,7 +163,9 @@ else{
         experience : newExperience,
         level: newlvl.toString(),
         levelUPExp:maxexp,
-        [`${result}`]: 1
+         [`${result}`]: {
+      increment: 1
+    }
     }
   })
 
