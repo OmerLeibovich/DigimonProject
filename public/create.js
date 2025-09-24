@@ -94,33 +94,27 @@
     }
 
     export async function getyourrandomDigi(){
-    var rankVal = ["Baby I","Baby II","Child","Adult","Perfect","Ultimate","Armor","Hybrid"];
-    var rank = ["Baby","In_traning","Rookie","Champion","Ultimate","Mega","Armor","Hybrid"];
-    const randomIndex = Math.floor(Math.random() * rankVal.length);
-    var level = calc_level(rank[randomIndex]);
-    var [hp, attack, defense] = calc_stats(level);
+    var [hp, attack, defense] = calc_stats(1);
     var id = Math.floor(Math.random() * (1489 - 1) + 1);
     $('#photo').attr('src','');
-    if (level === 'Select digimon level') return;
     await $.ajax({
             url: `https://digi-api.com/api/v1/digimon/${id}`,
             method: 'GET',
             }).done(function(response) {
             if (response.levels.length !== 0){
-            for (var i = 0;i<response.levels.length;i++){
-                if(response.levels[i].level === rankVal[randomIndex]){
+                if(response.levels[0].level === "Baby I"){
                     $('#photo').attr('src' , response.images[0].href);
+                    console.log( response.images[0].href)
                     $('#name').text("Name: " + response.name);
-                    $('#rank').text("Rank: " + rank[randomIndex]);
-                    $('#level').text("Level: " + level);
-                    $('#attribute').text("Attribute: " + response.attributes[0].attribute);
+                    $('#rank').text("Rank: " + "Baby");
+                    $('#level').text("Level: " + 1);
+                    $('#attribute').text("Attribute: " + "Free");
                     $('#hp').text("Hp: " + hp);
                     $('#attack').text("Attack: " + attack);
                     $('#defense').text("Defense: " + defense);
                     $('#DigiForm').show(); 
                     return;
                 }
-            }
         }
             getyourrandomDigi();
             }).fail(function() {
@@ -128,6 +122,10 @@
             getyourrandomDigi();
             });
     }
+
+
+
+
 
     //return evolve tree for the digimon you choose
 export async function evolveDigi(name, rank) {

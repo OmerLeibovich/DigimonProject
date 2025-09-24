@@ -121,6 +121,11 @@ export function accountSystem(){
             $('.message').fadeIn();
             $('.reset-container').fadeOut();
             showMessage("Password reset successful. Redirecting to login page...",4000);
+        if (data.redirect) {
+            setTimeout(() =>{
+            window.location.replace(data.redirect);
+            },4000);
+        }
         })
         .fail(function(error){
             errorMessage('#errordb',error.responseText);

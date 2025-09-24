@@ -111,6 +111,7 @@ export function table(){
             const hp = $('#hp').text().split(" ")[1];
             const attack = $('#attack').text().split(" ")[1];
             const defense = $('#defense').text().split(" ")[1];
+            const money = user.money;
     
             $.ajax({
                 method: "POST",
@@ -124,6 +125,8 @@ export function table(){
                     Hp: hp,
                     Attack: attack,
                     Defense: defense,
+                    userMoney: money,
+
                 }
             })
             .done(function(data){
@@ -131,6 +134,8 @@ export function table(){
                 updateList();
                 pages("digimons");
                 $('#addDigimon').prop('disabled', false);
+                user.money = data.newMoney;
+                $(".money-display").html(`<i class="fa fa-money"></i> : ${data.newMoney}`);
             })
             .fail(function(){
                 showMessage("fail to add digimon",2000);

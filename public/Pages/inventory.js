@@ -28,10 +28,8 @@ export function inventory(){
             }
         })
         .done(function(){
-            $('.table-container').hide();
             showMessage(`increase ${selected.data('name')} ${StatName} by 1.`,2000);
             $('#digimon-select-container').hide();
-            $('.table-container').show();
             getuseritems();
     
         }).fail(function(){

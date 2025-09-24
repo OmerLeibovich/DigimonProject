@@ -29,6 +29,7 @@ $(document).ready(function () {
             $('.money-display').html(`<i class="fa fa-money"></i> : ${user.money}`);
             updateList(); 
             pages("digimons")
+             $('.title').html('HomePage')
             }
         else if (user.remamber === 'true'){
             const username = user.username;

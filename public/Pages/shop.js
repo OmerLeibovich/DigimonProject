@@ -29,7 +29,7 @@ export function shop(){
                             }
                             amountInput.val('');
                             user.money = data.newMoney;
-                              $(".money-display").html(`<i class="fa fa-money"></i> : ${user.money}`);
+                            $(".money-display").html(`<i class="fa fa-money"></i> : ${data.newMoney}`);
                         })
                         .fail(function(){
                             showMessage(`Failed to buy ${itemName}.`,2000);

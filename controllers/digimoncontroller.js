@@ -181,18 +181,29 @@ const addDigi = async (req, res) => {
     const photo = req.body.Photo;
     const name = req.body.Name;
     const rank = req.body.Rank;
-    const level = req.body.Level;
+    const level = parseInt(req.body.Level);
     const attribute = req.body.Attribute;
     const hp = req.body.Hp;
     const attack = req.body.Attack;
     const defense = req.body.Defense;
     const experience = 0;
-    const levelInt = parseInt(level);
-    const levelUpExp = levelInt * 40;
+    const levelUpExp = level * 40;
+    const money = req.body.userMoney;
     const userid = req.session.user?.id;
       if (!userid) {
       return res.status(401).send('Unauthorized: no user session');
     }
+    if(money >= 100){
+    let newMoney = money-100;
+    
+  await prisma.user.update({
+      where: {
+      id: userid,
+    },
+      data:{
+        money : newMoney,
+    }
+  })
 
     const newDigimon = await prisma.digimon.create({
             data: {
@@ -211,8 +222,16 @@ const addDigi = async (req, res) => {
           })
     
     
-    res.status(200).json(newDigimon);
+    res.status(200).json({
+      newDigimon,
+      newMoney: newMoney,
+    });
         }
+      else{
+        console.error('dont have enough money to buy new digimon');
+        res.status(400).send('dont have enough money to buy new digimon');
+        }
+      }
     catch (error) {
     console.error('Error creating digimon:', error);
     res.status(500).send('Something went wrong');
