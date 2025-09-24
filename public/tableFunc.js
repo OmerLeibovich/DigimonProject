@@ -50,6 +50,8 @@ export function table(){
         const digiId = $(this).data('id');
         let rankVal = ["Baby I","Baby II","Child","Adult","Perfect","Ultimate","Armor","Hybrid"];
         let rank = ["Baby","In_traning","Rookie","Champion","Ultimate","Mega","Armor","Hybrid"];
+        let evolvelevel = [7,11,18,31,46];
+        let nextrank = rank.indexOf(digiRank) + 1;
          if ((digiRank === rank[0] && digiLevel > 6 ) || (digiRank === rank[1] && digiLevel > 10 )
             || (digiRank === rank[2] && digiLevel > 17 ) || 
         (digiRank === rank[3] && digiLevel > 30 ) || (digiRank === rank[4] && digiLevel > 45 )){
@@ -95,7 +97,8 @@ export function table(){
             showMessage("This Digimon can't evolve from this rank",3000);
         }
         else{
-            showMessage("you still cant digivolve",3000);
+            showMessage(
+            `you still cant digivolve,your digimon can evolve to rank ${rank[nextrank]} in level ${evolvelevel[nextrank-1]}`,3000);
         }
     
     })
