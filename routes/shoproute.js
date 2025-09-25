@@ -5,6 +5,7 @@ const shopController = require('../controllers/shopcontroller');
 
 
 router.route('/getshopitems').get(shopController.getshopitems);
+router.route('/additem').post(shopController.buyitem);
 
 
 

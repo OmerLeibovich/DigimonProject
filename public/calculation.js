@@ -113,6 +113,7 @@ import { updateList } from "./create.js";
                     })
                     .done(function(data){
                         updateList();
+                        sessionStorage.setItem("money", data.newMoney);
                         $('.money-display').html(`<i class="fa fa-money"></i> : ${data.newMoney}`);
                     })
                     .fail(function(error){
