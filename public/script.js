@@ -26,10 +26,14 @@ $(document).ready(function () {
             $('#userTable').show();
             $('.battle-button').show();
             $('.bar').show();
-            $('.money-display').html(`<i class="fa fa-money"></i> : ${user.money}`);
+            const money = sessionStorage.getItem("money");
+            if (money) {
+            user.money = parseInt(money);
+            }
+            $(".money-display").html(`<i class="fa fa-money"></i> : ${user.money}`);
             updateList(); 
             pages("digimons")
-             $('.title').html('HomePage')
+            $('.title').html('HomePage')
             }
         else if (user.remamber === 'true'){
             const username = user.username;

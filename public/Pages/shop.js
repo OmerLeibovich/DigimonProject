@@ -21,7 +21,7 @@ export function shop(){
                             }
                         })
                         .done(function(data){
-                            if (data.quantity-amount > 0){
+                            if (data.quantity-amount >= 0){
                                 showMessage(`updated amount of ${itemName} add more ${amount} `,2500);
                             }
                             else{
@@ -29,6 +29,7 @@ export function shop(){
                             }
                             amountInput.val('');
                             user.money = data.newMoney;
+                            sessionStorage.setItem("money", data.newMoney);
                             $(".money-display").html(`<i class="fa fa-money"></i> : ${data.newMoney}`);
                         })
                         .fail(function(){

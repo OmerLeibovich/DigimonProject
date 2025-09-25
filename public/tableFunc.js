@@ -115,7 +115,6 @@ export function table(){
             const attack = $('#attack').text().split(" ")[1];
             const defense = $('#defense').text().split(" ")[1];
             const money = user.money;
-    
             $.ajax({
                 method: "POST",
                 url: "/addDigimon",
@@ -138,7 +137,9 @@ export function table(){
                 pages("digimons");
                 $('#addDigimon').prop('disabled', false);
                 user.money = data.newMoney;
+                sessionStorage.setItem("money", data.newMoney);
                 $(".money-display").html(`<i class="fa fa-money"></i> : ${data.newMoney}`);
+                $('.container').show();
             })
             .fail(function(){
                 showMessage("fail to add digimon",2000);
@@ -149,7 +150,7 @@ export function table(){
         $('#addDigimon').on("click", async function() {
             $('#DigiForm')[0].reset();
             await getyourrandomDigi();
-            $('#addDigimon').prop('disabled', true);
+            $('.container').hide();
             
         })
         // close digimon form
@@ -157,5 +158,6 @@ export function table(){
             e.preventDefault();
             $('#DigiForm').hide();
             $('#addDigimon').prop('disabled', false);
+            $('.container').show();
         })
 }
