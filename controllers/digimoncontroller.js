@@ -161,7 +161,7 @@ const updateEXP = async (req,res) => {
     },
       data:{
         experience : newExperience,
-        level: newlvl.toString(),
+        level: newlvl,
         levelUPExp:maxexp,
          [`${result}`]: {
       increment: 1
