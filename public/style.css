@@ -190,6 +190,16 @@ td img {
 
 
 
+.digimon-warning {
+  color: red;    
+  margin: 5px 0;
+}
+
+.center-text {
+  text-align: center;  
+  width: 100%;
+  display: block;
+}
 
 .menu{
   position: absolute;
