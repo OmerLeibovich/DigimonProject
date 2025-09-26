@@ -72,7 +72,7 @@ const getalluseritems = async (req,res) =>{
     }
   },
   orderBy:{
-    quantity:'asc',
+    itemId:'asc',
   }
 });
   if (!useritems){
