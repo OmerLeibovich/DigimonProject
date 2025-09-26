@@ -64,6 +64,11 @@ export function navbar(){
                 $('#pages').hide();
                 $('#userTable').html(data); 
                 $('.title').html('ShopPage');
+                const money = sessionStorage.getItem("money");
+                if (money) {
+                  user.money = parseInt(money);
+                }
+                $(".money-display").html(`<i class="fa fa-money"></i> : ${user.money}`);
             })
             .fail(function(){
                 console.error('Error fetching data:', error);
