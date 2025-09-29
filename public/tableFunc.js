@@ -66,7 +66,6 @@ export function table(){
     
             $(".yesbutton").click(async function() {
             const evoTree = await evolveDigi(diginame,rankVal[rank.indexOf(digiRank) + 1]);
-            console.log(evoTree);
             const random = Math.floor(Math.random() * (evoTree.length));
             const [hp, attack, defense] = calc_stats(digiLevel);
             $.ajax({
@@ -114,7 +113,7 @@ export function table(){
             const hp = $('#hp').text().split(" ")[1];
             const attack = $('#attack').text().split(" ")[1];
             const defense = $('#defense').text().split(" ")[1];
-            const money = user.money;
+            const money = sessionStorage.money;
             $.ajax({
                 method: "POST",
                 url: "/addDigimon",
@@ -133,22 +132,28 @@ export function table(){
             })
             .done(function(data){
                 $('#DigiForm').hide(); 
+                $('.navbar').show();
                 updateList();
                 pages("digimons");
-                $('#addDigimon').prop('disabled', false);
-                user.money = data.newMoney;
-                sessionStorage.setItem("money", data.newMoney);
+                $('#addDigimon').prop('disabled', false); 
+                sessionStorage.setItem("money",data.newMoney);
                 $(".money-display").html(`<i class="fa fa-money"></i> : ${data.newMoney}`);
                 $('.container').show();
             })
             .fail(function(){
                 showMessage("fail to add digimon",2000);
+                $('.navbar').show();
             });
         });
     
            // open form to add digimon
         $('#addDigimon').on("click", async function() {
             $('#DigiForm')[0].reset();
+            $('.navbar').hide();
+            // $('.home').prop('disabled', true);
+            // $('.Statistic').prop('disabled', true);
+            // $('.Shop').prop('disabled', true);
+            // $('.bag').prop('disabled', true);
             await getyourrandomDigi();
             $('.container').hide();
             
@@ -156,6 +161,7 @@ export function table(){
         // close digimon form
         $('#DigiForm').on('click','.cancel-btn',function(e){
             e.preventDefault();
+            $('.navbar').show();
             $('#DigiForm').hide();
             $('#addDigimon').prop('disabled', false);
             $('.container').show();

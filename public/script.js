@@ -26,11 +26,8 @@ $(document).ready(function () {
             $('#userTable').show();
             $('.battle-button').show();
             $('.bar').show();
-            const money = sessionStorage.getItem("money");
-            if (money) {
-            user.money = parseInt(money);
-            }
-            $(".money-display").html(`<i class="fa fa-money"></i> : ${user.money}`);
+            console.log(sessionStorage);
+            $(".money-display").html(`<i class="fa fa-money"></i> : ${sessionStorage.money}`);
             updateList(); 
             pages("digimons")
             $('.title').html('HomePage')

@@ -104,7 +104,6 @@
             if (response.levels.length !== 0){
                 if(response.levels[0].level === "Baby I"){
                     $('#photo').attr('src' , response.images[0].href);
-                    console.log( response.images[0].href)
                     $('#name').text("Name: " + response.name);
                     $('#rank').text("Rank: " + "Baby");
                     $('#level').text("Level: " + 1);

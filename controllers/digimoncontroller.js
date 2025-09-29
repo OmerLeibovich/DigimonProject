@@ -127,8 +127,11 @@ const updateEXP = async (req,res) => {
     }
   })
   let newExperience = parseInt(digimonDetails.experience) + parseInt(exp);
-  let newlvl = parseInt(digimonDetails.level);
-  let maxexp = parseInt(digimonDetails.levelUPExp);
+  let newlvl = digimonDetails.level;
+  let maxexp = digimonDetails.levelUPExp;
+  let attack = parseInt(digimonDetails.attack);
+  let defense = parseInt(digimonDetails.defense);
+  let hp = parseInt(digimonDetails.hp);
   if(newExperience < 0){
     newExperience = 0;
   }
@@ -136,6 +139,9 @@ const updateEXP = async (req,res) => {
     newlvl += 1;
     newExperience = 0;
     maxexp +=30
+    hp++;
+    attack++;
+    defense++;
   }
   let newMoney;
   if (result === "wins"){
@@ -163,6 +169,9 @@ const updateEXP = async (req,res) => {
         experience : newExperience,
         level: newlvl,
         levelUPExp:maxexp,
+        attack: attack.toString(),
+        defense: defense.toString(),
+        hp: hp.toString(),
          [`${result}`]: {
       increment: 1
     }

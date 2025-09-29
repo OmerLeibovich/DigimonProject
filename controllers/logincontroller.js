@@ -4,9 +4,9 @@ const prisma = new PrismaClient();
 
 
 const Checkuser =  async (req, res) => {
-  const username = req.body.username;
-  const password = req.body.password;
-  const remamber = req.body.remamber;
+  const username = req.query.username;
+  const password = req.query.password;
+  const remamber = req.query.remamber;
 
   try {
     const user = await prisma.user.findUnique({

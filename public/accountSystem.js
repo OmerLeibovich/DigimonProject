@@ -12,7 +12,7 @@ export function accountSystem(){
         const password = $('#password').val();
         const remamber = $('#remamber').is(":checked");
         $.ajax({
-            method:'POST',
+            method:'GET',
             url:'/login',
             data: {
                 username: username,
@@ -22,6 +22,7 @@ export function accountSystem(){
         })
         .done(function(data){
             sessionStorage.setItem("user", JSON.stringify({ username: username, id: data.id}));
+            sessionStorage.setItem("money",data.money);
             $('.login-container').hide();
             $('#addDigimon').show();
             $('#DigiList').show();
@@ -34,17 +35,17 @@ export function accountSystem(){
             $('.title').html('HomePage');
         
     })
-        .fail(function(error){
-            if(error.statusText === 'Unauthorized'){
-                errorMessage('#errorlogin','Invalid username or password');
-            }
-            else if(error.statusText === 'Forbidden'){
-                errorMessage('#errorlogin','You need verification email');
-            }
-            else{
-                errorMessage('#errorlogin','Connection failed. Please try again later');
-            }
-    })
+            .fail(function(jqXHR){
+                if (jqXHR.status === 401 || jqXHR.statusText === 'Unauthorized') {
+                    errorMessage('#errorlogin','Invalid username or password');
+                }
+                else if (jqXHR.status === 403 || jqXHR.statusText === 'Forbidden') {
+                    errorMessage('#errorlogin','You need verification email');
+                }
+                else {
+                    errorMessage('#errorlogin','Connection failed. Please try again later');
+                }
+            });
 });
 
 // Checks if all variables are correct and register
