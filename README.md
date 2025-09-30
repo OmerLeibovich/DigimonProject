@@ -2,7 +2,7 @@
 
 A full-stack web application inspired by Digimon.
 The project combines Node.js + Express + Prisma (PostgreSQL) on the backend with EJS, Bootstrap, and jQuery on the frontend.
-It provides user management, Digimon gameplay features (battle, shop, inventory, statistics), and deployment setup.
+It provides user management, Digimon gameplay features (battle, shop, inventory, statistics,Email verificatin), and deployment setup.
 
 ## Live Demo
 [DigimonProject Live Demo](https://digimontra.xyz/)
@@ -43,7 +43,7 @@ DigimonProject/
 │
 │── .gitignore           # Git ignored files configuration
 │── app.js               # Main entry point of the server
-│── mailsender.js        # Email sender logic (Nodemailer)
+│── mailsender.js        # Email sender logic (Sendgrid)
 │── package.json         # Project metadata and dependencies
 │── package-lock.json    # Lock file for dependency versions
 │── render.yaml          # Deployment configuration for Render
@@ -58,9 +58,9 @@ EJS – Template rendering
 
 Bootstrap & jQuery – Frontend styling and interactivity
 
-Nodemailer – Email handling
+Sendgrid – Email handling
 
-Render – Deployment platform
+Railway – Deployment platform
 
 ## Features Showcase
 ## Your Digimons
