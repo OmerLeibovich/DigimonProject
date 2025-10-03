@@ -127,8 +127,11 @@ const updateEXP = async (req,res) => {
     }
   })
   let newExperience = parseInt(digimonDetails.experience) + parseInt(exp);
-  let newlvl = parseInt(digimonDetails.level);
-  let maxexp = parseInt(digimonDetails.levelUPExp);
+  let newlvl = digimonDetails.level;
+  let maxexp = digimonDetails.levelUPExp;
+  let attack = parseInt(digimonDetails.attack);
+  let defense = parseInt(digimonDetails.defense);
+  let hp = parseInt(digimonDetails.hp);
   if(newExperience < 0){
     newExperience = 0;
   }
@@ -136,9 +139,17 @@ const updateEXP = async (req,res) => {
     newlvl += 1;
     newExperience = 0;
     maxexp +=30
+    hp++;
+    attack++;
+    defense++;
   }
+  let newMoney;
   if (result === "wins"){
-  let newMoney = user.money + 30;
+  newMoney = user.money + 30;
+  }
+  else{
+  newMoney = user.money;
+  }
   await prisma.user.update({
       where:{
       id:parseInt(userid),
@@ -147,10 +158,7 @@ const updateEXP = async (req,res) => {
       money: newMoney,
     }
   })
-}
-else{
-  newMoney = user.money;
-}
+
   req.session.user.money = newMoney;
 
   await prisma.digimon.update({
@@ -159,9 +167,14 @@ else{
     },
       data:{
         experience : newExperience,
-        level: newlvl.toString(),
+        level: newlvl,
         levelUPExp:maxexp,
-        [`${result}`]: 1
+        attack: attack.toString(),
+        defense: defense.toString(),
+        hp: hp.toString(),
+         [`${result}`]: {
+      increment: 1
+    }
     }
   })
 
@@ -177,18 +190,29 @@ const addDigi = async (req, res) => {
     const photo = req.body.Photo;
     const name = req.body.Name;
     const rank = req.body.Rank;
-    const level = req.body.Level;
+    const level = parseInt(req.body.Level);
     const attribute = req.body.Attribute;
     const hp = req.body.Hp;
     const attack = req.body.Attack;
     const defense = req.body.Defense;
     const experience = 0;
-    const levelInt = parseInt(level);
-    const levelUpExp = levelInt * 40;
+    const levelUpExp = level * 40;
+    const money = req.body.userMoney;
     const userid = req.session.user?.id;
       if (!userid) {
       return res.status(401).send('Unauthorized: no user session');
     }
+    if(money >= 100){
+    let newMoney = money-100;
+    
+  await prisma.user.update({
+      where: {
+      id: userid,
+    },
+      data:{
+        money : newMoney,
+    }
+  })
 
     const newDigimon = await prisma.digimon.create({
             data: {
@@ -207,8 +231,16 @@ const addDigi = async (req, res) => {
           })
     
     
-    res.status(200).json(newDigimon);
+    res.status(200).json({
+      newDigimon,
+      newMoney: newMoney,
+    });
         }
+      else{
+        console.error('dont have enough money to buy new digimon');
+        res.status(400).send('dont have enough money to buy new digimon');
+        }
+      }
     catch (error) {
     console.error('Error creating digimon:', error);
     res.status(500).send('Something went wrong');

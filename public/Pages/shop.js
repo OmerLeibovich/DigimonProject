@@ -7,7 +7,7 @@ export function shop(){
                 const itemName = $(this).closest('tr').find('td')[1].innerText;
                 const amountInput = $(this).closest('tr').find('.amount-input');
                 const amount = amountInput.val();
-                const money = user.money;
+                const money = parseInt(sessionStorage.money);
                 if (amount > 0){
                     if(money>(amount*100)){
                         $.ajax({
@@ -21,15 +21,15 @@ export function shop(){
                             }
                         })
                         .done(function(data){
-                            if (data.quantity-amount > 0){
+                            if (data.quantity-amount >= 0){
                                 showMessage(`updated amount of ${itemName} add more ${amount} `,2500);
                             }
                             else{
                             showMessage(`completed to buy ${amount} of ${itemName} `,2500);
                             }
                             amountInput.val('');
-                            user.money = data.newMoney;
-                              $(".money-display").html(`<i class="fa fa-money"></i> : ${user.money}`);
+                            sessionStorage.setItem("money", data.newMoney);
+                            $(".money-display").html(`<i class="fa fa-money"></i> : ${data.newMoney}`);
                         })
                         .fail(function(){
                             showMessage(`Failed to buy ${itemName}.`,2000);

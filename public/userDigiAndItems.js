@@ -1,4 +1,5 @@
 import { showMessage } from "./Messages.js";
+
 export async function getuserdigi(page,itemName = null,itemId = null){
         $.ajax({
             url: '/getuserdigis',
@@ -23,7 +24,7 @@ export async function getuserdigi(page,itemName = null,itemId = null){
 
 
 }
-    export async function getuseritems(){
+export async function getuseritems(){
             $.ajax({
                 url:'/getuseritems',
                 method:'GET',

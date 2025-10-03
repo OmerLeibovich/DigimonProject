@@ -12,36 +12,40 @@ model digimon {
   photo      String
   name       String
   rank       String
-  level      String
+  level      Int
   experience Int
   levelUPExp Int
   type       String
   hp         String
   attack     String
   defense    String
-  userid     Int
   loses      Int    @default(0)
+  userid     Int
   wins       Int    @default(0)
   user       user   @relation(fields: [userid], references: [id])
 }
 
 model user {
-  id         Int       @id @default(autoincrement())
-  username   String    @unique
-  password   String
-  email      String    @unique
-  isActivate Boolean   @default(false)
-  token      String
-  money      Int    @default(300)
-  digimons   digimon[]
+  id          Int         @id @default(autoincrement())
+  username    String      @unique
+  password    String
+  email       String      @unique
+  isActivate  Boolean     @default(false)
+  token       String
+  money       Int         @default(300)
+  digimons    digimon[]
   inventories inventory[]
+  @@index([username])
+  @@index([password])
+  @@index([token])
+  @@index([email])
 }
 
-model item{
-  id     Int @id @default(autoincrement())
-  name   String
-  price  Int
-  photo  String
+model item {
+  id          Int         @id @default(autoincrement())
+  name        String
+  price       Int
+  photo       String
   description String
   inventories inventory[]
 }
@@ -56,14 +60,14 @@ model Session {
 }
 
 model inventory {
-  id        Int    @id @default(autoincrement())
+  id       Int  @id @default(autoincrement())
+  userId   Int
+  itemId   Int
+  quantity Int  @default(0)
+  item     item @relation(fields: [itemId], references: [id])
+  user     user @relation(fields: [userId], references: [id])
 
-  userId    Int
-  itemId    Int
-  quantity  Int    @default(0)
-
-  user      user   @relation(fields: [userId], references: [id])
-  item      item   @relation(fields: [itemId], references: [id])
-
+  @@index(fields:[userId,itemId])
   @@unique([userId, itemId])
+  
 }

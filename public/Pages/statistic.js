@@ -11,7 +11,6 @@ export function statistic(){
                 let name;
                 const photo = selected.data('photo');
                 if (photo) {
-                    console.log(photo);
                 $('#statistic-photo').attr('src', photo).show();
                 }
                 else {

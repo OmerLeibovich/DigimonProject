@@ -12,11 +12,11 @@ function sendmail(token,email, username ,type) {
             <span>Your adventure starts now!  
             To begin, simply click the link below:</span>
             <br><br>
-            <a href="http://digimontra.up.railway.app/verify/${token}">Click Here</a>
+            <a href="http://digimontra.xyz/verify/${token}">Click Here</a>
             <br><br>
            <span>Good luck!</span>
            <br>
-           <img src="https://digimontra.up.railway.app/assets/logo/digitraLogo.png">
+           <img src="https://digimontra.xyz/assets/logo/digitraLogo.png">
            `;
         title = 'Email Verification';
     }
@@ -27,7 +27,7 @@ function sendmail(token,email, username ,type) {
             <br>
             <span>Reset your password:</span>
             <br>
-             <a href="https://digimontra.up.railway.app/reset/${token}">Click Here</a>
+             <a href="https://digimontra.xyz/reset/${token}">Click Here</a>
             <br><br>
             <span>If you didn’t request a password reset, you can ignore this email.</span>
             <br><br>
@@ -35,7 +35,7 @@ function sendmail(token,email, username ,type) {
             <br>
             <span>The digi-tra Team<span>
             <br>
-            <img src=""https://digimontra.up.railway.app/assets/logo/digitraLogo.png">
+            <img src=""https://digimontra.xyz/assets/logo/digitraLogo.png">
             `;
             title = 'reset password';
     }

@@ -136,7 +136,14 @@ const confirm_reset_password = async(req,res) =>{
       });
 
 
-      res.status(200).json(updatepassword);
+
+    req.session.Havetoken = false;
+    req.session.token = null;
+
+
+
+      res.status(200).json({ updatepassword: true, redirect: '/' });
+
     }
 
 }

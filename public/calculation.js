@@ -54,7 +54,7 @@ import { updateList } from "./create.js";
             yourNewHp = 0;
             endMessage = `you lose ${opponentName} defeat your digimon ${yourName},you got -15 experience`;
         }
-        $('.battle-btn').prop('disabled', true);
+
         // your attack
         $('#opponent-battlePhoto').data('hp', opponentNewHp);
         $('.opponent-progress-bar').css('width', (opponentNewHp/opponentMaxHp)*100 + '%');
@@ -101,7 +101,6 @@ import { updateList } from "./create.js";
                 }
                 $('.battle-container').hide();
                 $('.container').show();
-                $('.battle-btn').prop('disabled', false);
                  $.ajax({
                         url:'/updateEXP',
                         method:'PUT',
@@ -114,6 +113,7 @@ import { updateList } from "./create.js";
                     })
                     .done(function(data){
                         updateList();
+                        sessionStorage.setItem("money", data.newMoney);
                         $('.money-display').html(`<i class="fa fa-money"></i> : ${data.newMoney}`);
                     })
                     .fail(function(error){
@@ -123,8 +123,8 @@ import { updateList } from "./create.js";
         } else {
             setTimeout(() => {
                 $('.battle-message').text("What will your next move?");
-                $('.battle-btn').prop('disabled', false);
-            }, 3400);
+                 $('.battle-btn, .run-btn').prop('disabled', false).removeClass('disabled-btn');
+            }, 4000);
         }
     }
     // Calc every side dmg

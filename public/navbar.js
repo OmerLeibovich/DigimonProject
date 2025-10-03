@@ -1,3 +1,4 @@
+
 import { getuserdigi, getuseritems } from "./userDigiAndItems.js";
 import { showMessage } from "./Messages.js";
 import { updateList,pages } from "./create.js";
@@ -9,11 +10,13 @@ export function navbar(){
         $('.container').hide();
         $('.battle-container').hide();
         getuserdigi('statistic');
+        $('.title').html('StatisticPage');
         });
 
-        $(document).on('click','.home',function(e){
+        $(document).on('click','.home',async function(e){
         e.preventDefault();
-         setTimeout(() => {
+        $('#userTable').empty();
+        $('.title').html('HomePage');
         $('#digimon-select-container').hide();
         $('.battle-container').hide();
         $('.container').show();
@@ -23,9 +26,8 @@ export function navbar(){
         $('#addDigimon').show();
         $('.battle-button').show();
         $('#pages').show();
-        updateList(); 
+        await updateList(); 
         pages("digimons");
-            }, 600);
     });
 
 
@@ -39,6 +41,7 @@ export function navbar(){
                 $('.container').show();
             }, 500);
             getuseritems();
+            $('.title').html('InventoryPage');
            })
 
         $(document).on('click','.Shop',function(e){
@@ -60,7 +63,12 @@ export function navbar(){
                 $('.shopT').show();
                 $('#pages').hide();
                 $('#userTable').html(data); 
-                $('.title').html('shopPage');
+                $('.title').html('ShopPage');
+                const money = sessionStorage.getItem("money");
+                if (money) {
+                  user.money = parseInt(money);
+                }
+                $(".money-display").html(`<i class="fa fa-money"></i> : ${user.money}`);
             })
             .fail(function(){
                 console.error('Error fetching data:', error);

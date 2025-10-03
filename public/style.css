@@ -125,6 +125,13 @@ td img {
   display: none;
 }
 
+.disabled-btn {
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+
+
 .battle-wrapper {
   width: 100%;
   display: flex;
@@ -144,6 +151,7 @@ td img {
 }
 
 .message {
+  position: fixed; 
   width: 800px;
   height: 80px;
   margin-top: 10%;
@@ -182,6 +190,16 @@ td img {
 
 
 
+.digimon-warning {
+  color: red;    
+  margin: 5px 0;
+}
+
+.center-text {
+  text-align: center;  
+  width: 100%;
+  display: block;
+}
 
 .menu{
   position: absolute;
@@ -733,21 +751,26 @@ body {
 
 /* shop+inventory */
 
-.btn.btn-buy,
-.btn-use {
-  background-color: #388E3C;
-  color: white;
-  padding: 5px 10px;
-  border-radius: 6px;
-  border: none;
+.use-btn {
+  background-color: #4CAF50;    
+  color: white;                   
+  padding: 6px 14px;             
+  border: 2px solid black;       
+  border-radius: 8px;             
+  font-weight: bold;              
+  text-transform: uppercase;     
+  letter-spacing: 1px;            
   cursor: pointer;
+  box-shadow: 2px 2px 0px black;  
+}
+
+.use-btn:hover {
+  background-color: #388E3C;       
+  transform: translateY(-2px);    
+  box-shadow: 4px 4px 0px black; 
 }
 
 
-.btn.btn-buy:hover,
-.btn-use:hover {
-  background-color: #2e7030;
-}
 
 
 @media (max-width: 768px) {

@@ -1,7 +1,9 @@
 import { showMessage } from "../Messages.js";
-import { getuserdigi } from "../userDigiAndItems.js";
+import { getuserdigi, getuseritems } from "../userDigiAndItems.js";
+
+
 export function inventory(){
-        ////-------userinventory-------//////
+////-------userinventory-------//////
        $(document).on('click','.btn-use',function(e){
         e.preventDefault();
         const itemid = $(this).closest('tr').find('td').eq(0).data('item');
@@ -27,9 +29,8 @@ export function inventory(){
         })
         .done(function(){
             showMessage(`increase ${selected.data('name')} ${StatName} by 1.`,2000);
-                $('#digimon-select-container').hide();
-                getuseritems();
-    
+            $('#digimon-select-container').hide();
+            getuseritems();
     
         }).fail(function(){
             showMessage(`Failed to buy ${itemName}.`,2000);

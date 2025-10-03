@@ -50,6 +50,8 @@ export function table(){
         const digiId = $(this).data('id');
         let rankVal = ["Baby I","Baby II","Child","Adult","Perfect","Ultimate","Armor","Hybrid"];
         let rank = ["Baby","In_traning","Rookie","Champion","Ultimate","Mega","Armor","Hybrid"];
+        let evolvelevel = [7,11,18,31,46];
+        let nextrank = rank.indexOf(digiRank) + 1;
          if ((digiRank === rank[0] && digiLevel > 6 ) || (digiRank === rank[1] && digiLevel > 10 )
             || (digiRank === rank[2] && digiLevel > 17 ) || 
         (digiRank === rank[3] && digiLevel > 30 ) || (digiRank === rank[4] && digiLevel > 45 )){
@@ -64,7 +66,6 @@ export function table(){
     
             $(".yesbutton").click(async function() {
             const evoTree = await evolveDigi(diginame,rankVal[rank.indexOf(digiRank) + 1]);
-            console.log(evoTree);
             const random = Math.floor(Math.random() * (evoTree.length));
             const [hp, attack, defense] = calc_stats(digiLevel);
             $.ajax({
@@ -95,7 +96,8 @@ export function table(){
             showMessage("This Digimon can't evolve from this rank",3000);
         }
         else{
-            showMessage("you still cant digivolve",3000);
+            showMessage(
+            `you still cant digivolve,your digimon can evolve to rank ${rank[nextrank]} in level ${evolvelevel[nextrank-1]}`,3000);
         }
     
     })
@@ -111,7 +113,7 @@ export function table(){
             const hp = $('#hp').text().split(" ")[1];
             const attack = $('#attack').text().split(" ")[1];
             const defense = $('#defense').text().split(" ")[1];
-    
+            const money = sessionStorage.money;
             $.ajax({
                 method: "POST",
                 url: "/addDigimon",
@@ -124,30 +126,44 @@ export function table(){
                     Hp: hp,
                     Attack: attack,
                     Defense: defense,
+                    userMoney: money,
+
                 }
             })
             .done(function(data){
                 $('#DigiForm').hide(); 
+                $('.navbar').show();
                 updateList();
                 pages("digimons");
-                $('#addDigimon').prop('disabled', false);
+                $('#addDigimon').prop('disabled', false); 
+                sessionStorage.setItem("money",data.newMoney);
+                $(".money-display").html(`<i class="fa fa-money"></i> : ${data.newMoney}`);
+                $('.container').show();
             })
             .fail(function(){
                 showMessage("fail to add digimon",2000);
+                $('.navbar').show();
             });
         });
     
            // open form to add digimon
         $('#addDigimon').on("click", async function() {
             $('#DigiForm')[0].reset();
+            $('.navbar').hide();
+            // $('.home').prop('disabled', true);
+            // $('.Statistic').prop('disabled', true);
+            // $('.Shop').prop('disabled', true);
+            // $('.bag').prop('disabled', true);
             await getyourrandomDigi();
-            $('#addDigimon').prop('disabled', true);
+            $('.container').hide();
             
         })
         // close digimon form
         $('#DigiForm').on('click','.cancel-btn',function(e){
             e.preventDefault();
+            $('.navbar').show();
             $('#DigiForm').hide();
             $('#addDigimon').prop('disabled', false);
+            $('.container').show();
         })
 }
