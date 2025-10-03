@@ -13,8 +13,7 @@ export function navbar(){
         $('.title').html('StatisticPage');
         $('.title').html('StatisticPage');
         });
-
-        $(document).on('click','.home',async function(e){
+        
         $(document).on('click','.home',async function(e){
         e.preventDefault();
         $('#userTable').empty();
