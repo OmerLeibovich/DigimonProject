@@ -11,8 +11,10 @@ export function navbar(){
         $('.battle-container').hide();
         getuserdigi('statistic');
         $('.title').html('StatisticPage');
+        $('.title').html('StatisticPage');
         });
 
+        $(document).on('click','.home',async function(e){
         $(document).on('click','.home',async function(e){
         e.preventDefault();
         $('#userTable').empty();
@@ -64,11 +66,6 @@ export function navbar(){
                 $('#pages').hide();
                 $('#userTable').html(data); 
                 $('.title').html('ShopPage');
-                const money = sessionStorage.getItem("money");
-                if (money) {
-                  user.money = parseInt(money);
-                }
-                $(".money-display").html(`<i class="fa fa-money"></i> : ${user.money}`);
             })
             .fail(function(){
                 console.error('Error fetching data:', error);
