@@ -1,4 +1,4 @@
- import { calc_level,calc_stats } from "./calculation.js";
+ import { calc_stats } from "./calculation.js";
  
  // update list in UI with refresh the page
     export function updateList(num = 1){
@@ -82,6 +82,10 @@
                     $('#your-battleName').text(name);
                     $('.your-progress-bar').css('width', (HP/HP)*100 + '%');
                     $('.your-percentage').text(HP+"/"+HP);
+
+                    $('.message').hide();
+                    $('.battle-container').show();
+
                     return;
                 }
             }
@@ -112,6 +116,7 @@
                     $('#attack').text("Attack: " + attack);
                     $('#defense').text("Defense: " + defense);
                     $('#DigiForm').show(); 
+                    $('.message').hide();
                     return;
                 }
         }

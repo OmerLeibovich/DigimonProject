@@ -150,12 +150,10 @@ export function table(){
         $('#addDigimon').on("click", async function() {
             $('#DigiForm')[0].reset();
             $('.navbar').hide();
-            // $('.home').prop('disabled', true);
-            // $('.Statistic').prop('disabled', true);
-            // $('.Shop').prop('disabled', true);
-            // $('.bag').prop('disabled', true);
-            await getyourrandomDigi();
             $('.container').hide();
+            $('.message').text('Preparing your new Digimon...');
+            $('.message').show();
+            await getyourrandomDigi();
             
         })
         // close digimon form

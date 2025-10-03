@@ -60,7 +60,6 @@ export function battleSystem(){
         })
      $(document).on('click','#submit-digimon', async function(e){
          $('.battle-btn, .run-btn').prop('disabled', true).addClass('disabled-btn');
-
          e.preventDefault();
          resetBattlesystem();
          const selected = $('#digimon-select option:selected');
@@ -68,10 +67,11 @@ export function battleSystem(){
          if(selectedValue !== ""){
          $('#your-battlePhoto').data('id',selected.data('id'));
           $('#digimon-select-container').hide();
-           $('.battle-container').show();
            await getopponentrandomDigi(selected.data('rank'),selected.data('level'),
            selected.data('photo'),selected.data('name'),
            selected.data('hp'),selected.data('at'),selected.data('de'));
+           $('.message').text(`Search for Opponent...`);
+           $('.message').show();
            setTimeout(() =>{
             $('.battle-btn, .run-btn').prop('disabled', false).removeClass('disabled-btn');
            },3000)
