@@ -23,6 +23,7 @@ model digimon {
   userid     Int
   wins       Int    @default(0)
   user       user   @relation(fields: [userid], references: [id])
+  @@index([userid])
 }
 
 model user {
