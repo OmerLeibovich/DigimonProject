@@ -10,9 +10,9 @@ It provides user management, Digimon gameplay features (battle, shop, inventory,
 ## Folder Structure
 ```bash
 DigimonProject/
-│── controllers/         # Application controllers (business logic)
+│── controllers/         # Application controllers 
 │── generated/           # Auto-generated Prisma client files
-│── node_modules/        # Project dependencies (auto-generated)
+│── node_modules/        # Project dependencies 
 │── prisma/              # Prisma schema and migrations
 │
 │── public/              
