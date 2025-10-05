@@ -9,7 +9,7 @@ export function table(){
             updateList((page+1));
         })
     
-        // ON MANY ITEMS with same element need class no ID
+        // Display photo for digimon
         $(document).on('click', '.openphoto', function (e) {
             e.preventDefault();
             $('#DigiPhoto').show();
