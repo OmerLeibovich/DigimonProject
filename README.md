@@ -73,8 +73,8 @@ Railway – Deployment platform
 <img alt="Statistics System" src="https://github.com/user-attachments/assets/5a67aaa3-bd02-400e-b891-8b45e90d912d"  width="600" height="400"/>
 
 ## Shop System
-<img alt="Shop System" src="https://github.com/user-attachments/assets/2cd5f62f-ddd1-47b3-9510-59b8d980da9f" width="600" height="400"/>
+<img alt="Shop System" src="https://github.com/user-attachments/assets/9a5933ec-4d07-488f-8f81-f1034d42ea43" width="600" height="400"/>
 
 ## Inventory System
-<img alt="Inventory System" src="https://github.com/user-attachments/assets/37cde1fa-5723-4165-9a3a-9f734615f3b4" width="600" height="400"/>
+<img alt="Inventory System" src="https://github.com/user-attachments/assets/a3f30724-7f5b-405d-9ccd-ac3d5477ef27" width="600" height="400"/>
 
