@@ -15,7 +15,7 @@ DigimonProject/
 │── node_modules/        # Project dependencies (auto-generated)
 │── prisma/              # Prisma schema and migrations
 │
-│── public/              # Static assets (frontend)
+│── public/              
 │   ├── assets/          # Images, icons, etc.
 │   ├── Pages/           # Page-specific JS logic
 │   │   ├── accountSystem.js
