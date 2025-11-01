@@ -27,7 +27,6 @@ export function navbar(){
         $('#pages').show();
         await updateList(); 
         pages("digimons");
-            }, 600);
     });
 
 

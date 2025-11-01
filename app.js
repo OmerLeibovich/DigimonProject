@@ -1,8 +1,6 @@
 const { PrismaSessionStore } = require('@quixo3/prisma-session-store');
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
-const NodeCache = require( "node-cache" );
-const cache = new NodeCache(); 
 const DigiRoutes = require('./routes/digimonroute');
 const loginRoute = require('./routes/loginroute');
 const itemRoute = require('./routes/inventoryroute')
