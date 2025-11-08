@@ -34,7 +34,11 @@ export function navbar(){
 
          $(document).on('click','.bag',function(e){
             e.preventDefault();
-            $('.nav-links').slideToggle();
+                   if (window.innerWidth <= 768) {
+                 $('.nav-links').slideToggle();
+            }
+            else{
+                 $('.nav-links').slideToggle();
             setTimeout(() => {
                 $('#digimon-select-container').hide();
                 $('.battle-container').hide();
@@ -44,11 +48,16 @@ export function navbar(){
             }, 500);
             getuseritems();
             $('.title').html('InventoryPage');
-           })
+           }
+        })
 
         $(document).on('click','.Shop',function(e){
             e.preventDefault();
-            $('.nav-links').slideToggle();
+            if (window.innerWidth <= 768) {
+                 $('.nav-links').slideToggle();
+            }
+            else{
+                $('.nav-links').slideToggle();
             setTimeout(() => {
                 $('#digimon-select-container').hide();
                 $('.container').show();
@@ -72,8 +81,9 @@ export function navbar(){
                 console.error('Error fetching data:', error);
                 showMessage('Error fatching data',2000);
             })
-        })
+        }
 
-        
+    })
+
 
     }
