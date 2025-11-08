@@ -8,10 +8,27 @@ import { statistic } from './Pages/statistic.js';
 import { inventory } from './Pages/inventory.js';
 import { shop } from './Pages/shop.js';
 import { table } from './tableFunc.js';
+import { MobileDigi } from './mobileFunc.js';
 
 
 
 $(document).ready(function () {
+
+    let isAnimating;
+
+        $(document).ready(function() {
+            $('.menu-toggle').click(function() {
+                 isAnimating = false;
+                $('.nav-links').slideToggle();
+            });
+        });
+
+        $('.main-wrapper').click(function(){
+            if (!isAnimating && $('.nav-links').is(':visible')){
+                isAnimating = true;
+                $('.nav-links').slideToggle();
+        }
+    });
 
 
         if(Havetoken){
@@ -27,7 +44,12 @@ $(document).ready(function () {
             $('.battle-button').show();
             $('.bar').show();
             $(".money-display").html(`<i class="fa fa-money"></i> : ${sessionStorage.money}`);
-            updateList(); 
+            if (window.innerWidth <= 768) {
+                updateList();
+            }
+            else{
+                 updateList(1); 
+            }
             pages("digimons")
             $('.title').html('HomePage')
             }
@@ -63,4 +85,8 @@ $(document).ready(function () {
     ////-------userinventory-------//////
     inventory();
    
+
+
+    ////------------Mobile--------///////
+        MobileDigi();
 });

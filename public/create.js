@@ -1,21 +1,31 @@
  import { calc_stats } from "./calculation.js";
  
  // update list in UI with refresh the page
-    export function updateList(num = 1){
+export function updateList(num = null, digimonIndex = 0) {
+  return new Promise((resolve, reject) => {
     $.ajax({
-            url: '/getDigis',
-            method: 'GET',
-            data:{
-                pages : num,
-            }
-        })  
-        .done(function(data) {
-        $('#userTable').html(data); 
-        })
-        .fail(function(error) {
-            console.error('Error fetching data:', error);
-        });
-    }
+      url: '/getDigis',
+      method: 'GET',
+      data: {
+        pages: num,
+        index: digimonIndex
+      }
+    })
+      .done(function (data) {
+        if (num == null) {
+          $('.mobile-digi').html(data);
+        } else {
+          $('#userTable').html(data);
+        }
+        resolve();
+      })
+      .fail(function (error) {
+        console.error('Error fetching data:', error);
+        reject(error);
+      });
+  });
+}
+
 
         //send pages
     export  function pages(element){
@@ -100,6 +110,13 @@
     export async function getyourrandomDigi(){
     var [hp, attack, defense] = calc_stats(1);
     var id = Math.floor(Math.random() * (1489 - 1) + 1);
+    let widthSize = "";
+    if (window.innerWidth <= 768) {
+        widthSize = "60%";
+    }
+    else{
+        widthSize = "90%";
+    } 
     $('#photo').attr('src','');
     await $.ajax({
             url: `https://digi-api.com/api/v1/digimon/${id}`,
@@ -107,7 +124,11 @@
             }).done(function(response) {
             if (response.levels.length !== 0){
                 if(response.levels[0].level === "Baby I"){
-                    $('#photo').attr('src' , response.images[0].href);
+                    $('#photo')  .attr('src', response.images[0].href)
+                    .css({
+                        width: widthSize,  
+                        height: 'auto'
+                    });
                     $('#name').text("Name: " + response.name);
                     $('#rank').text("Rank: " + "Baby");
                     $('#level').text("Level: " + 1);

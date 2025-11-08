@@ -30,9 +30,15 @@ export function accountSystem(){
             $('.battle-button').show();
             $('.bar').show();
             $('.money-display').html(`<i class="fa fa-money"></i> : ${data.money}`);
-            updateList(); 
             pages("digimons");
             $('.title').html('HomePage');
+            /// check if this mobile
+             if (window.innerWidth <= 768) {
+                updateList();
+            }
+            else{
+                 updateList(1); 
+            }
         
     })
             .fail(function(jqXHR){

@@ -7,6 +7,7 @@ const prisma = new PrismaClient();
 
 
 const getAllDigis = async (req, res) => {
+   let indexDigi = parseInt(req.query.index);
   try {
     if (!req.session?.user?.id) {
       return res.status(401).send('Unauthorized');
@@ -16,12 +17,22 @@ const getAllDigis = async (req, res) => {
       where: { userid: req.session.user.id },
       orderBy: { level: 'asc' }
     });
+    
+    
+    if (req.query.pages !== 'null' && req.query.pages !== '') {
 
     const pages = req.query.pages * 10;
 
     const DigiPage = digimons.slice(pages-10,pages);
 
       res.render('DigimonSystem/digimonTable', { DigiPage}); 
+    }
+    else{ 
+      if (indexDigi < 0) indexDigi = digimons.length - 1;
+      if (indexDigi >= digimons.length) indexDigi = 0;
+      res.render('DigimonSystem/digimonMobile',{digimons,indexDigi});
+    }
+    
   } catch (error) {
     console.error('Error fetching digimons:', error);
     res.status(500).send('Something went wrong');

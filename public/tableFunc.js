@@ -32,7 +32,12 @@ export function table(){
                 }
             })
             .done(function(data){
+                 if (window.innerWidth <= 768) {
                 updateList();
+            }
+            else{
+                 updateList(1); 
+            }
                 pages("digimons");
             })
             .fail(function(){
@@ -42,16 +47,27 @@ export function table(){
       // if digimon can evolve return the evovle of this digimon
       $(document).on('click','.evolveDigi', async function(e){
         e.preventDefault();
-        const diginame = $(this).closest('tr').find('td')[1].innerText;
-        const digiRank = $(this).closest('tr').find('td')[2].innerText;
-        const digiLevel = $(this).closest('tr').find('td')[3].innerText;
+        $('.navbar').hide();
+        let digiLevel;
+        let digiRank; 
+        let diginame;
+        if (window.innerWidth <= 768) {
+            diginame = $('.digi-name').text().trim();
+            digiRank = $('.MobileDigiRank').text().split(':')[1].trim();
+            digiLevel = $('.MobileDigiLevel').text().split(':')[1].trim();
+        }
+        else{
+            diginame = $(this).closest('tr').find('td')[1].innerText;
+            digiRank = $(this).closest('tr').find('td')[2].innerText;
+            digiLevel = $(this).closest('tr').find('td')[3].innerText;
+        }
         $('.message').fadeIn();
         $('.container').fadeOut();
         const digiId = $(this).data('id');
         let rankVal = ["Baby I","Baby II","Child","Adult","Perfect","Ultimate","Armor","Hybrid"];
         let rank = ["Baby","In_traning","Rookie","Champion","Ultimate","Mega","Armor","Hybrid"];
         let evolvelevel = [7,11,18,31,46];
-        let nextrank = rank.indexOf(digiRank) + 1;
+        let nextrank = (rank.indexOf(digiRank) + 1);
          if ((digiRank === rank[0] && digiLevel > 6 ) || (digiRank === rank[1] && digiLevel > 10 )
             || (digiRank === rank[2] && digiLevel > 17 ) || 
         (digiRank === rank[3] && digiLevel > 30 ) || (digiRank === rank[4] && digiLevel > 45 )){
@@ -82,7 +98,14 @@ export function table(){
             })
             .done(function(data){
                 showMessage(`${diginame}  " evolve to: "  ${evoTree[random].name}`,3000);
+            if (window.innerWidth <= 768) {
                 updateList();
+                $('.navbar').show();
+            }
+            else{
+                 updateList(1); 
+                 $('.navbar').show();
+            }
             })
             .fail(function(error){
                 showMessage("fail to evolve digimon",3000);
@@ -99,7 +122,6 @@ export function table(){
             showMessage(
             `you still cant digivolve,your digimon can evolve to rank ${rank[nextrank]} in level ${evolvelevel[nextrank-1]}`,3000);
         }
-    
     })
     
         // form to add random digimon
@@ -133,7 +155,7 @@ export function table(){
             .done(function(data){
                 $('#DigiForm').hide(); 
                 $('.navbar').show();
-                updateList();
+                updateList(1);
                 pages("digimons");
                 $('#addDigimon').prop('disabled', false); 
                 sessionStorage.setItem("money",data.newMoney);
@@ -142,7 +164,6 @@ export function table(){
             })
             .fail(function(){
                 showMessage("fail to add digimon",2000);
-                $('.navbar').show();
             });
         });
     

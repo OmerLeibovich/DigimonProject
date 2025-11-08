@@ -112,7 +112,7 @@ import { updateList } from "./create.js";
                         }
                     })
                     .done(function(data){
-                        updateList();
+                        updateList(1);
                         sessionStorage.setItem("money", data.newMoney);
                         $('.money-display').html(`<i class="fa fa-money"></i> : ${data.newMoney}`);
                     })

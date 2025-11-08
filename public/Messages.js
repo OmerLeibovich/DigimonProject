@@ -5,6 +5,7 @@
     setTimeout(() => {
         $('.message').fadeOut();
         $('.container').fadeIn();
+        $('.navbar').show();
     }, duration);
 }
   // func show error message

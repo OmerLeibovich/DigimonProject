@@ -7,6 +7,7 @@ export function navbar(){
 /////--------navbar-------/////
         $(document).on('click', '.Statistic', function(e) {
         e.preventDefault();
+        $('.nav-links').slideToggle();
         $('.container').hide();
         $('.battle-container').hide();
         getuserdigi('statistic');
@@ -14,6 +15,7 @@ export function navbar(){
         
         $(document).on('click','.home',async function(e){
         e.preventDefault();
+        $('.nav-links').slideToggle();
         $('#userTable').empty();
         $('.title').html('HomePage');
         $('#digimon-select-container').hide();
@@ -25,13 +27,14 @@ export function navbar(){
         $('#addDigimon').show();
         $('.battle-button').show();
         $('#pages').show();
-        await updateList(); 
+        await updateList(1); 
         pages("digimons");
     });
 
 
          $(document).on('click','.bag',function(e){
             e.preventDefault();
+            $('.nav-links').slideToggle();
             setTimeout(() => {
                 $('#digimon-select-container').hide();
                 $('.battle-container').hide();
@@ -45,6 +48,7 @@ export function navbar(){
 
         $(document).on('click','.Shop',function(e){
             e.preventDefault();
+            $('.nav-links').slideToggle();
             setTimeout(() => {
                 $('#digimon-select-container').hide();
                 $('.container').show();

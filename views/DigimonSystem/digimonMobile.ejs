@@ -1,0 +1,17 @@
+<div class="digi-mobile-wrapper">
+  <button class="arrow-btn left-arrow"><i class="fa fa-chevron-left"></i></button>
+
+  <div class="digi-mobile-card" data-index="<%= indexDigi %>">
+    <img class="digi-photo" src="<%= digimons[indexDigi].photo %>" alt="Photo">
+    <h3 class="digi-name"><%= digimons[indexDigi].name %></h3>
+    <div class="digi-info">
+      <p class="MobileDigiRank"><strong>Rank:</strong> <%= digimons[indexDigi].rank %></p>
+      <p class="MobileDigiLevel"><strong>Level:</strong> <%= digimons[indexDigi].level %></p>
+      <p><strong>Type:</strong> <%= digimons[indexDigi].type %></p>
+      <p><strong>Stats:</strong> <%= digimons[indexDigi].hp %> / <%= digimons[indexDigi].attack %> / <%= digimons[indexDigi].defense %></p>
+    </div>  
+     <button class="btn btn-success evolveDigi" data-id="<%= digimons[indexDigi].id %>">Evolve</button>
+    <button class="btn btn-danger deleteDigi" data-id="<%= digimons[indexDigi].id %>">Delete</button>
+  </div>
+  <button class="arrow-btn right-arrow"><i class="fa fa-chevron-right"></i></button>
+</div>
