@@ -15,13 +15,11 @@ import { MobileDigi } from './mobileFunc.js';
 $(document).ready(function () {
 
     let isAnimating;
-
-        $(document).ready(function() {
+        if (window.innerWidth <= 768) {
             $('.menu-toggle').click(function() {
                  isAnimating = false;
                 $('.nav-links').slideToggle();
             });
-        });
 
         $('.main-wrapper').click(function(){
             if (!isAnimating && $('.nav-links').is(':visible')){
@@ -29,6 +27,7 @@ $(document).ready(function () {
                 $('.nav-links').slideToggle();
         }
     });
+}
 
 
         if(Havetoken){

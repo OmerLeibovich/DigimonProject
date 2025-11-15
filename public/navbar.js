@@ -3,11 +3,21 @@ import { getuserdigi, getuseritems } from "./userDigiAndItems.js";
 import { showMessage } from "./Messages.js";
 import { updateList,pages } from "./create.js";
 
+//// to hide navbar after click only in mobile
+export function hideNavBar(){
+     if (window.innerWidth <= 768) {
+         $('.nav-links').slideToggle();
+     }
+     else{
+        return;
+     }
+}
+
 export function navbar(){
 /////--------navbar-------/////
         $(document).on('click', '.Statistic', function(e) {
         e.preventDefault();
-        $('.nav-links').slideToggle();
+        hideNavBar();
         $('.container').hide();
         $('.battle-container').hide();
         getuserdigi('statistic');
@@ -15,7 +25,7 @@ export function navbar(){
         
         $(document).on('click','.home',async function(e){
         e.preventDefault();
-        $('.nav-links').slideToggle();
+         hideNavBar();
         $('#userTable').empty();
         $('.title').html('HomePage');
         $('#digimon-select-container').hide();
@@ -34,11 +44,7 @@ export function navbar(){
 
          $(document).on('click','.bag',function(e){
             e.preventDefault();
-                   if (window.innerWidth <= 768) {
-                 $('.nav-links').slideToggle();
-            }
-            else{
-                 $('.nav-links').slideToggle();
+            hideNavBar();
             setTimeout(() => {
                 $('#digimon-select-container').hide();
                 $('.battle-container').hide();
@@ -48,16 +54,11 @@ export function navbar(){
             }, 500);
             getuseritems();
             $('.title').html('InventoryPage');
-           }
-        })
+           });
 
         $(document).on('click','.Shop',function(e){
             e.preventDefault();
-            if (window.innerWidth <= 768) {
-                 $('.nav-links').slideToggle();
-            }
-            else{
-                $('.nav-links').slideToggle();
+            hideNavBar();
             setTimeout(() => {
                 $('#digimon-select-container').hide();
                 $('.container').show();
@@ -81,9 +82,9 @@ export function navbar(){
                 console.error('Error fetching data:', error);
                 showMessage('Error fatching data',2000);
             })
-        }
-
-    })
-
+        });
 
     }
+
+
+    
