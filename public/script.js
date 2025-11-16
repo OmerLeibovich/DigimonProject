@@ -16,6 +16,7 @@ $(document).ready(function () {
 
     let isAnimating;
         if (window.innerWidth <= 768) {
+            $('.actions-wrapper').show();
             $('.menu-toggle').click(function() {
                  isAnimating = false;
                 $('.nav-links').slideToggle();
