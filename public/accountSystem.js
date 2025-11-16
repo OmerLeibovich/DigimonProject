@@ -34,8 +34,8 @@ export function accountSystem(){
             $('.title').html('HomePage');
             /// check if this mobile
              if (window.innerWidth <= 768) {
-               $('.actions-wrapper').show();
-                updateList();
+                  $('.actions-wrapper').addClass('show-force');
+                  updateList();
             }
             else{
                  updateList(1); 
