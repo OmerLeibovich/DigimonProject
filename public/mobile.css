@@ -1,5 +1,8 @@
 @media (max-width: 768px), (max-height: 768px) {
 
+  .actions-wrapper {
+  display: none !important;
+}
   
   /*login*/
   .login-container {
