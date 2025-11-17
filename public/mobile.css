@@ -1,5 +1,6 @@
 @media (max-width: 768px), (max-height: 768px) {
 
+
   /*login*/
   .login-container {
     width: 60vw;                    
@@ -207,7 +208,7 @@
 }
 /*add digimon and battle button*/
 .actions-wrapper {
-    display: flex;
+    display: none;
     flex-direction: column;  
     align-items: center;
     justify-content: center;

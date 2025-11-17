@@ -45,6 +45,7 @@ $(document).ready(function () {
             $(".money-display").html(`<i class="fa fa-money"></i> : ${sessionStorage.money}`);
             if (window.innerWidth <= 768) {
                 updateList();
+                $('.actions-wrapper').css('display','flex');
             }
             else{
                  updateList(1); 
@@ -58,6 +59,9 @@ $(document).ready(function () {
             $('#username').val(username);
             $('#password').val(password);
         }
+    }
+    if (!isLoggedIn && window.innerWidth <= 768 ) {
+        $('.actions-wrapper').css('display','none');
     }
 
     ///----table----////
