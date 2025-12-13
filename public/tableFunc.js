@@ -96,10 +96,10 @@ export function table(){
                     defense: defense,
                 }
             })
-            .done(function(data){
+            .done(async function(data){
                 showMessage(`${diginame}  " evolve to: "  ${evoTree[random].name}`,3000);
             if (window.innerWidth <= 768) {
-                updateList();
+                await updateList();
                 $('.navbar').show();
             }
             else{

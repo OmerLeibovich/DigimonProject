@@ -1,0 +1,18 @@
+<div class="mobile-wrapper">
+  <button id="bag-left-arrow" class="arrow-btn left-arrow"><i class="fa fa-chevron-left"></i></button>
+
+  <div class="mobile-card" data-index="<%= index %>">
+    <img class="item-photo" src="<%= useritems[index].item.photo %>" alt="Photo">
+    <h3 class="item-name"> <%= useritems[index].item.name %></h3>
+    <div class="item-info">
+      <p class="itemDescription"><strong>Description:
+        <br>
+      </strong> <%= useritems[index].item.description %></p>
+     <p class="itemAmount"><strong>Amount:
+      <br>
+      </strong> <%= useritems[index].quantity %></p>
+    </div> 
+     <button class="btn btn-success btn-use" data-id="<%=  useritems[index].item.id %>"   data-name="<%= useritems[index].item.name %>">use</button>
+  </div>
+  <button id="bag-right-arrow" class="arrow-btn right-arrow"><i class="fa fa-chevron-right"></i></button>
+</div>

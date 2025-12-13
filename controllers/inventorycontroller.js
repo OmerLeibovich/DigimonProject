@@ -51,8 +51,10 @@ const useitem = async (req,res) =>{
 const getalluseritems = async (req,res) =>{
   try{
   const id = req.query.id;
+  const type = req.query.type;
+  let index = parseInt(req.query.index);
 
-  const useritems = await prisma.inventory.findMany({
+  let useritems = await prisma.inventory.findMany({
   where: {
     userId: parseInt(id),
       quantity: {
@@ -78,7 +80,14 @@ const getalluseritems = async (req,res) =>{
   if (!useritems){
     useritems = [];
   }
+      if (index < 0) index = useritems.length - 1;
+      if (index >= useritems.length) index = 0;
+  if (type === "mobile") {
+    res.render('inventorySystem/inventoryMobile', {useritems,index})
+  }
+  else{
     res.render('inventorySystem/inventorypage', {useritems})
+  }
   }
  catch (error){
       console.error('Error fetching useritems:', error);

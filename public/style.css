@@ -717,7 +717,7 @@ body {
   flex-direction: row;
   justify-content: center;   
   align-items: flex-start;  
-  gap: 40px;                 
+  gap: 20px;                 
 }
 
 .statistic-main {
@@ -743,7 +743,6 @@ body {
 
 #winsCanvas,
 #losesCanvas {
-  margin-top: 15%;
   width: 250px !important;
   height: 140px !important;
 }

@@ -4,13 +4,23 @@ import { getuserdigi, getuseritems } from "../userDigiAndItems.js";
 
 export function inventory(){
 ////-------userinventory-------//////
+        //take all parmeters to upgrade stat
        $(document).on('click','.btn-use',function(e){
         e.preventDefault();
-        const itemid = $(this).closest('tr').find('td').eq(0).data('item');
-        const itemName = $(this).closest('tr').find('td')[1].innerText;
+        let itemName;
+        let itemid;
+        if (window.innerWidth <= 768 ) {
+            itemName = $(this).data('name');
+            itemid = $(this).data('id');
+        }
+        else{
+            itemName = $(this).closest('tr').find('td')[1].innerText;
+            itemid = $(this).closest('tr').find('td').eq(0).data('item');
+        }
         $('.container').hide();
         getuserdigi('items',itemName,itemid);
        })
+       // move all parmeters to node.js to upgrade stat
        $(document).on('click','#use-digimon',function(e){
         e.preventDefault();
         const id = $('.titleItem').data('id');

@@ -25,7 +25,8 @@ export function navbar(){
         
         $(document).on('click','.home',async function(e){
         e.preventDefault();
-         hideNavBar();
+        hideNavBar();
+        $('.actions-wrapper').show();
         $('#userTable').empty();
         $('.title').html('HomePage');
         $('#digimon-select-container').hide();
@@ -37,14 +38,20 @@ export function navbar(){
         $('#addDigimon').show();
         $('.battle-button').show();
         $('#pages').show();
-        await updateList(1); 
+        if (window.innerWidth <= 768) {
+            await updateList();
+        }
+        else{
+        await updateList(1);
+        } 
         pages("digimons");
     });
 
 
-         $(document).on('click','.bag',function(e){
+         $(document).on('click','.bag',async function(e){
             e.preventDefault();
             hideNavBar();
+            $('.actions-wrapper').hide();
             setTimeout(() => {
                 $('#digimon-select-container').hide();
                 $('.battle-container').hide();
@@ -52,7 +59,7 @@ export function navbar(){
                 $('.battle-button').hide();
                 $('.container').show();
             }, 500);
-            getuseritems();
+            await getuseritems();
             $('.title').html('InventoryPage');
            });
 

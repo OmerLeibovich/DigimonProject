@@ -197,15 +197,25 @@ export async function evolveDigi(name, rank) {
     }
 
 
+// draw circals with text(wins or loses) in statistics
 function drawCircle(canvasTitle, color, label, number) {
     const canvas = document.getElementById(canvasTitle);
+    if (window.innerWidth <= 768) {
+    canvas.width = 120;       
+    canvas.height = 120;
+    }
+
     const ctx = canvas.getContext("2d");
 
+    const centerX = canvas.width / 2;
+    const centerY = canvas.height / 2;
+
+    const radius = Math.min(canvas.width, canvas.height) / 2 - 5;
 
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     ctx.beginPath();
-    ctx.arc(95, 60, 55, 0, 2 * Math.PI);
+    ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI);
     ctx.fillStyle = color;
     ctx.fill();
     ctx.stroke();
@@ -214,11 +224,12 @@ function drawCircle(canvasTitle, color, label, number) {
     ctx.fillStyle = "black";
     ctx.textAlign = "center";
     ctx.textBaseline = "middle";
-    ctx.fillText(label, 95, 40);
+    ctx.fillText(label, centerX, centerY - 20);
 
     ctx.font = "30px Arial";
-    ctx.fillText(number, 95, 80);
+    ctx.fillText(number, centerX, centerY + 15);
 }
+
 
 export function createCircle(numbers) {
     drawCircle("winsCanvas", "blue", "WINS", numbers[0]);
