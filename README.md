@@ -6,6 +6,11 @@ It provides user management, Digimon gameplay features (battle, shop, inventory,
 
 ## Live Demo
 [DigimonProject Live Demo](https://digimontra.xyz/)
+```bash
+If email confirmation doesn’t work, you can log in with the demo user:
+Username: omer
+Password: 12345
+```
 
 ## Folder Structure
 ```bash
