@@ -3,10 +3,22 @@ export function shop(){
          
         ///------shop------///
             $(document).on("click",".btn-buy", function(e){
-                const itemid = $(this).closest('tr').find('td').eq(0).data('item');
-                const itemName = $(this).closest('tr').find('td')[1].innerText;
-                const amountInput = $(this).closest('tr').find('.amount-input');
-                const amount = amountInput.val();
+                let itemid;
+                let itemName;
+                let amountInput;
+                let amount;
+                 if (window.innerWidth <= 768 ) {
+                    itemid =  $(this).closest('.mobile-card').data('id');
+                    itemName = $(this).closest('.mobile-card').find('.item-name').text().trim();
+                    amountInput = $(this).closest('.mobile-card').find('.amount-input');
+                    amount = amountInput.val();
+                 }
+                 else{
+                    itemid = $(this).closest('tr').find('td').eq(0).data('item');
+                    itemName = $(this).closest('tr').find('td')[1].innerText;
+                    amountInput = $(this).closest('tr').find('.amount-input');
+                    amount = amountInput.val();
+                 }
                 const money = parseInt(sessionStorage.money);
                 if (amount > 0){
                     if(money>(amount*100)){

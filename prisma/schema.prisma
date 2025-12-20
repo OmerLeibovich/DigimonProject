@@ -12,7 +12,6 @@ model digimon {
   photo      String
   name       String
   rank       String
-  level      Int
   experience Int
   levelUPExp Int
   type       String
@@ -22,7 +21,9 @@ model digimon {
   loses      Int    @default(0)
   userid     Int
   wins       Int    @default(0)
+  level      Int
   user       user   @relation(fields: [userid], references: [id])
+
   @@index([userid])
 }
 
@@ -36,6 +37,7 @@ model user {
   money       Int         @default(300)
   digimons    digimon[]
   inventories inventory[]
+
   @@index([username])
   @@index([password])
   @@index([token])
@@ -68,7 +70,6 @@ model inventory {
   item     item @relation(fields: [itemId], references: [id])
   user     user @relation(fields: [userId], references: [id])
 
-  @@index(fields:[userId,itemId])
   @@unique([userId, itemId])
-  
+  @@index([userId, itemId])
 }

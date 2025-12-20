@@ -3,10 +3,18 @@ const prisma = new PrismaClient();
 
 
 const getshopitems = async (req,res) =>{
+  const type = req.query.type;
+  let index = parseInt(req.query.index);
   try{
     const shopitems = await prisma.item.findMany();
-
+    if (index < 0) index = shopitems.length - 1;
+    if (index >= shopitems.length) index = 0;
+    if (type === "mobile"){
+      res.render('shopSystem/shoppageMobile', {shopitems,index})
+    }
+    else{
     res.render('shopSystem/shoppage', {shopitems})
+    }
   }
  catch (error){
       console.error('Error fetching shopitems:', error);

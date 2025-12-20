@@ -62,3 +62,41 @@ export async function getuseritems(index=0){
          });
             
     }
+
+export async function getshopitems(index=0){
+    return new Promise((resolve, reject) => {
+         var type = "all";
+            if (window.innerWidth <= 768) {
+                type = "mobile"
+            }
+        $.ajax({
+                url:'/getshopitems',
+                method:'GET',
+                data:{
+                type: type,
+                index: index,
+                },
+            })
+            .done(function(data){
+                $('.digimonsT').hide();
+                $('.bagT').hide();
+                $('#addDigimon').hide();
+                $('.battle-button').hide();
+                $('.battle-container').hide();
+                $('.shopT').show();
+                $('#pages').hide();
+                if (type === "mobile"){
+                      $('.mobile-digi').html(data);
+                }
+                else{
+                    $('#userTable').html(data); 
+                }
+                resolve();
+            })
+            .fail(function(){
+                console.error('Error fetching data:', error);
+                showMessage('Error fatching data',2000);
+                 reject(error);
+            })
+        });
+    }

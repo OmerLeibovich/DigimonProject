@@ -1,5 +1,5 @@
 
-import { getuserdigi, getuseritems } from "./userDigiAndItems.js";
+import { getshopitems, getuserdigi, getuseritems } from "./userDigiAndItems.js";
 import { showMessage } from "./Messages.js";
 import { updateList,pages } from "./create.js";
 
@@ -55,40 +55,27 @@ export function navbar(){
             setTimeout(() => {
                 $('#digimon-select-container').hide();
                 $('.battle-container').hide();
-                $('#addDigimon').hide();
-                $('.battle-button').hide();
                 $('.container').show();
             }, 500);
             await getuseritems();
             $('.title').html('InventoryPage');
            });
 
-        $(document).on('click','.Shop',function(e){
+        $(document).on('click','.Shop',async function(e){
             e.preventDefault();
+             $('.actions-wrapper').hide();
+             var type = "all";
+            if (window.innerWidth <= 768) {
+                type = "mobile"
+            }
             hideNavBar();
             setTimeout(() => {
                 $('#digimon-select-container').hide();
+                $('.battle-container').hide();
                 $('.container').show();
             }, 500);
-            $.ajax({
-                url:'/getshopitems',
-                method:'GET',
-            })
-            .done(function(data){
-                $('.digimonsT').hide();
-                $('.bagT').hide();
-                $('#addDigimon').hide();
-                $('.battle-button').hide();
-                $('.battle-container').hide();
-                $('.shopT').show();
-                $('#pages').hide();
-                $('#userTable').html(data); 
-                $('.title').html('ShopPage');
-            })
-            .fail(function(){
-                console.error('Error fetching data:', error);
-                showMessage('Error fatching data',2000);
-            })
+            await getshopitems();
+            $('.title').html('ShopPage');
         });
 
     }

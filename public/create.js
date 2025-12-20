@@ -106,7 +106,7 @@ export function updateList(num = null, digimonIndex = 0) {
             getopponentrandomDigi(digiRank,level,photo,name,HP,at,de);
             });
     }
-
+    // Retrieves one purchasable Digimon and returns it to the user
     export async function getyourrandomDigi(){
     var [hp, attack, defense] = calc_stats(1);
     var id = Math.floor(Math.random() * (1489 - 1) + 1);

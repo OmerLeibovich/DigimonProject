@@ -1,0 +1,23 @@
+<div class="mobile-wrapper">
+  <button id="shop-left-arrow" class="arrow-btn left-arrow"><i class="fa fa-chevron-left"></i></button>
+
+  <div class="mobile-card" data-index="<%= index %>" data-id="<%=  shopitems[index].id %>">
+    <img class="item-photo" src="<%= shopitems[index].photo %>" alt="Photo">
+    <h3 class="item-name"> <%= shopitems[index].name %></h3>
+    <div class="item-info">
+      <p class="itemDescription"><strong>Description:
+      </strong>
+      <br>
+       <%= shopitems[index].description %></p>
+     <p class="itemprice"><strong>Price:
+      </strong>
+      <br>
+       <%= shopitems[index].price %></p>
+    </div> 
+    <input class="amount-input" type="number" placeholder="amount"/>
+    <br>
+     <button class="btn btn-success btn-buy">Buy</button>
+  </div>
+  <button id="shop-right-arrow" class="arrow-btn right-arrow"><i class="fa fa-chevron-right"></i></button>
+</div>
+

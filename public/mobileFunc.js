@@ -1,9 +1,8 @@
 import { updateList } from "./create.js";
-import { getuseritems } from "./userDigiAndItems.js";
+import { getshopitems, getuseritems } from "./userDigiAndItems.js";
 /// move to other digimon card
 export function MobileDigi() {
-  let digiCurrentIndex = 0;
-  let itemCurrentIndex = 0;
+  let CurrentIndex = 0;
   let isLoading = false;
 
   //user digimons right arrow
@@ -12,8 +11,8 @@ export function MobileDigi() {
     if (isLoading) return; 
     isLoading = true;
 
-    digiCurrentIndex++;
-    await updateDigimonCard(digiCurrentIndex);
+    CurrentIndex++;
+    await updateCard(CurrentIndex,"digimons");
 
     isLoading = false;
   });
@@ -23,25 +22,19 @@ export function MobileDigi() {
     if (isLoading) return;
     isLoading = true;
 
-    digiCurrentIndex--;
-    await updateDigimonCard(digiCurrentIndex);
+    CurrentIndex--;
+    await updateCard(CurrentIndex,"digimons");
 
     isLoading = false;
   });
-  // update user digimon list
-  async function updateDigimonCard(i) {
-    await updateList(null, i); 
-    digiCurrentIndex = $('.mobile-card').data('index') ?? i;
-  }
-
   // user items right arrow
    $(document).on('click', '#bag-right-arrow',async function (e) {
         e.preventDefault();
         if (isLoading) return; 
           isLoading = true;
 
-      itemCurrentIndex++;
-      await updateItemCard(itemCurrentIndex);
+      CurrentIndex++;
+      await updateCard(CurrentIndex,"items");
 
       isLoading = false;
     
@@ -52,15 +45,49 @@ export function MobileDigi() {
       if (isLoading) return; 
         isLoading = true;
 
-      itemCurrentIndex--;
-      await updateItemCard(itemCurrentIndex);
+      CurrentIndex--;
+      await updateCard(CurrentIndex,"items");
+
+      isLoading = false;
+    
+   });
+   // shop items right arrow
+   $(document).on('click', '#shop-right-arrow',async function (e) {
+        e.preventDefault();
+        if (isLoading) return; 
+          isLoading = true;
+
+      CurrentIndex++;
+      await updateCard(CurrentIndex,"shop");
+
+      isLoading = false;
+    
+   });
+   // shop items left arrow
+    $(document).on('click', '#shop-left-arrow',async function (e) {
+      e.preventDefault();
+      if (isLoading) return; 
+        isLoading = true;
+
+      CurrentIndex--;
+      await updateCard(CurrentIndex,"shop");
 
       isLoading = false;
     
    });
     // update user items list
-     async function updateItemCard(i) {
+    // update user digimon list
+  async function updateCard(i,page) {
+    if (page==="digimons"){
+    await updateList(null, i); 
+    }
+    else if(page==="items"){
     await getuseritems(i); 
-    itemCurrentIndex = $('.mobile-card').data('index') ?? i;
+    }
+    else if(page==="shop"){
+      await getshopitems(i)
+    }
+    CurrentIndex = $('.mobile-card').data('index') ?? i;
   }
+
 }

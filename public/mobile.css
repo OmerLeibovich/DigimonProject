@@ -262,6 +262,26 @@
   z-index: 9999;
 }
 
+/*shop_card*/
+.amount-input{
+  width: 80%;       
+  max-width: 160px;
+  height: 36px;
+  margin: 12px auto;   
+  display: block;
+
+  text-align: center; 
+  font-size: 16px;
+  border-radius: 8px;
+  border: 2px solid #333;
+  outline: none;
+}
+
+.amount-input:focus{
+  border-color: #198754;
+}
+
+
 /*message*/
 
 .message {
