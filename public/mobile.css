@@ -350,7 +350,7 @@
 
     /* Fix weird flex spacing with aspect-ratio on iOS */
     .login-container {
-      min-height: 380px;   
+      min-height: 450px;   
       height: auto;
       justify-content: flex-start;
       gap: 14px;
