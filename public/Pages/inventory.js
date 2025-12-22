@@ -9,7 +9,7 @@ export function inventory(){
         e.preventDefault();
         let itemName;
         let itemid;
-        if (window.innerWidth <= 768 ) {
+        if (window.innerWidth <= 1024 ) {
             itemName = $(this).data('name');
             itemid = $(this).data('id');
         }
@@ -37,10 +37,10 @@ export function inventory(){
                 stat: StatName.toLowerCase(),
             }
         })
-        .done(function(){
+        .done(async function(){
             showMessage(`increase ${selected.data('name')} ${StatName} by 1.`,2000);
             $('#digimon-select-container').hide();
-            getuseritems();
+            await getuseritems();
     
         }).fail(function(){
             showMessage(`Failed to buy ${itemName}.`,2000);

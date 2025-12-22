@@ -7,7 +7,7 @@ export function shop(){
                 let itemName;
                 let amountInput;
                 let amount;
-                 if (window.innerWidth <= 768 ) {
+                 if (window.innerWidth <= 1024 ) {
                     itemid =  $(this).closest('.mobile-card').data('id');
                     itemName = $(this).closest('.mobile-card').find('.item-name').text().trim();
                     amountInput = $(this).closest('.mobile-card').find('.amount-input');

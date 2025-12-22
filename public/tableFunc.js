@@ -3,10 +3,10 @@ import {calc_stats } from './calculation.js';
 import { getyourrandomDigi,pages,updateList,evolveDigi} from './create.js';
 export function table(){
       // return list adjusted to the page number
-        $(document).on('click','.btn-page',function(e){
+        $(document).on('click','.btn-page',async function(e){
             e.preventDefault();
             const page = $(this).data('page');
-            updateList((page+1));
+            await updateList((page+1));
         })
     
         // Display photo for digimon
@@ -31,12 +31,12 @@ export function table(){
                     id : DigiId,
                 }
             })
-            .done(function(data){
-                 if (window.innerWidth <= 768) {
-                updateList();
+            .done(async function(data){
+                 if (window.innerWidth <= 1024) {
+                await updateList();
             }
             else{
-                 updateList(1); 
+                 await updateList(1); 
             }
                 pages("digimons");
             })
@@ -51,7 +51,7 @@ export function table(){
         let digiLevel;
         let digiRank; 
         let diginame;
-        if (window.innerWidth <= 768) {
+        if (window.innerWidth <= 1024) {
             diginame = $('.digi-name').text().trim();
             digiRank = $('.MobileDigiRank').text().split(':')[1].trim();
             digiLevel = $('.MobileDigiLevel').text().split(':')[1].trim();
@@ -98,12 +98,12 @@ export function table(){
             })
             .done(async function(data){
                 showMessage(`${diginame}  " evolve to: "  ${evoTree[random].name}`,3000);
-            if (window.innerWidth <= 768) {
+            if (window.innerWidth <= 1024) {
                 await updateList();
                 $('.navbar').show();
             }
             else{
-                 updateList(1); 
+                 await updateList(1); 
                  $('.navbar').show();
             }
             })
@@ -152,10 +152,10 @@ export function table(){
 
                 }
             })
-            .done(function(data){
+            .done(async function(data){
                 $('#DigiForm').hide(); 
                 $('.navbar').show();
-                updateList(1);
+                await updateList(1);
                 pages("digimons");
                 $('#addDigimon').prop('disabled', false); 
                 sessionStorage.setItem("money",data.newMoney);

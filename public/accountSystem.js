@@ -20,7 +20,7 @@ export function accountSystem(){
                 remamber: remamber
             }
         })
-        .done(function(data){
+        .done(async function(data){
             sessionStorage.setItem("user", JSON.stringify({ username: username, id: data.id}));
             sessionStorage.setItem("money",data.money);
             $('.login-container').hide();
@@ -33,12 +33,12 @@ export function accountSystem(){
             pages("digimons");
             $('.title').html('HomePage');
             /// check if this mobile
-             if (window.innerWidth <= 768) {
+             if (window.innerWidth <= 1024) {
                  $('.actions-wrapper').css('display','flex');
-                updateList();
+                await updateList();
             }
             else{
-                 updateList(1); 
+                 await updateList(1); 
             }
         
     })

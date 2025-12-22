@@ -2,7 +2,7 @@
  
  // update list in UI with refresh the page
 export function updateList(num = null, digimonIndex = 0) {
-  return new Promise((resolve, reject) => {
+
     $.ajax({
       url: '/getDigis',
       method: 'GET',
@@ -17,13 +17,13 @@ export function updateList(num = null, digimonIndex = 0) {
         } else {
           $('#userTable').html(data);
         }
-        resolve();
+
       })
       .fail(function (error) {
         console.error('Error fetching data:', error);
-        reject(error);
+
       });
-  });
+
 }
 
 
@@ -111,7 +111,7 @@ export function updateList(num = null, digimonIndex = 0) {
     var [hp, attack, defense] = calc_stats(1);
     var id = Math.floor(Math.random() * (1489 - 1) + 1);
     let widthSize = "";
-    if (window.innerWidth <= 768) {
+    if (window.innerWidth <= 1024) {
         widthSize = "60%";
     }
     else{
@@ -200,7 +200,7 @@ export async function evolveDigi(name, rank) {
 // draw circals with text(wins or loses) in statistics
 function drawCircle(canvasTitle, color, label, number) {
     const canvas = document.getElementById(canvasTitle);
-    if (window.innerWidth <= 768) {
+    if (window.innerWidth <= 1024) {
     canvas.width = 120;       
     canvas.height = 120;
     }

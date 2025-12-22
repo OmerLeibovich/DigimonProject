@@ -12,22 +12,30 @@ import { MobileDigi } from './mobileFunc.js';
 
 
 
-$(document).ready(function () {
+$(document).ready(async function () {
 
-    let isAnimating;
-        if (window.innerWidth <= 768) {
-            $('.menu-toggle').click(function() {
-                 isAnimating = false;
-                $('.nav-links').slideToggle();
-            });
+    let isAnimating = false;
 
-        $('.main-wrapper').click(function(){
-            if (!isAnimating && $('.nav-links').is(':visible')){
-                isAnimating = true;
-                $('.nav-links').slideToggle();
+    if (window.innerWidth <= 1024) {
+    $('.menu-toggle').click(function () {
+        if (isAnimating) return;
+        isAnimating = true;
+        $('.nav-links').slideToggle(200, function () {
+        isAnimating = false;
+        });
+    });
+
+    $('.main-wrapper').click(function () {
+        if (isAnimating) return;
+        if ($('.nav-links').is(':visible')) {
+        isAnimating = true;
+        $('.nav-links').slideUp(200, function () {
+            isAnimating = false;
+        });
         }
     });
-}
+    }
+
 
 
         if(Havetoken){
@@ -43,12 +51,12 @@ $(document).ready(function () {
             $('.battle-button').show();
             $('.bar').show();
             $(".money-display").html(`<i class="fa fa-money"></i> : ${sessionStorage.money}`);
-            if (window.innerWidth <= 768) {
-                updateList();
+            if (window.innerWidth <= 1024) {
+                await updateList();
                 $('.actions-wrapper').css('display','flex');
             }
             else{
-                 updateList(1); 
+                 await updateList(1); 
             }
             pages("digimons")
             $('.title').html('HomePage')

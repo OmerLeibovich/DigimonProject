@@ -25,9 +25,8 @@ export async function getuserdigi(page,itemName = null,itemId = null){
 
 }
 export async function getuseritems(index=0){
-    return new Promise((resolve, reject) => {
             var type = "all";
-            if (window.innerWidth <= 768) {
+            if (window.innerWidth <= 1024) {
                 type = "mobile"
             }
             $.ajax({
@@ -52,24 +51,21 @@ export async function getuseritems(index=0){
                 else{
                     $('#userTable').html(data); 
                 }
-                 resolve();
+        
             })
             .fail(function(error){
                 console.error('Error fetching data:', error);
                 showMessage('Error fatching data',2000);
-                 reject(error);
+
              });
-         });
-            
     }
 
 export async function getshopitems(index=0){
-    return new Promise((resolve, reject) => {
          var type = "all";
-            if (window.innerWidth <= 768) {
+            if (window.innerWidth <= 1024) {
                 type = "mobile"
             }
-        $.ajax({
+        await $.ajax({
                 url:'/getshopitems',
                 method:'GET',
                 data:{
@@ -91,12 +87,10 @@ export async function getshopitems(index=0){
                 else{
                     $('#userTable').html(data); 
                 }
-                resolve();
             })
             .fail(function(){
                 console.error('Error fetching data:', error);
                 showMessage('Error fatching data',2000);
-                 reject(error);
+                
             })
-        });
     }

@@ -111,8 +111,8 @@ import { updateList } from "./create.js";
                             userid : userid,
                         }
                     })
-                    .done(function(data){
-                        updateList(1);
+                    .done(async function(data){
+                        await updateList(1);
                         sessionStorage.setItem("money", data.newMoney);
                         $('.money-display').html(`<i class="fa fa-money"></i> : ${data.newMoney}`);
                     })

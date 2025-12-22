@@ -1,4 +1,4 @@
-@media (max-width: 768px), (max-height: 768px) {
+@media (max-width: 1024px), (max-height: 1024px) {
   /*login*/
   .login-container {
     width: 60vw;                    
@@ -61,6 +61,7 @@
     align-items: center;
     gap: 8px;
   }
+  
 
   .forgot-password {
     margin-top: 10px;
@@ -246,7 +247,6 @@
   .battle-button {
     display: block !important;
   }
-}
 .DigiDetails {
   display: none;
   position: fixed;
@@ -339,4 +339,8 @@
   left: 49%;
   transform: translateX(-50%);
 }
-
+}
+/*IOS Optimize*/
+@supports (height: 100dvh) {
+  body { min-height: 100dvh; }
+}
