@@ -349,12 +349,15 @@
   @media (max-width: 1024px), (max-height: 1024px) {
 
     /* Fix weird flex spacing with aspect-ratio on iOS */
-    .login-container{
-      justify-content: flex-start;  /* override space-evenly */
-      gap: 12px;
+    .login-container {
+      min-height: 380px;   
       height: auto;
-      min-height: 340px;
-      padding: 16px 18px;         
+      justify-content: flex-start;
+      gap: 14px;
+    }
+
+    .login-form {
+      flex: 1;             
     }
 
     /* Prevent iOS zoom on inputs */
