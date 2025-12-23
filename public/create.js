@@ -12,6 +12,15 @@ export function updateList(num = null, digimonIndex = 0) {
       }
     })
       .done(function (data) {
+        $('.message').hide();
+        $('.actions-wrapper').show();
+        $('#userTable').empty();
+        $('.title').html('HomePage');
+        $('.container').show();
+        $('.digimonsT').show();
+        $('#addDigimon').show();
+        $('.battle-button').show();
+        $('#pages').show();
         if (num == null) {
           $('.mobile-digi').html(data);
         } else {

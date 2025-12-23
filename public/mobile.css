@@ -1,4 +1,12 @@
 @media (max-width: 768px), (max-height: 768px) {
+  .main-wrapper {
+    min-height: auto !important;
+    padding-top: 1px;
+  }
+   .battle-message {
+    font-size: 13px;
+    line-height: 1.4;
+  }
   /*login*/
   .login-container {
     width: 60vw;                    
@@ -339,6 +347,150 @@
   left: 49%;
   transform: translateX(-50%);
 }
+/*battle*/
+
+@media (max-width: 768px) {
+
+  .display-screen{
+    width: 100% !important;
+    max-width: 320px;
+    height: 220px !important;
+    margin: 0 auto;
+    position: relative !important;
+    overflow: hidden;
+    padding: 8px !important;
+    box-sizing: border-box;
+  }
+
+
+  .opponent-health-bar,
+  .your-health-bar,
+  .opponent-digimon-img,
+  .your-digimon-img{
+    position: absolute !important;
+    margin: 0 !important;
+    transform: none !important;
+  }
+
+    #opponent-battleName,
+  .your-battleName{
+    white-space: normal !important;
+    overflow: hidden !important;
+    text-overflow: clip !important;
+
+
+    display: -webkit-box !important;
+    -webkit-box-orient: vertical !important;
+    -webkit-line-clamp: 2 !important;
+
+    line-height: 16px !important;
+    max-height: 32px !important;
+  }
+
+  .opponent-health-bar{
+    top: 8px !important;
+    left: 8px !important;
+    width: 45% !important;
+    max-width: none !important;
+    height: 26px !important;
+    padding: 4px !important;
+    border-radius: 14px !important;
+    background: rgba(80,80,80,0.85) !important;
+    box-sizing: border-box;
+    z-index: 5;
+  }
+
+  .opponent-percentage{
+    font-size: 12px !important;
+    line-height: 18px !important;
+    color: #000 !important;
+  }
+
+
+  #opponent-battleName{
+    top: 36px !important;
+    left: 10px !important;
+    width: 64% !important;
+    font-size: 14px !important;
+    font-weight: 700;
+    color: #000;
+    text-shadow: 0 1px 0 rgba(255,255,255,0.7);
+    z-index: 6;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+
+  .opponent-digimon-img{
+    top: 12px !important;
+    right: 10px !important;
+    width: 92px !important;
+    height: auto !important;
+    z-index: 4;
+    image-rendering: auto;
+  }
+
+
+  .your-digimon-img{
+    bottom: 12px !important;
+    left: 10px !important;
+    width: 92px !important;
+    height: auto !important;
+    z-index: 4;
+    image-rendering: auto;
+  }
+
+
+  .your-health-bar{
+    bottom: 12px !important;
+    right: 8px !important;
+    width: 45% !important;
+    height: 26px !important;
+    padding: 4px !important;
+    border-radius: 14px !important;
+    background: rgba(80,80,80,0.85) !important;
+    box-sizing: border-box;
+    z-index: 5;
+  }
+
+  .your-percentage{
+    font-size: 12px !important;
+    line-height: 18px !important;
+    color: #000 !important;
+  }
+
+  
+  .your-battleName{
+    bottom: 44px !important;
+    right: 10px !important;
+    width: 64% !important;
+    font-size: 14px !important;
+    font-weight: 700;
+    color: #000;
+    text-shadow: 0 1px 0 rgba(255,255,255,0.7);
+    z-index: 6;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: left;
+  }
+  .battle-screen{
+    width: 100% !important;
+    max-width: 320px;
+    margin: 2px auto 0;   
+    height: auto !important;
+    flex-direction: column;
+    gap: 8px;            
+    padding: 8px;        
+    box-sizing: border-box;
+  }
+
+  .text-box{ width: 100% !important; }
+  .options-box{ width: 100% !important; grid-template-columns: 1fr; }
+  .battle-btn, .run-btn{ width: 100% !important; height: 48px; font-size: 16px; }
+}
+
 }
 /*IOS Optimize*/
 @supports (height: 100dvh) {

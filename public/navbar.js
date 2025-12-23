@@ -1,6 +1,4 @@
-
 import { getshopitems, getuserdigi, getuseritems } from "./userDigiAndItems.js";
-import { showMessage } from "./Messages.js";
 import { updateList,pages } from "./create.js";
 
 //// to hide navbar after click only in mobile
@@ -26,20 +24,11 @@ export function navbar(){
         $(document).on('click','.home',async function(e){
         e.preventDefault();
         hideNavBar();
-        $('.actions-wrapper').show();
-        $('#userTable').empty();
-        $('.title').html('HomePage');
-        $('#digimon-select-container').hide();
-        $('.battle-container').hide();
-        $('.container').show();
-        $('.digimonsT').show();
         $('.shopT').hide();
         $('.bagT').hide();
-        $('#addDigimon').show();
-        $('.battle-button').show();
-        $('#pages').show();
+        showShopAndInventoryPages("Loading your Digimons...");
         if (window.innerWidth <= 768) {
-            await updateList();
+        await updateList();
         }
         else{
         await updateList(1);
@@ -52,11 +41,7 @@ export function navbar(){
             e.preventDefault();
             hideNavBar();
             $('.actions-wrapper').hide();
-            setTimeout(() => {
-                $('#digimon-select-container').hide();
-                $('.battle-container').hide();
-                $('.container').show();
-            }, 500);
+            showShopAndInventoryPages("Fetching your inventory...");
             await getuseritems();
             $('.title').html('InventoryPage');
            });
@@ -69,16 +54,20 @@ export function navbar(){
                 type = "mobile"
             }
             hideNavBar();
-            setTimeout(() => {
-                $('#digimon-select-container').hide();
-                $('.battle-container').hide();
-                $('.container').show();
-            }, 500);
+            showShopAndInventoryPages("Please wait, loading shop items...");
             await getshopitems();
             $('.title').html('ShopPage');
         });
 
     }
 
+export function showShopAndInventoryPages(message) {
+    $('#digimon-select-container').hide();
+    $('.battle-container').hide();
+    $('.container').hide();
+    $('.message').text(message);
+    $('.message').show();
+}
 
-    
+      
+      

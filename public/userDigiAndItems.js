@@ -1,5 +1,6 @@
 import { showMessage } from "./Messages.js";
 
+
 export async function getuserdigi(page,itemName = null,itemId = null){
         $.ajax({
             url: '/getuserdigis',
@@ -39,12 +40,7 @@ export async function getuseritems(index=0){
                 }
             })
             .done(function(data){
-                $('.digimonsT').hide();
-                $('.shopT').hide();
-                $('#addDigimon').hide();
-                $('.battle-button').hide();
-                $('.bagT').show();
-                $('#pages').hide();
+               showShopAndInventoryItems();
                 if (type === "mobile"){
                       $('.mobile-digi').html(data);
                 }
@@ -74,13 +70,7 @@ export async function getshopitems(index=0){
                 },
             })
             .done(function(data){
-                $('.digimonsT').hide();
-                $('.bagT').hide();
-                $('#addDigimon').hide();
-                $('.battle-button').hide();
-                $('.battle-container').hide();
-                $('.shopT').show();
-                $('#pages').hide();
+                showShopAndInventoryItems();
                 if (type === "mobile"){
                       $('.mobile-digi').html(data);
                 }
@@ -94,3 +84,16 @@ export async function getshopitems(index=0){
                 
             })
     }
+//Displays the Shop / Inventory items and hides all other main UI sections.
+export function showShopAndInventoryItems() {
+  $('.message').hide();
+  $('.container').show();
+  $('.digimonsT').hide();
+  $('.bagT').hide();
+  $('#addDigimon').hide();
+  $('.battle-button').hide();
+  $('.battle-container').hide();
+  $('.shopT').show();
+  $('#pages').hide();
+}
+

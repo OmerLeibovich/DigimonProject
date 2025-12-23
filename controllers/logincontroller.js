@@ -9,9 +9,15 @@ const Checkuser =  async (req, res) => {
   const remamber = req.query.remamber;
 
   try {
-    const user = await prisma.user.findUnique({
-      where: { username: username }
+   const user = await prisma.user.findFirst({
+      where: {
+        username: {
+          equals: username,
+          mode: 'insensitive'
+        }
+      }
     });
+
 
     if (!user || user.password !== password) {
       return res.status(401).send('Invalid credentials');
