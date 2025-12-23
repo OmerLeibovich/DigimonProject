@@ -111,7 +111,7 @@ export function updateList(num = null, digimonIndex = 0) {
     var [hp, attack, defense] = calc_stats(1);
     var id = Math.floor(Math.random() * (1489 - 1) + 1);
     let widthSize = "";
-    if (window.innerWidth <= 1024) {
+    if (window.innerWidth <= 768) {
         widthSize = "60%";
     }
     else{
@@ -200,7 +200,7 @@ export async function evolveDigi(name, rank) {
 // draw circals with text(wins or loses) in statistics
 function drawCircle(canvasTitle, color, label, number) {
     const canvas = document.getElementById(canvasTitle);
-    if (window.innerWidth <= 1024) {
+    if (window.innerWidth <= 768) {
     canvas.width = 120;       
     canvas.height = 120;
     }

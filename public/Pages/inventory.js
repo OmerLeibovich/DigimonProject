@@ -9,7 +9,7 @@ export function inventory(){
         e.preventDefault();
         let itemName;
         let itemid;
-        if (window.innerWidth <= 1024 ) {
+        if (window.innerWidth <= 768 ) {
             itemName = $(this).data('name');
             itemid = $(this).data('id');
         }

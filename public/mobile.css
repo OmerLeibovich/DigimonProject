@@ -1,4 +1,4 @@
-@media (max-width: 1024px), (max-height: 1024px) {
+@media (max-width: 768px), (max-height: 768px) {
   /*login*/
   .login-container {
     width: 60vw;                    
@@ -346,7 +346,7 @@
 }
 /* iOS Safari fixes - without breaking Android */
 @supports (-webkit-touch-callout: none) {
-  @media (max-width: 1024px), (max-height: 1024px) {
+  @media (max-width: 768px), (max-height: 768px) {
 
     /* Fix weird flex spacing with aspect-ratio on iOS */
     .login-container {

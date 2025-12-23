@@ -16,7 +16,7 @@ $(document).ready(async function () {
 
     let isAnimating = false;
 
-    if (window.innerWidth <= 1024) {
+    if (window.innerWidth <= 768) {
     $('.menu-toggle').click(function () {
         if (isAnimating) return;
         isAnimating = true;
@@ -51,7 +51,7 @@ $(document).ready(async function () {
             $('.battle-button').show();
             $('.bar').show();
             $(".money-display").html(`<i class="fa fa-money"></i> : ${sessionStorage.money}`);
-            if (window.innerWidth <= 1024) {
+            if (window.innerWidth <= 768) {
                 await updateList();
                 $('.actions-wrapper').css('display','flex');
             }

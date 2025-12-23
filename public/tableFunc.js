@@ -32,7 +32,7 @@ export function table(){
                 }
             })
             .done(async function(data){
-                 if (window.innerWidth <= 1024) {
+                 if (window.innerWidth <= 768) {
                 await updateList();
             }
             else{
@@ -51,7 +51,7 @@ export function table(){
         let digiLevel;
         let digiRank; 
         let diginame;
-        if (window.innerWidth <= 1024) {
+        if (window.innerWidth <= 768) {
             diginame = $('.digi-name').text().trim();
             digiRank = $('.MobileDigiRank').text().split(':')[1].trim();
             digiLevel = $('.MobileDigiLevel').text().split(':')[1].trim();
@@ -98,7 +98,7 @@ export function table(){
             })
             .done(async function(data){
                 showMessage(`${diginame}  " evolve to: "  ${evoTree[random].name}`,3000);
-            if (window.innerWidth <= 1024) {
+            if (window.innerWidth <= 768) {
                 await updateList();
                 $('.navbar').show();
             }

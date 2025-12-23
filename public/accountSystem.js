@@ -33,7 +33,7 @@ export function accountSystem(){
             pages("digimons");
             $('.title').html('HomePage');
             /// check if this mobile
-             if (window.innerWidth <= 1024) {
+             if (window.innerWidth <= 768) {
                  $('.actions-wrapper').css('display','flex');
                 await updateList();
             }

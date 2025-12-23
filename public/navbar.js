@@ -5,7 +5,7 @@ import { updateList,pages } from "./create.js";
 
 //// to hide navbar after click only in mobile
 export function hideNavBar(){
-     if (window.innerWidth <= 1024) {
+     if (window.innerWidth <= 768) {
          $('.nav-links').slideToggle();
      }
      else{
@@ -38,7 +38,7 @@ export function navbar(){
         $('#addDigimon').show();
         $('.battle-button').show();
         $('#pages').show();
-        if (window.innerWidth <= 1024) {
+        if (window.innerWidth <= 768) {
             await updateList();
         }
         else{
@@ -65,7 +65,7 @@ export function navbar(){
             e.preventDefault();
              $('.actions-wrapper').hide();
              var type = "all";
-            if (window.innerWidth <= 1024) {
+            if (window.innerWidth <= 768) {
                 type = "mobile"
             }
             hideNavBar();

@@ -26,7 +26,7 @@ export async function getuserdigi(page,itemName = null,itemId = null){
 }
 export async function getuseritems(index=0){
             var type = "all";
-            if (window.innerWidth <= 1024) {
+            if (window.innerWidth <= 768) {
                 type = "mobile"
             }
             $.ajax({
@@ -62,7 +62,7 @@ export async function getuseritems(index=0){
 
 export async function getshopitems(index=0){
          var type = "all";
-            if (window.innerWidth <= 1024) {
+            if (window.innerWidth <= 768) {
                 type = "mobile"
             }
         await $.ajax({
