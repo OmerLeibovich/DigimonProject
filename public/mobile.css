@@ -4,9 +4,13 @@
     padding-top: 1px;
   }
 
-.battle-message{
-  margin: 0;
+.battle-message {
+  min-height: 72px;       
+  padding: 12px;
   line-height: 1.4;
+  display: flex;
+  align-items: center;    
+  box-sizing: border-box;
 }
   /*login*/
   .login-container {
