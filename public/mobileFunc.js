@@ -75,8 +75,11 @@ export function MobileDigi() {
       isLoading = false;
     
    });
-    // update user items list
-    // update user digimon list
+// Updates the currently displayed mobile card based on the active page.
+// - digimons: refresh user's Digimon list
+// - items: refresh user's inventory items
+// - shop: refresh shop items
+// Keeps CurrentIndex in sync with the rendered .mobile-card (fallback to i).
   async function updateCard(i,page) {
     if (page==="digimons"){
     await updateList(null, i); 

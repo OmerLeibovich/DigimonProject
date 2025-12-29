@@ -2,7 +2,7 @@ const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 
 
-
+//Authenticates a user login request
 const Checkuser =  async (req, res) => {
   const username = req.query.username;
   const password = req.query.password;

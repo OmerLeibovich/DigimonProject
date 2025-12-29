@@ -3,10 +3,11 @@
     min-height: auto !important;
     padding-top: 1px;
   }
-   .battle-message {
-    font-size: 13px;
-    line-height: 1.4;
-  }
+
+.battle-message{
+  margin: 0;
+  line-height: 1.4;
+}
   /*login*/
   .login-container {
     width: 60vw;                    
@@ -475,20 +476,27 @@
     text-overflow: ellipsis;
     text-align: left;
   }
-  .battle-screen{
-    width: 100% !important;
-    max-width: 320px;
-    margin: 2px auto 0;   
-    height: auto !important;
-    flex-direction: column;
-    gap: 8px;            
-    padding: 8px;        
-    box-sizing: border-box;
-  }
+.battle-screen{
+  width: 100% !important; 
+  max-width: 320px;
+  margin: 2px auto 0;
+  height: auto !important;
+  flex-direction: column;
+  gap: 8px;
+  padding: 8px;
+  box-sizing: border-box; }
 
-  .text-box{ width: 100% !important; }
-  .options-box{ width: 100% !important; grid-template-columns: 1fr; }
-  .battle-btn, .run-btn{ width: 100% !important; height: 48px; font-size: 16px; }
+
+
+.text-box{
+ width: 100% !important;      
+}
+  .options-box{
+     width: 100% !important; grid-template-columns: 1fr; 
+    }
+  .battle-btn, .run-btn{
+     width: 100% !important; height: 48px; font-size: 16px; 
+    }
 }
 
 }

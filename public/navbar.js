@@ -13,6 +13,7 @@ export function hideNavBar(){
 
 export function navbar(){
 /////--------navbar-------/////
+        // move to display statistic window
         $(document).on('click', '.Statistic', function(e) {
         e.preventDefault();
         hideNavBar();
@@ -20,7 +21,7 @@ export function navbar(){
         $('.battle-container').hide();
         getuserdigi('statistic');
         });
-        
+        // return to home page
         $(document).on('click','.home',async function(e){
         e.preventDefault();
         hideNavBar();
@@ -36,7 +37,7 @@ export function navbar(){
         pages("digimons");
     });
 
-
+        // move to display user items
          $(document).on('click','.bag',async function(e){
             e.preventDefault();
             hideNavBar();
@@ -45,7 +46,7 @@ export function navbar(){
             await getuseritems();
             $('.title').html('InventoryPage');
            });
-
+        //move to display items in shop
         $(document).on('click','.Shop',async function(e){
             e.preventDefault();
              $('.actions-wrapper').hide();
@@ -60,7 +61,7 @@ export function navbar(){
         });
 
     }
-
+// display waiting message for shop and bag
 export function showShopAndInventoryPages(message) {
     $('#digimon-select-container').hide();
     $('.battle-container').hide();

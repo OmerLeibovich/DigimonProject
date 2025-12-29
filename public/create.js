@@ -239,7 +239,7 @@ function drawCircle(canvasTitle, color, label, number) {
     ctx.fillText(number, centerX, centerY + 15);
 }
 
-
+// create circles in statistic window
 export function createCircle(numbers) {
     drawCircle("winsCanvas", "blue", "WINS", numbers[0]);
     drawCircle("losesCanvas", "red", "LOSES", numbers[1]);

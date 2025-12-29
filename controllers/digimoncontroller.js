@@ -5,7 +5,7 @@ const prisma = new PrismaClient();
 
 
 
-
+//Returns the user's Digimon list and renders it in either
 const getAllDigis = async (req, res) => {
    let indexDigi = parseInt(req.query.index);
   try {
@@ -39,7 +39,7 @@ const getAllDigis = async (req, res) => {
   }
   }
 
-
+//Calculates the total number of elements for pagination UI and renders the pages component
 const getPages = async (req, res) => {
   try {
     const userId = req.session?.user?.id;
@@ -61,7 +61,7 @@ const getPages = async (req, res) => {
 
 
 
-
+//Fetches all user Digimon (sorted by level) and renders a view based on context
 const getUserdigis = async (req,res) =>{
   const page = req.query.page;
   try{
@@ -85,7 +85,7 @@ const getUserdigis = async (req,res) =>{
   }
 }
 
-
+// Evolves a Digimon by updating its metadata and stats
 const evolveDigimon = async (req,res) =>{
   try{
     const id = req.body.id;
@@ -119,7 +119,7 @@ const evolveDigimon = async (req,res) =>{
 }
 
 
-
+//Updates Digimon experience and level progression after a battle
 const updateEXP = async (req,res) => {
   try{
     const id = req.body.id;
@@ -196,6 +196,7 @@ const updateEXP = async (req,res) => {
     res.status(500).send('Something went wrong');
   }
 }
+//Creates a new Digimon for the logged-in user (purchase flow)
 const addDigi = async (req, res) => {
     try {
     const photo = req.body.Photo;
@@ -257,7 +258,7 @@ const addDigi = async (req, res) => {
     res.status(500).send('Something went wrong');
   }
 }
-
+//Deletes a Digimon by id
 const deleteDigi = async (req, res) =>{
   try{
     const DigimonId = parseInt(req.body.id);

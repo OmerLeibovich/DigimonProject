@@ -13,7 +13,7 @@
     $('.battle-message').text('');
     $('.battle-btn').prop('disabled', false);
 }
-
+// reset registerPage after leave or register
 export function resetRegisterPage(){
     $('#Rusername').val('');
     $('#email').val('');

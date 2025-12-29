@@ -1,7 +1,7 @@
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 
-
+//Applies an inventory item to a specific Digimon and updates both
 const useitem = async (req,res) =>{
    const itemid = req.body.itemid;
   const digimonid = req.body.digimonid;
@@ -47,7 +47,7 @@ const useitem = async (req,res) =>{
 
 }
 
-
+//Fetches all inventory items owned by the user (quantity > 0) and renders them
 const getalluseritems = async (req,res) =>{
   try{
   const id = req.query.id;

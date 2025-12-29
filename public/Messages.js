@@ -1,4 +1,4 @@
-
+    // func to show message on screen
     export function showMessage(text, duration) {
     $('.message').text(text).fadeIn();
     $('.container').fadeOut();

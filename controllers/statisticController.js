@@ -1,6 +1,6 @@
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
-
+//return the statistic information 
 const getstatisticData = async (req,res) =>{
   try{
     const id = parseInt(req.query.id);

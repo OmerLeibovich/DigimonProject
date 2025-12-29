@@ -4,7 +4,7 @@ import { getuserdigi, getuseritems } from "../userDigiAndItems.js";
 
 export function inventory(){
 ////-------userinventory-------//////
-        //take all parmeters to upgrade stat
+        // Handle "Use" button click
        $(document).on('click','.btn-use',function(e){
         e.preventDefault();
         let itemName;
@@ -20,7 +20,7 @@ export function inventory(){
         $('.container').hide();
         getuserdigi('items',itemName,itemid);
        })
-       // move all parmeters to node.js to upgrade stat
+       // take all parmeters to upgrade stat
        $(document).on('click','#use-digimon',function(e){
         e.preventDefault();
         const id = $('.titleItem').data('id');

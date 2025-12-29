@@ -1,7 +1,7 @@
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 
-
+// return all items in shop
 const getshopitems = async (req,res) =>{
   const type = req.query.type;
   let index = parseInt(req.query.index);
@@ -21,6 +21,7 @@ const getshopitems = async (req,res) =>{
     res.status(500).send('Something went wrong');
   }
 }
+//Handles shop purchase request
 const buyitem = async(req,res) =>{
   try{
   const itemid = req.body.itemid;
@@ -72,7 +73,6 @@ const buyitem = async(req,res) =>{
       newitem,
       newMoney: newMoney
     });
-     res.status(200).json(newitem);
   }
 }
     catch (error){

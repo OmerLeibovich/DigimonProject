@@ -1,5 +1,3 @@
-
-
 import {pages,updateList} from './create.js';
 import {battleSystem}from './battlesystem.js'; 
 import { accountSystem } from './accountSystem.js';
@@ -15,7 +13,7 @@ import { MobileDigi } from './mobileFunc.js';
 $(document).ready(async function () {
 
     let isAnimating = false;
-
+    // check the screen size for manu(navbar)
     if (window.innerWidth <= 768) {
     $('.menu-toggle').click(function () {
         if (isAnimating) return;
@@ -37,11 +35,12 @@ $(document).ready(async function () {
     }
 
 
-
+        // check if have token for reset password
         if(Havetoken){
             $('.login-container').hide();
             $('.reset-container').show();
         }
+        // check if user is logged in (via session or "remember me")
         if (isLoggedIn) {
         if (sessionStorage.user){
             $('.login-container').hide();

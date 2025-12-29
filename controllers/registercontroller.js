@@ -3,7 +3,7 @@ const prisma = new PrismaClient();
 const jwt = require('jsonwebtoken');
 const mailsender = require('../mailsender');
 
-
+//  Registers a new user in the system
 const adduser = async (req, res) => {
   const username = req.body.username;
   const password = req.body.password;
@@ -60,7 +60,7 @@ const adduser = async (req, res) => {
   }
 };
 
-
+// Confirms a user's email address using a verification token
 const confirm_email = async(req, res) =>{
     const {token} = req.params;
        console.log(token);
@@ -95,7 +95,7 @@ const confirm_email = async(req, res) =>{
   }
 
 }
-
+//Initiates the password reset process for an existing user
 const resetpassword = async(req,res) =>{
     const email = req.body.email;
 
@@ -131,7 +131,7 @@ const resetpassword = async(req,res) =>{
     }
 }
 
-
+//Completes the password reset process
 const confirm_reset_password = async(req,res) =>{
     const password = req.body.password;
     const token = req.body.token;

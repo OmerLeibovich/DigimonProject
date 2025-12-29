@@ -1,6 +1,6 @@
 import { showMessage } from "./Messages.js";
 
-
+//displays all digimons that user have(for use item or battle)
 export async function getuserdigi(page,itemName = null,itemId = null){
         $.ajax({
             url: '/getuserdigis',
@@ -25,6 +25,7 @@ export async function getuserdigi(page,itemName = null,itemId = null){
 
 
 }
+//displays all items that user have (amount)
 export async function getuseritems(index=0){
             var type = "all";
             if (window.innerWidth <= 768) {
@@ -55,7 +56,7 @@ export async function getuseritems(index=0){
 
              });
     }
-
+//displays all items in shop
 export async function getshopitems(index=0){
          var type = "all";
             if (window.innerWidth <= 768) {

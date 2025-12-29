@@ -2,6 +2,7 @@ import { showMessage } from "../Messages.js";
 export function shop(){
          
         ///------shop------///
+        // Handle "Buy" button click
             $(document).on("click",".btn-buy", function(e){
                 let itemid;
                 let itemName;
