@@ -1,8 +1,5 @@
 @media (max-width: 768px), (max-height: 768px) {
-  .main-wrapper {
-    min-height: auto !important;
-    padding-top: 1px;
-  }
+
 
 .battle-message {
   min-height: 72px;       

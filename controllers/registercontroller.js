@@ -1,7 +1,7 @@
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 const jwt = require('jsonwebtoken');
-const mailsender = require('../mailsender');
+const mailsender = require('../services/mailsender');
 
 //  Registers a new user in the system
 const adduser = async (req, res) => {
@@ -51,7 +51,7 @@ const adduser = async (req, res) => {
       }
     });
 
-    mailsender.sendmail(token, email, username, 'register');
+    await mailsender.sendmail(token, email, username, 'register');
     res.status(200).json(newUser);
 
   } catch (error) {

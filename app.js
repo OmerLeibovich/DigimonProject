@@ -1,19 +1,20 @@
 const { PrismaSessionStore } = require('@quixo3/prisma-session-store');
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
+
 const DigiRoutes = require('./routes/digimonroute');
 const loginRoute = require('./routes/loginroute');
 const itemRoute = require('./routes/inventoryroute')
 const statisticRoute = require('./routes/statisticroute');
 const shopRoute = require('./routes/shoproute');
 const registerRoute = require('./routes/registerroute');
+
 const express = require('express');
 const session = require('express-session');
-const app = express();
+
 require('dotenv').config();
 
-
-const port = process.env.PORT || 3000; 
+const app = express();
 
 app.set('view engine', 'ejs');
 app.set('views', __dirname + '/views');
@@ -76,9 +77,7 @@ app.get('/reset/:token',(req,res) =>{
     res.redirect('/');
 })
 
-app.listen(port, () => {
-  console.log(`Express app listening at http://localhost:${port}`);
-});
+module.exports = { app, prisma };
 
 
 
