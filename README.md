@@ -93,17 +93,17 @@ Jest + Supertest -  Automated API and integration testing
 
 ## Mobile photos
 
-## Battle System (Mobile)
-<img alt="Mobile Battle System" src="https://github.com/user-attachments/assets/5f2c1ded-ee04-4f1a-a7ad-df5f1a731626" width="300" height="600"/>
-
 ## Digimon Management (Mobile)
-<img alt="Mobile Digimon Card" src="https://github.com/user-attachments/assets/bf370203-2b95-4813-873f-f66223e18bcf" width="300" height="600"/>
+<img alt="image" src="https://github.com/user-attachments/assets/c81d7302-ee57-4f7b-a526-7b339d316d6b" width="200" height="400" />
+
+## Battle System (Mobile)
+<img  alt="image" src="https://github.com/user-attachments/assets/d93ddebb-c1c7-4b54-b727-7b24c5c46c7c" width="200" height="400" />
 
 ## Statistics System (Mobile)
-<img alt="Mobile Statistics System" src="https://github.com/user-attachments/assets/dbe060fb-b468-4db4-a555-212ef6b1dd4f" width="300" height="600"/>
+<img alt="image" src="https://github.com/user-attachments/assets/98ca0da2-ef07-452e-bec6-80982e6973c1" width="200" height="400" />
 
 ## Shop System (Mobile)
-<img alt="Mobile Shop System" src="https://github.com/user-attachments/assets/7d1679d3-c211-4696-a79b-22b1d8a1bb33" width="300" height="600"/>
+<img alt="image" src="https://github.com/user-attachments/assets/7de743af-1484-4299-8051-3fec75b3960e" width="200" height="400" />
 
 ## Inventory System (Mobile)
-<img alt="Mobile Inventory System" src="https://github.com/user-attachments/assets/bb7bf88a-033f-4e3c-9f97-67ca0ca3bc46" width="300" height="600"/>
+<img alt="image" src="https://github.com/user-attachments/assets/dab8e9b0-fb37-41eb-bad8-a929d7c18622" width="200" height="400" />
