@@ -2,38 +2,41 @@
  
  // update list in UI with refresh the page
 export function updateList(num = null, digimonIndex = 0) {
-
+  return new Promise((resolve, reject) => {
     $.ajax({
       url: '/getDigis',
       method: 'GET',
-      data: {
-        pages: num,
-        index: digimonIndex
+      data: { pages: num, index: digimonIndex }
+    })
+    .done(function (html) {
+      $('.message').hide();
+      $('.actions-wrapper').show();
+      $('#userTable').empty();
+      $('.title').html('HomePage');
+      $('.container').show();
+      $('.digimonsT').show();
+      $('#addDigimon').show();
+      $('.battle-button').show();
+      $('#pages').show();
+
+      if (num == null) {
+        $('.mobile-digi').html(html);
+
+          const domIndex = Number($('.mobile-card').attr('data-index'));
+          resolve(Number.isNaN(domIndex) ? 0 : domIndex);
+
+      } else {
+        $('#userTable').html(html);
+        resolve(null); 
       }
     })
-      .done(function (data) {
-        $('.message').hide();
-        $('.actions-wrapper').show();
-        $('#userTable').empty();
-        $('.title').html('HomePage');
-        $('.container').show();
-        $('.digimonsT').show();
-        $('#addDigimon').show();
-        $('.battle-button').show();
-        $('#pages').show();
-        if (num == null) {
-          $('.mobile-digi').html(data);
-        } else {
-          $('#userTable').html(data);
-        }
-
-      })
-      .fail(function (error) {
-        console.error('Error fetching data:', error);
-
-      });
-
+    .fail(function (error) {
+      console.error('Error fetching data:', error);
+      reject(error);
+    });
+  });
 }
+
 
 
         //send pages

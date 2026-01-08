@@ -22,7 +22,7 @@ model digimon {
   userid     Int
   wins       Int    @default(0)
   level      Int
-  user       user   @relation(fields: [userid], references: [id])
+  user       user   @relation(fields: [userid], references: [id],onDelete: Cascade)
 
   @@index([userid])
 }
@@ -68,7 +68,7 @@ model inventory {
   itemId   Int
   quantity Int  @default(0)
   item     item @relation(fields: [itemId], references: [id])
-  user     user @relation(fields: [userId], references: [id])
+  user     user @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([userId, itemId])
   @@index([userId, itemId])

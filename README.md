@@ -6,52 +6,58 @@ It provides user management, Digimon gameplay features (battle, shop, inventory,
 
 ## Live Demo
 [DigimonProject Live Demo](https://digimontra.xyz/)
-```bash
-If email confirmation doesn’t work, you can log in with the demo user:
-Username: omer
-Password: 12345
-```
+
 
 ## Folder Structure
 ```bash
 DigimonProject/
-│── controllers/         # Application controllers 
-│── generated/           # Auto-generated Prisma client files
-│── node_modules/        # Project dependencies 
-│── prisma/              # Prisma schema and migrations
+│── controllers/              # Application controllers (auth, shop, digimon, etc.)
+│── routes/                   # Express routes
+│── services/                 # Reusable services (email, helpers, etc.)
+│   └── mailsender.js         # Resend / email service (recommended to be here)
 │
-│── public/              
-│   ├── assets/          # Images, icons, etc.
-│   ├── Pages/           # Page-specific JS logic
-│   │   ├── accountSystem.js
-│   │   ├── battlesystem.js
-│   │   ├── calculation.js
-│   │   ├── create.js
-│   │   ├── Messages.js
-│   │   ├── navbar.js
-│   │   ├── reset.js
-│   │   ├── script.js
-│   │   ├── style.css
-│   │   ├── tableFunc.js
-│   │   └── userDigiAndItems.js
+│── prisma/                   # Prisma schema and migrations
+│   ├── schema.prisma
+│   └── migrations/
 │
-│── routes/              # Express routes
+│── __tests__/                # Jest + Supertest API tests
+│   └──  auth.test.js
 │
-│── views/               # EJS templates for rendering UI
-│   ├── DigimonSystem/   # Digimon-related views
-│   ├── inventorySystem/ # Inventory pages
-│   ├── loginSystem/     # Login pages
-│   ├── RegisterSystem/  # Registration pages
-│   ├── shopSystem/      # Shop pages
-│   ├── index.ejs        # Main index page
-│   └── userconfirm.ejs  # User confirmation page
+│── public/
+│   ├── assets/               # Images, icons, etc.
+│   └── Pages/                # Frontend JS logic (jQuery)
+│       ├── accountSystem.js
+│       ├── battlesystem.js
+│       ├── calculation.js
+│       ├── create.js
+│       ├── Messages.js
+│       ├── navbar.js
+│       ├── reset.js
+│       ├── script.js
+│       ├── style.css
+│       ├── tableFunc.js
+│       └── userDigiAndItems.js
 │
-│── .gitignore           # Git ignored files configuration
-│── app.js               # Main entry point of the server
-│── mailsender.js        # Email sender logic (Sendgrid)
-│── package.json         # Project metadata and dependencies
-│── package-lock.json    # Lock file for dependency versions
-│── render.yaml          # Deployment configuration for Render
+│── views/                    # EJS templates
+│   ├── DigimonSystem/
+│   ├── inventorySystem/
+│   ├── loginSystem/
+│   ├── RegisterSystem/
+│   ├── shopSystem/
+│   ├── index.ejs
+│   └── userconfirm.ejs
+│
+│── app.js                    # Main server entry point
+│── package.json              # Project metadata and dependencies
+│── package-lock.json         # Dependency lock file
+│── .gitignore                # Git ignored files configuration
+│── render.yaml               # Deployment configuration (Render)
+│── railway.json / Procfile   # (Optional) Railway config if you use it
+│── .env                      # Environment variables (NOT committed)
+│── README.md                 # Documentation
+│
+└── node_modules/             # Dependencies (NOT committed)
+
 ```
 
 ## Technologies
@@ -63,9 +69,11 @@ EJS – Template rendering
 
 Bootstrap & jQuery – Frontend styling and interactivity
 
-Sendgrid – Email handling
+Resend – Email handling
 
 Railway – Deployment platform
+
+Jest + Supertest -  Automated API and integration testing
 
 ## Features Showcase
 ## Your Digimons
@@ -83,3 +91,19 @@ Railway – Deployment platform
 ## Inventory System
 <img alt="Inventory System" src="https://github.com/user-attachments/assets/a3f30724-7f5b-405d-9ccd-ac3d5477ef27" width="600" height="400"/>
 
+## Mobile photos
+
+## Battle System (Mobile)
+<img alt="Mobile Battle System" src="https://github.com/user-attachments/assets/5f2c1ded-ee04-4f1a-a7ad-df5f1a731626" width="300" height="600"/>
+
+## Digimon Management (Mobile)
+<img alt="Mobile Digimon Card" src="https://github.com/user-attachments/assets/bf370203-2b95-4813-873f-f66223e18bcf" width="300" height="600"/>
+
+## Statistics System (Mobile)
+<img alt="Mobile Statistics System" src="https://github.com/user-attachments/assets/dbe060fb-b468-4db4-a555-212ef6b1dd4f" width="300" height="600"/>
+
+## Shop System (Mobile)
+<img alt="Mobile Shop System" src="https://github.com/user-attachments/assets/7d1679d3-c211-4696-a79b-22b1d8a1bb33" width="300" height="600"/>
+
+## Inventory System (Mobile)
+<img alt="Mobile Inventory System" src="https://github.com/user-attachments/assets/bb7bf88a-033f-4e3c-9f97-67ca0ca3bc46" width="300" height="600"/>

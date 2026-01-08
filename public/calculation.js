@@ -42,6 +42,7 @@ import { updateList } from "./create.js";
         var endMessage ;
         const opponentName = $('#opponent-battleName').text();
         const yourName = $('#your-battleName').text();
+
         if (opponentNewHp < 1){
            finish = true;
            result = "wins";
@@ -74,17 +75,17 @@ import { updateList } from "./create.js";
         $('#your-battlePhoto').data('hp',yourNewHp);
         $('.your-progress-bar').css('width', (yourNewHp/yourMaxHp)*100 + '%');
         $('.your-percentage').text(yourNewHp+"/"+yourMaxHp);
-        if (!finish) {
-            if (opponetDmg === 0) {
-                $('.battle-message').text(`${opponentName} tried to attack, but missed.`);
-            } else {
-                $('.battle-message').text(`${opponentName} attacks ${yourName} and deals ${opponetDmg} damage.`);
-            }
+        if (opponetDmg === 0) {
+            $('.battle-message').text(`${opponentName} tried to attack, but missed.`);
+        } else {
+            $('.battle-message').text(`${opponentName} attacks ${yourName} and deals ${opponetDmg} damage.`);
         }
+
         $('#your-battlePhoto').fadeToggle("fast");
         $('#your-battlePhoto').fadeToggle("fast");
          }, 1700);
         }
+        setTimeout(() => {
          //end of attacks
          if (finish) {
             const userid = JSON.parse(sessionStorage.user).id
@@ -126,7 +127,9 @@ import { updateList } from "./create.js";
                  $('.battle-btn, .run-btn').prop('disabled', false).removeClass('disabled-btn');
             }, 4000);
         }
+           }, 1700);
     }
+    
     // Calc every side dmg
   export  function calcDmg(yourAt,yourDe,opponentAt,opponentDe){
         const randomYourCrit = Math.floor(Math.random() * 10) + 1;

@@ -30,6 +30,7 @@ const getAllDigis = async (req, res) => {
     else{ 
       if (indexDigi < 0) indexDigi = digimons.length - 1;
       if (indexDigi >= digimons.length) indexDigi = 0;
+      console.log(indexDigi);
       res.render('DigimonSystem/digimonMobile',{digimons,indexDigi});
     }
     

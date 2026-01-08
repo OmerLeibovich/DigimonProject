@@ -40,7 +40,9 @@ export function inventory(){
         .done(async function(){
             showMessage(`increase ${selected.data('name')} ${StatName} by 1.`,2000);
             $('#digimon-select-container').hide();
-            await getuseritems();
+            setTimeout(async () => {
+                await getuseritems();
+            }, 1900);
     
         }).fail(function(){
             showMessage(`Failed to buy ${itemName}.`,2000);

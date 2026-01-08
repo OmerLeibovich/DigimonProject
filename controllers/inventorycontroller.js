@@ -3,7 +3,7 @@ const prisma = new PrismaClient();
 
 //Applies an inventory item to a specific Digimon and updates both
 const useitem = async (req,res) =>{
-   const itemid = req.body.itemid;
+  const itemid = req.body.itemid;
   const digimonid = req.body.digimonid;
   const userid = req.body.userid;
   const stat = req.body.stat;

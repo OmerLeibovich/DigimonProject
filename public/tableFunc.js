@@ -84,6 +84,7 @@ export function table(){
             const evoTree = await evolveDigi(diginame,rankVal[rank.indexOf(digiRank) + 1]);
             const random = Math.floor(Math.random() * (evoTree.length));
             const [hp, attack, defense] = calc_stats(digiLevel);
+            console.log(evoTree);
             // calculate Digimon evolution
             $.ajax({
                 url:'/evolve',

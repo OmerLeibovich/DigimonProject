@@ -2,7 +2,9 @@ import { updateList } from "./create.js";
 import { getshopitems, getuseritems } from "./userDigiAndItems.js";
 /// move to other digimon card
 export function MobileDigi() {
-  let CurrentIndex = 0;
+
+  let CurrentIndex = Number($('.mobile-card').attr('data-index'));
+  if (Number.isNaN(CurrentIndex)) CurrentIndex = 0;
   let isLoading = false;
 
   //user digimons right arrow
@@ -80,17 +82,15 @@ export function MobileDigi() {
 // - items: refresh user's inventory items
 // - shop: refresh shop items
 // Keeps CurrentIndex in sync with the rendered .mobile-card (fallback to i).
-  async function updateCard(i,page) {
-    if (page==="digimons"){
-    await updateList(null, i); 
-    }
-    else if(page==="items"){
-    await getuseritems(i); 
-    }
-    else if(page==="shop"){
-      await getshopitems(i)
-    }
-    CurrentIndex = $('.mobile-card').data('index') ?? i;
+async function updateCard(i, page) {
+  if (page === "digimons") {
+     CurrentIndex  = await updateList(null, i);  
+  } else if (page === "items") {
+    await getuseritems(i);
+  } else if (page === "shop") {
+    await getshopitems(i);
   }
+}
+
 
 }

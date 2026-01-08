@@ -3,7 +3,7 @@ services:
     name: Digi-Tra
     env: node
     plan: free
-    buildCommand: "npm install && npx prisma generate"
+    buildCommand: "npm install && npx prisma generate && npm test"
     startCommand: "npm start"
     envVars:
       - key: DATABASE_URL

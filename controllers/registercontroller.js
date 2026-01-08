@@ -63,7 +63,6 @@ const adduser = async (req, res) => {
 // Confirms a user's email address using a verification token
 const confirm_email = async(req, res) =>{
     const {token} = req.params;
-       console.log(token);
   try {
     const user = await prisma.user.findFirst({
        where :{
@@ -84,7 +83,7 @@ const confirm_email = async(req, res) =>{
            })
            req.session.Havetoken = false;
             res.render('userconfirm');
-
+            res.status(200);
         }
     else{
         res.status(502).send('An error occurred while verification the user');

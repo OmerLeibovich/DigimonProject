@@ -422,6 +422,20 @@ td img {
 
 
 /* BattleSystem */
+.titleItem{
+  display: inline-block;
+  padding: 0;              
+  background: none;           
+  color: #111;
+  font-weight: 900;
+  letter-spacing: 0.5px;
+
+
+  text-shadow:
+    0 2px 4px rgb(255, 255, 255),
+    0 0 8px rgb(255, 255, 255);
+}
+
 .battle-container {
    display: none;
   flex-direction: column;
